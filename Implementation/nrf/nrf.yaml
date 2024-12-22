@@ -1,0 +1,23 @@
+logger:
+    file:
+      path: /open5gs/install/var/log/open5gs/nrf.log
+
+sbi:
+    server:
+      no_tls: true
+    client:
+      no_tls: true
+
+global:
+  max:
+    ue: MAX_NUM_UE
+
+nrf:
+    serving:  # 5G roaming requires PLMN in NRF
+      - plmn_id:
+          mcc: MCC
+          mnc: MNC
+    sbi:
+      server:
+      - address: NRF_IP
+        port: 7777
