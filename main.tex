@@ -1,0 +1,114 @@
+% Import default values & document settings
+\include{values}
+
+% Setup document
+\documentclass[\FIITdefaultFontSize,a4paper,twoside,openright,\FIITlanguage]{book}
+
+% Load all necessary packages
+\include{packages}
+
+% Setup bibliography
+\bibliography{bibliography}
+
+% Page design
+\pagestyle{fancy}
+\lhead{\nouppercase{\leftmark}}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+\begin{document}
+
+% Initialize document
+\include{initialize}
+
+% Cover & title page
+\include{pages/titlepage}
+
+% Thesis assignment
+\newpage
+\thispagestyle{empty}
+\includepdf[pages=1,scale=0.85]{assets/zadanie.png}
+\newpage
+%\emptypage
+
+% Declaration of honor
+\include{pages/declaration}
+
+% Acknowledgements - Poďakovanie
+%\include{pages/acknowledgements}
+
+% Annotation
+% \include{pages/annotation}
+
+% Table of contents
+\ifx\FIITlagEN\undefined
+\renewcommand{\contentsname}{Obsah}
+\else
+\renewcommand{\contentsname}{Table of contents}
+\fi
+\tableofcontents{}
+%\emptypage
+
+% List of figures - Zoznam obrázkov
+\listoffigures
+%\emptypage
+
+% List of tables
+%\listoftables
+%\emptypage
+
+% List of abbreviations
+\include{pages/abbreviations}
+
+% Enable page numbering
+\pagenumbering{arabic}
+
+% Begin refferences segment
+\begin{refsegment}
+
+%\include{content/chapter1}
+%\emptypage
+
+%\include{content/chapter2}
+%\emptypage
+
+\include{content/chapter3}
+%\emptypage
+
+\include{content/chapter4}
+%\emptypage
+
+%\include{content/chapter5}
+%\emptypage
+
+\begin{comment}
+\ifx\FIITlagEN\undefined
+\else
+\include{pages/resume}
+\fi
+\end{comment}
+
+% Bibliography
+\printbibliography[heading=references,segment=\therefsegment]
+
+% no page numbers for appendicies
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\addtocontents{toc}{\cftpagenumbersoff{chapter}}
+
+%\emptypage
+
+\end{refsegment}
+
+% Appendix
+\appendix
+
+%\include{content/appendix1}
+
+\include{pages/time_schedule}
+
+%\include{pages/digital_medium}
+
+\end{document}

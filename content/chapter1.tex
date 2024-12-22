@@ -1,0 +1,13 @@
+\chapter{Technický abstrakt}
+
+\par{
+Technický abstrakt je stručný súhrn práce, obvykle obsahujúci okolo 250 slov. Môže byť štruktúrovaný (napr. obsahovať časti ako účel, metódy, výsledky a záver) alebo neštruktúrovaný. Cieľom je, aby sa študent naučil vytvárať stručné technické zhrnutie svojej práce. {\btHL ½ strany}
+}
+
+\begin{minted}{python}
+with open(sys.argv[1], encoding='utf-8') as export:
+	for line in export:
+		split = line.split('|')
+		output.write("('%s', '%s', %s, '%s', '%s', '%s', '%s', '%s', %s, %s),\n" %
+	export.close()
+\end{minted}
