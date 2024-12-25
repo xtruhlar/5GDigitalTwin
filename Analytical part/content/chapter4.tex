@@ -90,7 +90,7 @@ Zber kvalitných dát môže byť problematický, pretože mnohé scenáre je po
 
 Nezvyčajné scenáre, ako vysoké zaťaženie siete (peak loads), neštandardné správanie používateľov či poveternostné podmienky môžu narušiť schopnosť modelu adaptovať sa \cite{challenges_human_factor}. Ak tieto scenáre neobsahujú trénovacie dáta, model nemusí byť pripravený na takéto situácie. Vzhľadom na čas, ktorý máme na získanie a predspracovanie dát, tento problém nemusí byť vo finálnej implementácií vyriešený dostatočne, a preto jeho vyriešenie vyžaduje ďalšiu prácu a zber dát.
 
-Kompatibilita systémov ako srsRAN, Open5GS, UERANSIM a nástrojov Docker nie je vždy automatizovaná, čo môže ovplyvniť celkovú integráciu práce \cite{challenges_human_factor}. Pre zváladnutie tohoto problému sa implementácia začína na malých izolovaných komponentoch, pričom ich spolupráca sa testuje krok za krokom. Takéto testovanie, a celkový vývoj DT je časovo veľmi náročné, čo potvrdili aj autori v \cite{USAirForce}. Tento fakt môže negatívne vplývať na výsledok celej práce.
+Kompatibilita systémov ako srsRAN, Open5GS, UERANSIM a nástrojov Docker nie je vždy automatizovaná, čo môže ovplyvniť celkovú integráciu práce \cite{challenges_human_factor}. Z tohoto dôvodu je vhodné začínať implementáciu na malých izolovaných komponentoch, za neustáleho testovania. Takéto testovanie, a celkový vývoj DT sú časovo veľmi náročné, čo potvrdili aj autori v \cite{USAirForce}. Tento fakt môže negatívne vplývať na výsledok celej práce.
 
 Konfigurácia siete môže odhaliť citlivé informácie o 5G infraštruktúre či porušenie GDPR \cite{big-data-problems} pri nechcenom zachytení údajov o používateľoch \cite{challenges-technol}. Únik takýchto dát by ohrozil nielen bezpečnosť projektu, ale aj reálnej siete \cite{Dt_Iot_data_worry_about}. Používanie .env súborov na uchovávanie citlivých premenných a simulovanie siete s fiktívnymi údajmi výrazne znižuje riziko úniku.
 }
@@ -129,53 +129,24 @@ Machine Learning a znovu použiteľnosť:\\
 %Študenti by mali opísať, ako by implementovali opatrenia na zabezpečenie udržateľnosti svojho produktu alebo služby počas životného cyklu. | 1-2 strany
 \section{Udržateľnosť a environmentálny dopad}
 \par{
-Implementácia opatrení na zabezpečenie udržateľnosť projektu a minimalizácia jeho environmentálneho dopadu sú kľúčové pre zaistenie dlhodobej hodnoty, spoločenského prínosu a efektivity vypracovania tejto práce. Práca je navrhnutá s dôrazom na efektívne využívanie zdrojov, udržateľný softvérový a hardvérový návrh a životný cyklus, ktorý minimalizuje potrebu fyzických zdrojov.
+Implementácia opatrení na zabezpečenie udržateľnosť projektu a minimalizácia jeho environmentálneho dopadu sú kľúčové pre zaistenie dlhodobej hodnoty, spoločenského prínosu a efektivity vypracovania tejto práce. Práca je navrhnutá s dôrazom na efektívne využívanie zdrojov, udržateľný softvérový a hardvérový návrh a životný cyklus 5G siete, ktorý minimalizuje potrebu používania fyzických zdrojov.
 }
 
 \par{
-Jednou z hlavných prínosov DT je možnosť predikcie a optimalizácie, čo vedie k redukcii využívania zdrojov. Predikcia záťaže siete umožňuje lepšiu správu záťaže (traffic load) a preťaženia (congestion), čo znižuje potrebu nadmernej spotreby energie. Optimalizácia smerovania (routing) prispieva k zlepšeniu celkovej efektivity siete. Navyše, digitálne dvojča eliminuje potrebu testovania na fyzických zariadeniach, čím sa minimalizuje spotreba elektrickej energie, rôznych materiálov a času potrebného na fyzické experimenty. Tento prístup je obzvlášť užitočný v prípade nasadzovania 5G technológií v oblastiach s obmedzenými zdrojmi.
+Jednou z hlavných prínosov DT je možnosť predikcie a optimalizácie, pričom ak je DT zostrojené správne je tu možnosť redukcie využívania elektrickej energie \cite{DT_edge_networks_IoT}. Predikcia záťaže siete umožňuje lepšiu správu záťaže (traffic load) a preťaženia (congestion), čo znižuje potrebu nadmernej spotreby energie \cite{malaysia_enviro}. Navyše, digitálne dvojča eliminuje potrebu testovania na fyzických zariadeniach, čím sa minimalizuje spotreba rôznych materiálov \cite{enviro_raw_materials} a času potrebného na fyzické experimenty. Tento prístup je obzvlášť užitočný v prípade nasadzovania a testovania 5G technológií v oblastiach s obmedzenými zdrojmi \cite{huaweii_i_cities}.
 }
 
 \par{
-Vývoj softvéru bol orientovaný na maximálnu efektivitu, čo zahŕňa optimalizáciu kódu na zniženie spotreby energie počas behu aplikácie a nasadenie projektu v prostredí Docker, čo umožňuje efektívnejšiu konfiguráciu a škálovateľnosť strojov. Tieto opatrenia nielen znižujú environmentálny dopad, ale aj zlepšujú celkovú udržateľnosť projektu.
+Vývoj softvéru bol orientovaný na maximálnu efektivitu, čo zahŕňa optimalizáciu kódu na zniženie spotreby energie počas behu aplikácie a nasadenie projektu v prostredí Docker, čo umožňuje efektívnejšiu konfiguráciu a škálovateľnosť strojov. Tieto opatrenia nielen znižujú environmentálny dopad \cite{docker_enviro}\cite{docker_enviro_2}, ale aj zlepšujú celkovú udržateľnosť projektu.
 }
 
 \par{
-Modulárny dizajn projektu zaisťuje, že aktualizácie a údržba nemajú vplyv na celkovú funkčnosť systému. Tento prístup znižuje potrebu kompletného prekonfigurovania alebo fyzických zásahov, čo prispieva k dlhodobej udržateľnosti.
+Modulárny dizajn \cite{modular_sw} projektu zaisťuje, že aktualizácie a údržba nemajú vplyv na celkovú funkčnosť systému. Tento prístup znižuje potrebu kompletného prekonfigurovania alebo fyzických zásahov, čo prispieva k dlhodobej udržateľnosti.
 }
 
 \par{
-Použitie prediktívnych modelov v digitálnom dvojčati vedie k zásadným environmentálnym prínosom, ako je znížené zaťaženie fyzickej infraštruktúry a menej časté aktualizácie fyzického hardvéru, čo vedie k nižšej spotrebe zdrojov a menšej produkcii odpadu. Predikčné modely teda umožňujú efektívnejšie rozhodovanie s pozitívnym dopadom na životné prostredie.
+Použitie prediktívnych modelov v digitálnom dvojčati vedie k zásadným environmentálnym prínosom \cite{enviro}, ako je znížené zaťaženie fyzickej infraštruktúry a menej časté aktualizácie fyzického hardvéru, čo vedie k nižšej spotrebe zdrojov a menšej produkcii odpadu \cite{enviro_raw_materials}. Predikčné modely teda umožňujú efektívnejšie rozhodovanie s pozitívnym dopadom na životné prostredie.
 }
-
-
-
-\begin{comment}
-Zdroje:
-https://www.mdpi.com/2072-4292/14/6/1335#B80-remotesensing-14-01335
-https://www.mdpi.com/2076-3417/11/12/5519
-https://www.mdpi.com/1424-8220/23/16/7262
-https://www.europarl.europa.eu/RegData/etudes/STUD/2021/690021/EPRS_STU(2021)690021_EN.pdf
-https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/dgt2.12008
-https://www.mdpi.com/1996-1073/14/7/1885
-
-Resource Efficiency: \\
-- predikcia -> redukcia wasteful používanie zdrojov
-- zmena traffic routingu, lepšia správa traffic loadu a congestion
-- zníženie power (energy) consumption
-
-- máme DT tak nemusíme testovať fyzické zariadenia a reálnu energiu (el., čas) - využitie ak sa má 5G dostať do oblastí, kde nie sú zatiaľ všetky resources -> zistíme popredu či sa tam oplatí ísť [nie priamo moja práca ale celkovo 5G DT]
-
-Sustainable Software:\\
-- kód, ktorý bude čo najefektívnejší, menšia power consumption
-- ak to bude bežať v dockeri tak to zefektívni nastavovanie strojov
-
-Lifecycle Management: \\
-- modularita zabezpečuje, že aktualizáie a údržba nezastavia celý systém a nemusíme všetko nastavovať odzačiatku
-
-Environmentálne Benefits predikovania: \\
-- znížené zaťaženie infraštruktúry a menej časté aktualizácie fyzického hardvéru, čo vedie k nižšej spotrebe zdrojov..
-\end{comment}
 
 \section{Zamestnateľnosť}
 \par{
