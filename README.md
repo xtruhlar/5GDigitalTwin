@@ -11,10 +11,10 @@ Bachelor's thesis, Faculty of informatics and information technologies
 │   └── FIIT_BP_DT5G.pdf # Bachelor's thesis pdf document
 │           ├── 🔴 Technical Abstract
 │           ├── 🔴 Lay Summary
-│           ├── 🔴 Introduction
+│           ├── 🟢 Introduction
 │           ├── 🟢 Problem statement
 │           ├── 🟢 Technical literature review
-│           ├── 🟡 Solution overview - high level
+│           ├── 🟢 Solution overview - high level
 │           ├── 🟢 Risk assessment
 │           ├── 🔴 Experimental reproducibility and integration
 │           ├── 🟢 Sustainability and environmental impact
