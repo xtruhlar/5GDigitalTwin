@@ -39,49 +39,8 @@ V technickej literatúre sa DT definuje ako virtuálna reprezentácia fyzického
 % Poznámka čo znamená high level = denoting a programming language that is relatively accessible to the user, having instructions that resemble a natural language such as English.
 
 % Stručne vysvetlite riešenie problému. Študenti by mali byť schopní odôvodniť svoj výber techník použitých na riešenie problému, uznať ich obmedzenia a interdisciplinárny dosah. | 2-3 strany
-\begin{comment}
 \par{
-% Toto by malo byť hlavnou časťou tejto sekcie
-Návrh riešenia - High Level \\
-- overview môjho spôsobu riešenia pre 5G DT
-- ako bude DT napodobňovať reálnu sieť? - real-time data, pozorovania a predikcie stavov, ktoré budú nasledovať
-
-
-Nástroje a prístupy:  \\
-- rôzne nástroje na tvorbu a správu DT (ansys, matlib a simulink ...)
-- nástroje pre 5G:
-    - srsRAN: Open-source - radio network simulation.
-    - Open5GS: 5G core network.
-    - UERANSIM: user equipment (UE) and radio access networks (RAN).
-Prečo práve tieto nástroje?
-
-Výber technológií: \\
-Prečo práve srsRAN pre Radio Access Network (RAN) [Allows RAN simulation, offering control over radio settings, configurations.], 
-Open5GS pre core network [Provides core network functions for handling control and user plane traffic.], 
-a UERANSIM pre simulácie user devices a scenarios[Generates realistic device traffic, lets you test a range of scenarios.].
-
-Architektúra - návrh: \\
-- Diagramy alebo popísané komponenty:
-Network core (Open5GS).
-Radio Access Network (srsRAN).
-Simulated User Devices (UERANSIM).
-- Flow dát medzi nimi: \\
-srsRAN a Open5GS komunikujú, a ako UERANSIM interaguje s RAN aa core network pre simulovanie real-world trafficu.
-
-Data flow a predikcia: \\
-- (potrebujem vedieť aké dáta dokážeme vyťiahnuť zo srsRAN Project) (latency, bandwidth usage, packet loss)
-- Aký je plán implementácie predikčného modelu (ML) aké stavy bude mať učenie, aký preprocessing dát ... 
-
-Limitácie: \\
-- presnosť, computational load
-- hw limitácie
-- časové limitácie
-- programové limitácie simulinku a matlabu ak nejaké budú
-}
-\end{comment}
-
-\par{
-Cieľom tohto projektu je vytvoriť DT 5G siete, ktoré bude schopné v reálnom čase napodobňovať správanie skutočnej siete na základe aktuálnych pozorovaní a predikcií jej budúcich stavov. Tento systém poskytne hodnotné nástroje pre optimalizáciu a analýzu výkonu 5G sietí, pričom jeho implementácia zahŕňa kombináciu otvorených softvérových riešení a pokročilých metód spracovania dát.
+Cieľom tohto projektu je vytvoriť DT 5G siete, ktoré bude schopné v reálnom čase napodobňovať správanie skutočnej siete na základe historických a aktuálnych pozorovaní a predikcií jej budúcich stavov. Tento systém poskytne hodnotné nástroje pre optimalizáciu a analýzu výkonu 5G sietí, pričom jeho implementácia zahŕňa kombináciu otvorených softvérových riešení a pokročilých metód spracovania dát v spojení s vytvorením vhodného modelu strojového učenia.
 }
 
 \par{
@@ -95,15 +54,15 @@ DT bude simulovať kľúčové aspekty 5G siete prostredníctvom troch hlavných
 \end{figure}
 
 \par{
-Každý komponent zohráva špecifickú úlohu. Open5GS poskytuje základné funkcionality pre správu riadiacej roviny (control plane) a užívateľských dát (user plane). Jeho modulárna architektúra umožňuje jednoduchú integráciu s ďalšími nástrojmi a podporuje štandardy 5G. srsRAN zabezpečuje simuláciu rádiového prístupu, čo umožňuje testovať rôzne scenáre konfigurácií siete a ich vplyv na výkonnosť. UERANSIM emuluje správanie koncových zariadení, generuje realistický dátový prenos a poskytuje flexibilitu pri testovaní rôznych druhov prevádzky, ako sú videohovory alebo masívne pripojenia IoT.
+Každý komponent DT plní špecifickú úlohu. Open5GS zaisťuje základné funkcie na správu riadiacej roviny (control plane) a užívateľských dát (user plane). Jeho flexibilná architektúra umožňuje jednoduché prepojenie s inými nástrojmi a podporuje najnovšie štandardy 5G. srsRAN simuláciou pokrýva rádiový prístup a umožňuje testovať rôzne konfigurácie siete, čo pomáha zistiť ich vplyv na celkovú výkonnosť. Na druhej strane, UERANSIM sa zameriava na emuláciu správania zariadení pripojených k sieti. Generuje realistickú prevádzku, či už ide o videohovory alebo masívne pripojenie IoT zariadení. Táto kombinácia nástrojov umožňuje komplexnú analýzu a testovanie, čo je kľúčové pre vytvorenie spoľahlivého predikčného modelu.
 }
 
 \par{
-Architektúra DT je navrhnutá tak, aby umožňovala plynulú komunikáciu medzi komponentmi. Rádiová prístupová sieť simulovaná srsRAN odosiela dáta do jadra siete implementovaného cez Open5GS, ktoré ich spracúva a smeruje ďalej. UERANSIM generuje realistický tok dát medzi zariadeniami a simulovanou sieťou, pričom podporuje overovanie rôznych scenárov, ako je vysoká záťaž alebo výpadky spojení. Dáta zozbierané počas týchto interakcií budú slúžiť na tréning predikčných modelov.
+Architektúra DT je navrhnutá tak, aby jednotlivé komponenty medzi sebou hladko spolupracovali. Rádiová prístupová sieť, ktorá je simulovaná pomocou srsRAN, zhromažďuje a odosiela dáta do jadra siete, ktoré je realizované cez Open5GS. Toto jadro tieto dáta spracuje a posiela ďalším komponentom. UERANSIM generuje realistické komunikačné scenáre medzi zariadeniami a simulovanou sieťou. Napríklad môžeme testovať situácie, kde je sieť preťažená alebo dočasne vypadne spojenie. Zozbierané dáta sa potom použijú na tréning predikčného modelu, ktorý následne analyzuje tieto scenáre a pomáha doladiť parametre, aby model lepšie reagoval na budúce situácie.
 }
 
 \par{
-Pri spracovaní dát bude použitý MATLAB a Simulink, ktoré umožnia vytvárať predikčné modely pomocou strojového učenia. Dáta získané zo simulácií budú prechádzať čistením a normalizáciou, aby boli vhodné na analýzu. Model bude navrhnutý tak, aby predpovedal výkonnostné metriky siete, ako je latencia alebo priepustnosť, s cieľom poskytnúť informácie o stave siete 3-10 sekúnd dopredu. Táto schopnosť predikcie môže pomôcť v optimalizácii prevádzky siete.
+Pre spracovanie dát sa využijú nástroje MATLAB a Simulink, ktoré poskytujú intuitívne prostredie na tvorbu modelov pomocou strojového učenia. Proces začína získavaním dát zo simulácií, ktoré prejdú krokom čistenia na odstránenie chybných alebo neúplných hodnôt. Následne sa tieto dáta normalizujú, čo znamená, že ich hodnoty budú upravené tak, aby boli vhodné na analýzu a modelovanie. Model bude navrhnutý tak, aby dokázal predpovedať dôležité parametre siete, ako napríklad latenciu či priepustnosť, a to na niekoľko sekúnd dopredu. Takáto predikcia môže prispieť k optimalizácii prevádzky siete, zlepšeniu kvality služieb a k úspore energie.
 }
 
 \begin{figure}[H]
@@ -113,12 +72,8 @@ Pri spracovaní dát bude použitý MATLAB a Simulink, ktoré umožnia vytvára�
 \end{figure}
 
 \par{
-Riešenie však čelí viacerým výzvam. Presnosť predikcií je ovplyvnená kvalitou a objemom dát, ktoré sú dostupné. Simulácie môžu byť výpočtovo náročné a obmedzené výkonom hardvéru. Navyše, implementácia a testovanie predikčného modelu si vyžaduje značný čas. Obmedzenia softvérových nástrojov, ako sú MATLAB a Simulink, môžu taktiež ovplyvniť rozsah a možnosti simulácie. Tieto faktory budú starostlivo zohľadnené pri hodnotení výsledkov.
+Riešenie však čelí viacerým výzvam. Presnosť predikcií je ovplyvnená kvalitou a objemom dát, ktoré sú dostupné. Simulácie môžu byť výpočtovo náročné a obmedzené výkonom hardvéru. Navyše, implementácia a testovanie predikčného modelu si vyžaduje značný čas. Obmedzenia softvérových nástrojov, ako sú MATLAB a Simulink, môžu taktiež ovplyvniť rozsah a možnosti simulácie. Tieto faktory budú starostlivo zohľadnené a brané do úvahy počas celého životného cyklu tohoto projektu, od jeho implementácie až po nasadenie.
 }
-
-
-
-
 
 \section{Hodnotenie rizík}
 \par{
