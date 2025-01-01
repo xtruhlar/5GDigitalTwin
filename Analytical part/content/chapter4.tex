@@ -2,7 +2,7 @@
 
 \section{Formulácia problému}
 \par{
-Pojem Digitálne dvojča (DT) sa čoraz častejšie využíva ako nástroj na modelovanie, navrhovanie a prototypovanie \cite{dt-iot}. V rámci 5G technológie ide o presnú digitálnu repliku siete, ktorá si s reálnou sieťou vymieňa dáta obojsmerne, v reálnom čase, v snahe zlepšiť manažment siete či zrýchliť vývoj 5G sietí \cite{systematicReview}.
+Digitálne dvojča (DT) je technológia, ktorá sa čoraz častejšie využíva ako nástroj na modelovanie, navrhovanie a prototypovanie \cite{dt-iot}. V rámci 5G technológie ide o presnú digitálnu repliku siete, ktorá si s reálnou sieťou vymieňa dáta obojsmerne, v reálnom čase, v snahe zlepšiť manažment siete či zrýchliť vývoj 5G sietí \cite{systematicReview}.
 }
 \par{
 Hoci 5G siete ponúkajú nízku latenciu a vysokú rýchlosť, sú limitované v predikcii správania, a to pre dynamiku používateľov, zaťaženie či zmeny prostredia \cite{dt-network}. DT by mohlo tieto výzvy prekonať predpoveďami budúceho stavu siete, čím by na základe aktuálneho zaťaženia siete umožnilo dynamické riadenie alokácie zdrojov a zlepšilo celkovú výkonnosť systému\cite{5g-challenges}.
@@ -15,24 +15,25 @@ Zásadnú výzvu predstavuje práca s veľkým objemom dát, v reálnom čase, k
 Pojem digitálneho dvojčaťa sa v posledných rokoch, predovšetkým v technických oblastiach, spomína stále častejšie. Vzhľadom na digitalizáciu, ktorá je prítomná v každom sektore, sa transformácia hmatateľného sveta do sveta bitov a pixelov stáva prirodzeným výsledkom tohto trendu. 
 }
 \par{
-V technickej literatúre sa DT definuje ako virtuálna reprezentácia fyzického objektu, medzi ktorými prebieha bilaterálny tok dát v reálnom čase \cite{DT:OriginToFuture}. Tok dát zabezpečuje presné zrkadlenie správania oboch týchto entít \cite{systematicReview}. Vlastnosť zrkadlenia poskytuje možnosti preventívnej údržby, či navrhovania ďalších generácií biznis modelov \cite{5g&beyond}.
+V technickej literatúre sa DT definuje ako virtuálna reprezentácia fyzického objektu, medzi ktorými prebieha automatizovaný bilaterálny tok dát v reálnom čase \cite{DT:OriginToFuture}. Tok dát zabezpečuje presné zrkadlenie správania oboch týchto entít \cite{systematicReview}. Vlastnosť zrkadlenia, viď Obr. \ref{fig:PLM}, poskytuje mnohé výhody ako napríklad možnosti monitorovania v reálnom čase, preventívnej údržby \cite{5g&beyond}, či urýchlenie procesu vývoja, pretože eliminuje potrebu prototypovania v každej fáze vývoja \cite{mitigating_book}.
 }
-
+\newline
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{assets/images/Grieves_PLM_model.png}
-    \caption{Digitálne dvojča}
+    \includegraphics[width=0.75\linewidth]{assets/images/Grieves_PLM_model.png}
+    \caption{Model zrkadlených priestorov (Mirrored Spaces Model) tak, ako ho vo svojej práci navrhol Grieves \cite{Grieves}. Tento model sa skladá z troch komponentov - reálny priestor (Real Space), virtuálny priestor (Virtual space) a spájací mechanizmus (Linking Mechanism) \cite{DT:OriginToFuture}, ktorý prúdi automatizovane oboma smermi medzi týmito priestormi. Virtuálny priestor vytvára digitálnu reprezentáciu reálnych objektov a podporuje viacero virtuálnych systémov na analýzu, simuláciu alebo predikciu správania fyzických objektov.}
+    \label{fig:PLM}
 \end{figure}
 
-\par{Vo  svojom výskume Enders a Hoßbachová \cite{DimensionOfDTAplication} identifikovali sektory, kde je používanie digitálneho dvojčaťa najrozšírenejšie. Patria sem výroba, letecký priemysel, energetika, automobilový priemysel, námorníctvo, petrochemický priemysel, poľnohospodárstvo, zdravotníctvo, verejný sektor a ťažba.
+\par{Vo  svojom výskume Enders a Hoßbachová \cite{DimensionOfDTAplication} identifikovali sektory, kde je používanie digitálneho dvojčaťa najrozšírenejšie. Patria sem výroba \cite{manuf}, letecký priemysel \cite{aircraft}, energetika \cite{energy}, automobilový priemysel \cite{automotive}, námorníctvo \cite{marine}, petrochemický priemysel \cite{oil}, poľnohospodárstvo \cite{agriculture}, zdravotníctvo \cite{health}, verejný sektor \cite{education} a ťažba \cite{mining}.
 }
-\par{Taktiež identifikovali tri hlavné využitia digitálneho dvojčaťa v týchto oblastiach: ovládanie, simulovanie a monitorovanie. To však ani zďaleka nepokrýva všetky možnosti a spôsoby využitia. Digitálne dvojča dnes nájde uplatnenie aj pri dizajnovaní, validácii, predchádzaní chýb, trénovaní, optimalizácii a predikcii \cite{AplicationsOfDT}.
+\par{Taktiež identifikovali tri hlavné využitia digitálneho dvojčaťa v týchto oblastiach \cite{AplicationsOfDT}: ovládanie, simulovanie a monitorovanie. To však ani zďaleka nepokrýva všetky možnosti a spôsoby využitia. Digitálne dvojča dnes nájde uplatnenie aj pri dizajnovaní, validácii, predchádzaní chýb, trénovaní, optimalizácii a predikcii.
 }
 \par{Ak sa chceme pozrieť na reálne aplikácie DT, Huawei implementoval DT na monitorovanie výrobných liniek \cite{huawei2020}, zatiaľ čo mestá ako Bristol \cite{Bristol} či Singapur \cite{singapur} používajú DT na efektívne riadenie inteligentných mestských systémov. V týchto scenároch DT umožňuje predikciu zlyhaní, optimalizáciu zdrojov a minimalizáciu prestojov. Podobné prístupy sú použiteľné aj v telekomunikáciách, kde DT dokáže simulovať a predikovať správanie sietí v reálnom čase. 
 }
-\par{V oblasti telekomunikácií sa čoraz viac využívajú pri simuláciách rádiových prístupových sietí (RAN), monitorovaní jadra siete a optimalizácii zdrojov. Napríklad Siemens nasadzuje DT na správu a optimalizáciu sieťových komponentov \cite{5g&beyond}. Podobne, ZTE a China Mobile úspešne aplikovali technológiu digitálneho dvojčaťa na zlepšenie 5G konektivity pre vysokorýchlostnú železničnú trať v južnej Číne. Pomocou presného 3D modelu infraštruktúry popri trati optimalizovali výkonnosť 5G siete, čím dosiahli pokrytie na úrovni 98,5\% a rýchlosti sťahovania presahujúce 300 Mbps \cite{ChinaMobile}. 
+\par{V oblasti telekomunikácií sa čoraz viac využívajú pri simuláciách rádiových prístupových sietí (RAN), monitorovaní jadra siete a optimalizácii zdrojov. Napríklad Siemens nasadzuje DT na správu a optimalizáciu sieťových komponentov \cite{5g&beyond}. Podobne, ZTE a China Mobile \cite{ChinaMobile} úspešne aplikovali technológiu digitálneho dvojčaťa na zlepšenie 5G konektivity pre vysokorýchlostnú železničnú trať v južnej Číne. Pomocou presného 3D modelu infraštruktúry popri trati optimalizovali výkonnosť 5G siete, čím dosiahli pokrytie na úrovni 98,5\% a rýchlosti sťahovania presahujúce 300 Mbps. 
 }
-\par{ Tieto úspešné implementácie demonštrujú širokú škálu výhod technológie DT v telekomunikáciách, od optimalizácie pokrytia po zvyšovanie kvality služieb. Napriek tomu však existujú určité obmedzenia, ako napríklad zložitosť nasadenia, škálovateľnosť a presnosť simulácií, ktoré je potrebné prekonať pri vývoji nových riešení. 
+\par{ Tieto úspešné implementácie demonštrujú širokú škálu výhod technológie DT v telekomunikáciách, od optimalizácie pokrytia po zvyšovanie kvality služieb. Napriek tomu však existujú určité obmedzenia, ako napríklad zložitosť nasadenia \cite{impl}, škálovateľnosť \cite{econ} a presnosť simulácií \cite{predictions_risks}, ktoré je potrebné prekonať pri vývoji nových riešení. 
 }
 
 \section{Prehľad riešenia (na vysokej úrovni)}
@@ -47,15 +48,16 @@ Cieľom tohto projektu je vytvoriť DT 5G siete, ktoré bude schopné v reálnom
 DT bude simulovať kľúčové aspekty 5G siete prostredníctvom troch hlavných komponentov: Open5GS pre implementáciu jadra siete, srsRAN pre simuláciu rádiového prístupu (RAN) a UERANSIM pre emuláciu užívateľských zariadení (UE) a testovanie rôznych scenárov. Kombináciou týchto nástrojov bude možné modelovať tok dát v sieti a analyzovať metriky ako latencia, priepustnosť a stabilita spojenia. Tieto údaje budú slúžiť ako vstup pre strojové učenie, ktoré umožní predpovedať budúce stavy a zmeny v sieti.
 }
 
+\par{
+Každý komponent DT plní špecifickú úlohu. Open5GS zaisťuje základné funkcie na správu riadiacej roviny (control plane) a užívateľských dát (user plane). Jeho flexibilná architektúra umožňuje jednoduché prepojenie s inými nástrojmi a podporuje najnovšie štandardy 5G. srsRAN simuláciou pokrýva rádiový prístup a umožňuje testovať rôzne konfigurácie siete, čo pomáha zistiť ich vplyv na celkovú výkonnosť. Na druhej strane, UERANSIM sa zameriava na emuláciu správania zariadení pripojených k sieti. Generuje realistickú prevádzku, či už ide o videohovory alebo masívne pripojenie IoT zariadení. Táto kombinácia nástrojov umožňuje komplexnú analýzu a testovanie, čo je kľúčové pre vytvorenie spoľahlivého predikčného modelu. Architektúra a konkrétne prepojenia častí jednotlivých komponentov je zobrazené v Obr. \ref{fig:architecture} nižšie.
+}
+\newline
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{assets/images/open5gs+ueran.png}
-    \caption{Open5GS a UERANSIM architektúra}
+    \includegraphics[width=0.75\linewidth]{assets/images/open5gs+ueran.png}
+    \caption{Architektúra jednotlivých komponentov Open5GS \cite{open5gs}, srsRAN a UERANSIM a ich vzájomné prepojenie. Open5GS je rozdelené na riadiacu rovinu a rovinu užívateľských dát a obe tieto roviny sú napojené na gNB (5G bunky), ku ktorým sa môžu pripájať zariadenia. Architektúra zobrazuje možnosť použiť UERANSIM na priame pripojenie ku Open5GS jadru a alternatívne RAN pripojenie pomocou srsRAN.}
+    \label{fig:architecture}
 \end{figure}
-
-\par{
-Každý komponent DT plní špecifickú úlohu. Open5GS zaisťuje základné funkcie na správu riadiacej roviny (control plane) a užívateľských dát (user plane). Jeho flexibilná architektúra umožňuje jednoduché prepojenie s inými nástrojmi a podporuje najnovšie štandardy 5G. srsRAN simuláciou pokrýva rádiový prístup a umožňuje testovať rôzne konfigurácie siete, čo pomáha zistiť ich vplyv na celkovú výkonnosť. Na druhej strane, UERANSIM sa zameriava na emuláciu správania zariadení pripojených k sieti. Generuje realistickú prevádzku, či už ide o videohovory alebo masívne pripojenie IoT zariadení. Táto kombinácia nástrojov umožňuje komplexnú analýzu a testovanie, čo je kľúčové pre vytvorenie spoľahlivého predikčného modelu.
-}
 
 \par{
 Architektúra DT je navrhnutá tak, aby jednotlivé komponenty medzi sebou hladko spolupracovali. Rádiová prístupová sieť, ktorá je simulovaná pomocou srsRAN, zhromažďuje a odosiela dáta do jadra siete, ktoré je realizované cez Open5GS. Toto jadro tieto dáta spracuje a posiela ďalším komponentom. UERANSIM generuje realistické komunikačné scenáre medzi zariadeniami a simulovanou sieťou. Napríklad môžeme testovať situácie, kde je sieť preťažená alebo dočasne vypadne spojenie. Zozbierané dáta sa potom použijú na tréning predikčného modelu, ktorý následne analyzuje tieto scenáre a pomáha doladiť parametre, aby model lepšie reagoval na budúce situácie.
@@ -65,10 +67,12 @@ Architektúra DT je navrhnutá tak, aby jednotlivé komponenty medzi sebou hladk
 Pre spracovanie dát sa využijú nástroje MATLAB a Simulink, ktoré poskytujú intuitívne prostredie na tvorbu modelov pomocou strojového učenia. Proces začína získavaním dát zo simulácií, ktoré prejdú krokom čistenia na odstránenie chybných alebo neúplných hodnôt. Následne sa tieto dáta normalizujú, čo znamená, že ich hodnoty budú upravené tak, aby boli vhodné na analýzu a modelovanie. Model bude navrhnutý tak, aby dokázal predpovedať dôležité parametre siete, ako napríklad latenciu či priepustnosť, a to na niekoľko sekúnd dopredu. Takáto predikcia môže prispieť k optimalizácii prevádzky siete, zlepšeniu kvality služieb a k úspore energie.
 }
 
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{assets/images/high-level-model.png}
-    \caption{Návrh riešenia (high level)}
+    \caption{V návrhu riešenie je zobrazený tok dát medzi jednotlivými časťami projektu. Na jednej strane je Fyzické dvojča, na druhej Digitálne dvojča a v strede sú jednotlivé nástroje, ktoré slúžia na monitorovanie aktuálneho stavu a predikciu budúceho stavu. Na zber dát slúžia súbory typu PCAP zachytené softvérom (napr. Wireshark \cite{wireshark}) a LOG, ktoré sú zaznamenané v logoch z jednotlivých častí 5G siete. Tieto dáta sú predspracované a použité na trénovanie modelu ML a následné predikcie budúcich stavov. Na základe týchto predikcií sa upravia parametre a nastavenia oboch fyzickej a digitálnej siete. Nástroj Grafana \cite{grafana} poskytuje rozhranie pre monitorovanie a vizualizáciu dát a aktuálneho stavu siete.}
+    \label{fig:solution}
 \end{figure}
 
 \par{
@@ -135,7 +139,7 @@ Vývoj softvéru bol orientovaný na maximálnu efektivitu, čo zahŕňa optimal
 }
 
 \par{
-Modulárny dizajn \cite{modular_sw} projektu zabezpečuje, že aktualizácie a údržba nemajú vplyv na celkovú funkčnosť systému. Tento prístup znižuje potrebu kompletného prekonfigurovania alebo fyzických zásahov do chodu programu, čo prispieva k dlhodobej udržateľnosti.
+Modulárny dizajn \cite{modular_sw} projektu zabezpečuje, že aktualizácie a údržba nemajú vplyv na celkovú funkčnosť systému. Tento prístup znižuje potrebu kompletného prekonfigurovania alebo fyzických zásahov do chodu programu, čo prispieva k dlhodobej udržateľnosti. Takýto dizajn môže mať pozitívny vplyv na životné prostredie \cite{modular_sw} (Green Design).
 }
 
 \par{
@@ -144,7 +148,7 @@ Ako je vyššie uvedené, použitie prediktívnych modelov v DT môže viesť k 
 
 \section{Zamestnateľnosť}
 \par{
-Táto bakalárska práca, zameraná na rozvoj teoretických znalostí v oblasti digitálnych dvojčiat v spojení s praktickou implementáciou a optimalizáciou 5G sietí, má veľký potenciál rozšíriť zručnosti vo viacerých kľúčových oblastiach technologického sektora. V neposlednom rade strojové učenie, použité na predikciu správania implementovaného digitálneho dvojčaťa, zasahuje aj do oblasti dátovej vedy.
+Táto bakalárska práca, zameraná na rozvoj teoretických znalostí v oblasti digitálnych dvojčiat v spojení s praktickou implementáciou a optimalizáciou 5G sietí, vedie k rozšíreniu zručností vo viacerých kľúčových oblastiach technologického sektora. V neposlednom rade strojové učenie, použité na predikciu správania implementovaného digitálneho dvojčaťa, zasahuje aj do oblasti dátovej vedy.
 
 Vďaka formátu práce autori prejdú celým cyklom realizácie projektu, od prieskumu technológií cez návrh až po implementáciu a testovanie. Týmto získajú ucelený a komplexný pohľad na vývoj a riadenie softvérových projektov, ako aj na plánovanie, organizáciu a efektívnu komunikáciu.
 
