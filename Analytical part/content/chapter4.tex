@@ -20,8 +20,8 @@ V technickej literatúre sa DT definuje ako virtuálna reprezentácia fyzického
 \newline
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{assets/images/Grieves_PLM_model.png}
-    \caption{Model zrkadlených priestorov (Mirrored Spaces Model) tak, ako ho vo svojej práci navrhol Grieves \cite{Grieves}. Tento model sa skladá z troch komponentov - reálny priestor (Real Space), virtuálny priestor (Virtual space) a spájací mechanizmus (Linking Mechanism) \cite{DT:OriginToFuture}, ktorý prúdi automatizovane oboma smermi medzi týmito priestormi. Virtuálny priestor vytvára digitálnu reprezentáciu reálnych objektov a podporuje viacero virtuálnych systémov na analýzu, simuláciu alebo predikciu správania fyzických objektov.}
+    \includegraphics[width=0.8\linewidth]{assets/images/Grieves_PLM_model.png}
+    \caption[Model zrkadlených priestorov]{Model zrkadlených priestorov (Mirrored Spaces Model) tak, ako ho vo svojej práci navrhol Grieves \cite{Grieves}. Tento model sa skladá z troch komponentov - reálny priestor (Real Space), virtuálny priestor (Virtual space) a spájací mechanizmus (Linking Mechanism) \cite{DT:OriginToFuture}, ktorý prúdi automatizovane oboma smermi medzi týmito priestormi. Virtuálny priestor vytvára digitálnu reprezentáciu reálnych objektov a podporuje viacero virtuálnych systémov na analýzu, simuláciu alebo predikciu správania fyzických objektov.}
     \label{fig:PLM}
 \end{figure}
 
@@ -55,7 +55,7 @@ Každý komponent DT plní špecifickú úlohu. Open5GS zaisťuje základné fun
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{assets/images/open5gs+ueran.png}
-    \caption{Architektúra jednotlivých komponentov Open5GS \cite{open5gs}, srsRAN a UERANSIM a ich vzájomné prepojenie. Open5GS je rozdelené na riadiacu rovinu a rovinu užívateľských dát a obe tieto roviny sú napojené na gNB (5G bunky), ku ktorým sa môžu pripájať zariadenia. Architektúra zobrazuje možnosť použiť UERANSIM na priame pripojenie ku Open5GS jadru a alternatívne RAN pripojenie pomocou srsRAN.}
+    \caption[Architektúra komponentov Open5GS, srsRAN a UERANSIM]{Architektúra jednotlivých komponentov Open5GS \cite{open5gs}, srsRAN a UERANSIM a ich vzájomné prepojenie. Open5GS je rozdelené na riadiacu rovinu a rovinu užívateľských dát a obe tieto roviny sú napojené na gNB (5G bunky), ku ktorým sa môžu pripájať zariadenia. Architektúra zobrazuje možnosť použiť UERANSIM na priame pripojenie ku Open5GS jadru a alternatívne RAN pripojenie pomocou srsRAN.}
     \label{fig:architecture}
 \end{figure}
 
@@ -64,14 +64,14 @@ Architektúra DT je navrhnutá tak, aby jednotlivé komponenty medzi sebou hladk
 }
 
 \par{
-Pre spracovanie dát sa využijú nástroje MATLAB a Simulink, ktoré poskytujú intuitívne prostredie na tvorbu modelov pomocou strojového učenia. Proces začína získavaním dát zo simulácií, ktoré prejdú krokom čistenia na odstránenie chybných alebo neúplných hodnôt. Následne sa tieto dáta normalizujú, čo znamená, že ich hodnoty budú upravené tak, aby boli vhodné na analýzu a modelovanie. Model bude navrhnutý tak, aby dokázal predpovedať dôležité parametre siete, ako napríklad latenciu či priepustnosť, a to na niekoľko sekúnd dopredu. Takáto predikcia môže prispieť k optimalizácii prevádzky siete, zlepšeniu kvality služieb a k úspore energie.
+Pre spracovanie dát sa využijú nástroje MATLAB a Simulink, ktoré poskytujú intuitívne prostredie na tvorbu modelov pomocou strojového učenia. Proces začína získavaním dát zo simulácií, ktoré prejdú krokom čistenia na odstránenie chybných alebo neúplných hodnôt. Následne sa tieto dáta normalizujú, čo znamená, že ich hodnoty budú upravené tak, aby boli vhodné na analýzu a modelovanie. Model bude navrhnutý tak, aby dokázal predpovedať dôležité parametre siete, ako napríklad latenciu či priepustnosť, a to na niekoľko sekúnd dopredu. Takáto predikcia môže prispieť k optimalizácii prevádzky siete, zlepšeniu kvality služieb a k úspore energie. Navrhovaná architektúra je zobrazená na Obr. \ref{fig:solution}. \\
 }
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{assets/images/high-level-model.png}
-    \caption{V návrhu riešenie je zobrazený tok dát medzi jednotlivými časťami projektu. Na jednej strane je Fyzické dvojča, na druhej Digitálne dvojča a v strede sú jednotlivé nástroje, ktoré slúžia na monitorovanie aktuálneho stavu a predikciu budúceho stavu. Na zber dát slúžia súbory typu PCAP zachytené softvérom (napr. Wireshark \cite{wireshark}) a LOG, ktoré sú zaznamenané v logoch z jednotlivých častí 5G siete. Tieto dáta sú predspracované a použité na trénovanie modelu ML a následné predikcie budúcich stavov. Na základe týchto predikcií sa upravia parametre a nastavenia oboch fyzickej a digitálnej siete. Nástroj Grafana \cite{grafana} poskytuje rozhranie pre monitorovanie a vizualizáciu dát a aktuálneho stavu siete.}
+    \includegraphics[width=0.85\linewidth]{assets/images/high-level-model.png}
+    \caption[Návrh riešenia (High level)]{V návrhu riešenie je zobrazený tok dát medzi jednotlivými časťami projektu. Na jednej strane je Fyzické dvojča, na druhej Digitálne dvojča a v strede sú jednotlivé nástroje, ktoré slúžia na monitorovanie aktuálneho stavu a predikciu budúceho stavu. Na zber dát slúžia súbory typu PCAP zachytené softvérom (napr. Wireshark \cite{wireshark}) a LOG, ktoré sú zaznamenané v logoch z jednotlivých častí 5G siete. Tieto dáta sú predspracované a použité na trénovanie modelu ML a následné predikcie budúcich stavov. Na základe týchto predikcií sa upravia parametre a nastavenia oboch fyzickej a digitálnej siete. Nástroj Grafana \cite{grafana} poskytuje rozhranie pre monitorovanie a vizualizáciu dát a aktuálneho stavu siete.}
     \label{fig:solution}
 \end{figure}
 
