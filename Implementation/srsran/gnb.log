@@ -1,0 +1,6 @@
+2025-03-08T18:53:18.415928 [GNB     ] [I] Built in Release mode using commit e5d5b44b9 on branch HEAD
+2025-03-08T18:53:19.996053 [zmq:tx:0:0] [I] Binding to address tcp://172.22.0.37:2000.
+2025-03-08T18:53:20.018544 [zmq:rx:0:0] [I] Connecting to address tcp://172.22.0.34:2001.
+2025-03-08T18:53:51.456959 [SCTP-GW ] [E] N2: Failed to connect to AMF on 172.22.0.10:38412. error="Connection timed out" timeout=1368ms
+2025-03-08T18:53:51.456982 [CU-CP   ] [E] Failed to establish N2 TNL connection to AMF on 172.22.0.10:38412.
+
