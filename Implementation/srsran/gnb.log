@@ -1,6 +1,74 @@
-2025-03-08T18:53:18.415928 [GNB     ] [I] Built in Release mode using commit e5d5b44b9 on branch HEAD
-2025-03-08T18:53:19.996053 [zmq:tx:0:0] [I] Binding to address tcp://172.22.0.37:2000.
-2025-03-08T18:53:20.018544 [zmq:rx:0:0] [I] Connecting to address tcp://172.22.0.34:2001.
-2025-03-08T18:53:51.456959 [SCTP-GW ] [E] N2: Failed to connect to AMF on 172.22.0.10:38412. error="Connection timed out" timeout=1368ms
-2025-03-08T18:53:51.456982 [CU-CP   ] [E] Failed to establish N2 TNL connection to AMF on 172.22.0.10:38412.
-
+2025-03-14T12:08:18.238219 [GNB     ] [I] Built in Release mode using commit e5d5b44b9 on branch HEAD
+2025-03-14T12:08:19.301057 [zmq:tx:0:0] [I] Binding to address tcp://172.22.0.37:2000.
+2025-03-14T12:08:19.316089 [zmq:rx:0:0] [I] Connecting to address tcp://172.22.0.34:2001.
+2025-03-14T12:15:18.559276 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:18.562034 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:18.562137 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:19.559278 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:19.562067 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:19.562137 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:20.559278 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:20.562137 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:20.563062 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:21.559279 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:21.562138 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:21.563075 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:22.559278 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:22.562138 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:22.563863 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:23.559290 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:23.562138 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:23.564043 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:24.559279 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:24.562138 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:24.565041 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:25.559278 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:25.562138 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:25.566050 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:26.559279 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:26.562138 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:26.566135 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:27.559279 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:27.562138 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:27.566862 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:28.559280 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:28.562139 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:28.567041 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:29.559278 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:29.562139 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:29.568074 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:30.559279 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:30.562139 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:30.569126 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:31.559279 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:31.562139 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:31.570061 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:32.559279 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:32.562140 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:32.571032 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:33.559280 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:33.562140 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:33.571053 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:34.559280 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:34.562140 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:34.571054 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:35.559279 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:35.562141 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:35.572038 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:36.559280 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:36.562141 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:36.573063 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:37.559281 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:37.562141 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:37.573094 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:38.559281 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:38.562141 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:38.574033 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:39.559281 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:39.562142 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:39.574084 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:40.559280 [zmq:rx:0:0] [I] Waiting for data.
+2025-03-14T12:15:40.562142 [zmq:tx:0:0] [I] Waiting for data.
+2025-03-14T12:15:40.575068 [zmq:rx:0:0] [I] Waiting for reading samples. Completed 0 of 11520 samples.
+2025-03-14T12:15:40.836526 [APP     ] [D] Stdin has data to read
+2025-03-14T12:15:40.836530 [APP     ] [D] read 2 B from stdin
