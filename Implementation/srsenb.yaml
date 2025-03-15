@@ -1,4 +1,4 @@
-version: '3'
+#version: '3'
 services:
   srsenb:
     image: docker_srslte
@@ -26,5 +26,5 @@ services:
         ipv4_address: ${SRS_ENB_IP}
 networks:
   default:
-    external:
-      name: docker_open5gs_default
+      name: docker_open5gs_default 
+      external: true

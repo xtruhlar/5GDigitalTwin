@@ -1,7 +1,7 @@
 services:
-  nr_ue:
+  nr_ue3:
     image: docker_ueransim
-    container_name: nr_ue
+    container_name: nr_ue3
     stdin_open: true
     tty: true
     volumes:
@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     environment:
-      - COMPONENT_NAME=ueransim-ue
+      - COMPONENT_NAME=ueransim-ue3
     expose:
       - "4997/udp"
     cap_add:
@@ -19,7 +19,7 @@ services:
     privileged: true
     networks:
       default:
-        ipv4_address: ${NR_UE1_IP}
+        ipv4_address: ${NR_UE3_IP}
 networks:
   default:
       name: docker_open5gs_default 

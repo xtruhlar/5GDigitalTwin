@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # BSD 2-Clause License
 
 # Copyright (c) 2020, Supreeth Herle
@@ -24,27 +26,19 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-FROM ubuntu:jammy
+export IP_ADDR=$(awk 'END{print $1}' /etc/hosts)
 
-ENV DEBIAN_FRONTEND=noninteractive
+cp /mnt/ueransim/${COMPONENT_NAME}.yaml /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|MNC|'$MNC'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|MCC|'$MCC'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
 
-# Install updates and dependencies
-RUN apt-get update && \
-    apt-get -y install cmake make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev \
-    libzmq3-dev software-properties-common pkg-config net-tools iputils-ping git
+sed -i 's|UE3_KI|'$UE3_KI'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|UE3_OP|'$UE3_OP'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|UE3_AMF|'$UE3_AMF'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|UE3_IMEISV|'$UE3_IMEISV'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|UE3_IMEI|'$UE3_IMEI'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|UE3_IMSI|'$UE3_IMSI'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|NR_GNB_IP|'$NR_GNB_IP'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
 
-# UHD drivers for USRP
-RUN add-apt-repository ppa:ettusresearch/uhd && \
-    apt update && apt -y install libuhd-dev uhd-host && \
-    uhd_images_downloader
-
-# Get srsRAN_Project, compile and install
-RUN git clone https://github.com/srsran/srsRAN_Project.git && \
-    cd srsRAN_Project && git checkout e5d5b44b92cf18d1bd1736da0148e5f9cce3721d && \
-    mkdir build && cd build && \
-    cmake ../ -DENABLE_EXPORT=ON -DENABLE_ZEROMQ=ON && make -j`nproc` && make install && \
-    ldconfig
-
-ENV UHD_IMAGES_DIR=/usr/share/uhd/images/
-
-CMD ["cd /mnt/srsran && /mnt/srsran/srsran_init.sh"]
+# Sync docker time
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

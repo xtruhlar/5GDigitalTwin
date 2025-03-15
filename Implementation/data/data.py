@@ -9,6 +9,7 @@ def parse_logs(log_files):
         "failed_registrations": 0,
         "registration_timestamps": [],
         "failure_timestamps": [],
+        "failure_files": []
     }
 
     for log_file in log_files:
@@ -29,6 +30,8 @@ def parse_logs(log_files):
                     timestamp = extract_timestamp(line)
                     if timestamp:
                         registration_metrics["failure_timestamps"].append(timestamp)
+                    registration_metrics["failure_files"].append(log_file)  # Add this line to track the file
+
 
     return registration_metrics
 
@@ -45,8 +48,21 @@ def extract_timestamp(log_line):
 if __name__ == "__main__":
     log_files = [
         "./log/amf.log",
-        "./log/smf.log",
         "./log/ausf.log",
+        "./log/bsf.log",
+        "./log/hss.log",
+        "./log/mme.log",
+        "./log/nrf.log",
+        "./log/nssf.log",
+        "./log/pcf.log",
+        "./log/pcrf.log",
+        "./log/scp.log",
+        "./log/sgwc.log",
+        "./log/sgwu.log",
+        "./log/smf.log",
+        "./log/udm.log",
+        "./log/udr.log",
+        "./log/upf.log",
         # Add other log file names here
     ]
 
@@ -60,6 +76,9 @@ if __name__ == "__main__":
     print("  Failure Timestamps:")
     for ts in metrics['failure_timestamps']:
         print(f"    {ts.strftime('%m/%d %H:%M:%S.%f')}")
+    print("  Failure Files:")
+    for file in metrics['failure_files']:
+        print(f"    {file}")
 
     # You can save the metrics to a CSV file.
     import csv
