@@ -1,4 +1,4 @@
-version: '3'
+#version: '3'
 services:
   srsgnb_zmq:
     image: docker_srsran
@@ -24,5 +24,6 @@ services:
         ipv4_address: ${SRS_GNB_IP}
 networks:
   default:
-    external:
-      name: docker_open5gs_default
+      name: docker_open5gs_default 
+      external: true
+

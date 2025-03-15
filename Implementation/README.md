@@ -310,6 +310,10 @@ docker compose -f nr-gnb.yaml up -d && docker container attach nr_gnb
 
 # UERANSIM NR-UE (RF simulated)
 docker compose -f nr-ue.yaml up -d && docker container attach nr_ue
+docker compose -f nr-ue2.yaml up -d && docker container attach nr_ue2
+docker compose -f nr-ue3.yaml up -d && docker container attach nr_ue3
+
+
 ```
 
 ## Provisioning of SIM information
