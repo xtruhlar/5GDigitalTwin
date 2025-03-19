@@ -1,5 +1,3 @@
-2025-03-15T12:34:34.356397 [GNB     ] [I] Built in Release mode using commit e5d5b44b9 on branch HEAD
-2025-03-15T12:34:35.296263 [zmq:tx:0:0] [I] Binding to address tcp://172.22.0.37:2000.
-2025-03-15T12:34:35.315328 [zmq:rx:0:0] [I] Connecting to address tcp://172.22.0.34:2001.
-2025-03-15T12:35:08.498392 [APP     ] [D] Stdin has data to read
-2025-03-15T12:35:08.498396 [APP     ] [D] read 2 B from stdin
+2025-03-17T13:34:05.790855 [GNB     ] [I] Built in Release mode using commit e5d5b44b9 on branch HEAD
+2025-03-17T13:34:07.754194 [zmq:tx:0:0] [I] Binding to address tcp://172.22.0.37:2000.
+2025-03-17T13:34:07.773811 [zmq:rx:0:0] [I] Connecting to address tcp://172.22.0.34:2001.
