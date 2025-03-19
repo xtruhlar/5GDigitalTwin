@@ -26,4 +26,4 @@ while True:
         print(f"❌ Error running notebook: {e}")
 
     # Wait 1 second before running again
-    time.sleep(1.5)
+    time.sleep(7)
