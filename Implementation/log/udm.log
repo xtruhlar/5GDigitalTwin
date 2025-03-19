@@ -83,3 +83,5 @@ Open5GS daemon v2.7.2-131-g04ec945
 03/19 20:28:09.242: [sbi] INFO: [4a3d08a4-04f8-41f0-b8a5-a9142f8b8010] (NRF-notify) NF Profile updated [type:UDR] (../lib/sbi/nnrf-handler.c:1147)
 03/19 20:28:09.242: [sbi] INFO: NF EndPoint(addr) setup [172.22.0.14:80] (../lib/sbi/context.c:2350)
 03/19 20:28:09.242: [sbi] INFO: NF EndPoint(addr) setup [172.22.0.14:7777] (../lib/sbi/context.c:2089)
+03/19 21:29:28.551: [sbi] INFO: [4a3d08a4-04f8-41f0-b8a5-a9142f8b8010] NF Instance setup [type:UDR validity:0s] (../lib/sbi/path.c:297)
+03/19 21:29:28.799: [sbi] INFO: [4a3d08a4-04f8-41f0-b8a5-a9142f8b8010] NF Instance setup [type:UDR validity:0s] (../lib/sbi/path.c:297)
