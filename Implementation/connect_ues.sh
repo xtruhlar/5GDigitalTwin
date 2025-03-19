@@ -39,9 +39,9 @@ sleep 5
 docker compose -f nr-ue2.yaml down
 sleep 5
 docker compose -f nr-ue3.yaml down
-sleep 5
+sleep 10
 
 # Disconnect the gNB and attach the terminal
-#docker compose -f nr-gnb.yaml down
+docker compose -f nr-gnb.yaml down
 
 echo "All specified UEs have been connected and disconnected."

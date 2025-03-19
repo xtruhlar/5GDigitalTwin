@@ -75,4 +75,4 @@ COPY --from=builder /UERANSIM/config /UERANSIM/config
 WORKDIR /UERANSIM/build
 
 COPY ueransim_image_init.sh /
-CMD ["/ueransim_image_init.sh"]
+CMD ["/bin/bash", "-c", "/ueransim_image_init.sh"]

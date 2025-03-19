@@ -137,4 +137,4 @@ COPY --from=builder /open5gs/misc/db /open5gs/misc/db
 WORKDIR /open5gs
 
 COPY open5gs_init.sh /
-CMD ["/open5gs_init.sh"]
+CMD ["/bin/bash", "-c", "/open5gs_init.sh"]

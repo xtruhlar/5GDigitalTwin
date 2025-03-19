@@ -1,8 +1,8 @@
 #version: '3'
 services:
-  srsue_5g_zmq:
+  srsue1_5g_zmq:
     image: docker_srslte
-    container_name: srsue_5g_zmq
+    container_name: srsue1_5g_zmq
     stdin_open: true
     tty: true
     cap_add:
@@ -21,7 +21,7 @@ services:
       - "2001/tcp"
     networks:
       default:
-        ipv4_address: ${SRS_UE_IP}
+        ipv4_address: ${SRS_UE1_IP}
 networks:
   default:
       name: docker_open5gs_default 
