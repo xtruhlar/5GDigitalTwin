@@ -62,8 +62,7 @@ sed -i 's|MYSQL_IP|'$MYSQL_IP'|g' ./config.yaml
 sed -i 's|INSTALL_PREFIX|'$INSTALL_PREFIX'|g' ./config.yaml
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/pyhss/timezone
 redis-server --daemonize yes
 
 cd services

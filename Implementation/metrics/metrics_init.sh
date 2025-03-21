@@ -27,7 +27,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Sync docker time
-ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/metrics/timezone
 
 export PROMETHEUS_WORK_DIR=prometheus-$PROMETHEUS_VERSION.linux-$(dpkg --print-architecture)
 cd $PROMETHEUS_WORK_DIR

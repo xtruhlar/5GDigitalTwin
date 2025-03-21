@@ -31,4 +31,4 @@ cp /mnt/osmohlr/osmo-hlr.cfg /etc/osmocom
 sed -i 's|OSMOHLR_IP|'$OSMOHLR_IP'|g' /etc/osmocom/osmo-hlr.cfg
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/osmohlr/timezone
