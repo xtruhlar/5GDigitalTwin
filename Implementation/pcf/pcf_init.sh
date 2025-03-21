@@ -36,4 +36,4 @@ sed -i 's|MONGO_IP|'$MONGO_IP'|g' install/etc/open5gs/pcf.yaml
 sed -i 's|MAX_NUM_UE|'$MAX_NUM_UE'|g' install/etc/open5gs/pcf.yaml
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/pcf/timezone

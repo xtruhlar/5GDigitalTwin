@@ -59,4 +59,4 @@ sed -i 's|MAX_NUM_UE|'$MAX_NUM_UE'|g' install/etc/open5gs/hss.yaml
 ./install/etc/freeDiameter/make_certs.sh install/etc/freeDiameter
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/amf/timezone

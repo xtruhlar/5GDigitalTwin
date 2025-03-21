@@ -37,4 +37,4 @@ sed -i 's|MCC|'$MCC'|g' /etc/osmocom/osmo-msc.cfg
 sed -i 's|THREEGPP_REALM|'$THREEGPP_REALM'|g' /etc/osmocom/osmo-msc.cfg
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/osmomsc/timezone

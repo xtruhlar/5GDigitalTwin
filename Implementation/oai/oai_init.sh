@@ -53,4 +53,4 @@ sed -i 's|OAI_ENB_IP|'$OAI_ENB_IP'|g' $OPENAIR_DIR/targets/PROJECTS/GENERIC-NR-5
 sed -i 's|AMF_IP|'$AMF_IP'|g' $OPENAIR_DIR/targets/PROJECTS/GENERIC-NR-5GC/CONF/$GNB_CONF_FILE
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/oai/timezone

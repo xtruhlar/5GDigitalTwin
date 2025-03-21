@@ -36,4 +36,4 @@ cp /mnt/udm/curve25519-1.key install/etc/open5gs/hnet
 cp /mnt/udm/secp256r1-2.key install/etc/open5gs/hnet
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/udm/timezone

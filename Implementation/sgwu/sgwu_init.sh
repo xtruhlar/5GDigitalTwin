@@ -35,4 +35,4 @@ sed -i 's|SGWU_ADVERTISE_IP|'$SGWU_ADVERTISE_IP'|g' install/etc/open5gs/sgwu.yam
 sed -i 's|MAX_NUM_UE|'$MAX_NUM_UE'|g' install/etc/open5gs/sgwu.yaml
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/sgwu/timezone

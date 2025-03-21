@@ -43,6 +43,5 @@ sed -i 's|ICSCF_IP|'$ICSCF_IP'|g' /etc/opensips/opensips.cfg
 sed -i 's|IMS_DOMAIN|'$IMS_DOMAIN'|g' /etc/opensips/opensips.cfg
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/opensips_ims_icscf/timezone
 exec /usr/sbin/opensips -F $@
