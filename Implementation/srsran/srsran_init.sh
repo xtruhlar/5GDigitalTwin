@@ -55,4 +55,4 @@ service dbus start && service avahi-daemon start
 exec gnb -c /etc/srsran/gnb.yml -c /etc/srsran/qos.yml $@
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/srsran/timezone

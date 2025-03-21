@@ -89,7 +89,6 @@ sed -i 's|PCSCF_BIND_PORT|'$PCSCF_BIND_PORT'|g' /etc/kamailio_pcscf/pcscf.xml
 sed -i 's|RTPENGINE_IP|'$RTPENGINE_IP'|g' /etc/kamailio_pcscf/kamailio_pcscf.cfg
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/pcscf/timezone
 # Add static route to route traffic back to UE as there is not NATing
 ip r add ${UE_IPV4_IMS} via ${UPF_IP}

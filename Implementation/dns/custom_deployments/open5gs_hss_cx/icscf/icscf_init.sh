@@ -93,4 +93,4 @@ sed -i 's|HSS_BIND_PORT|'$HSS_BIND_PORT'|g' /etc/kamailio_icscf/icscf.xml
 sed -i 's|ICSCF_BIND_PORT|'$ICSCF_BIND_PORT'|g' /etc/kamailio_icscf/icscf.xml
 
 # Sync docker time
-#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/amf/timezone
