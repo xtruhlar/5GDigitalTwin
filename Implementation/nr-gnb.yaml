@@ -16,6 +16,8 @@ services:
       - "38412/sctp"
       - "2152/udp"
       - "4997/udp"
+    ports:
+      - "9000:9000"
     cap_add:
       - NET_ADMIN
     privileged: true
