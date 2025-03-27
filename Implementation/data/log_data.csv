@@ -1,6 +1,1 @@
-timestamp,application,log_level,log_message
-2025-03-21 12:45:14,scp,INFO,NF EndPoint(addr) setup [172.22.0.7:7777] (../src/scp/sbi-path.c:461)
-2025-03-21 12:45:14,amf,INFO,gNB-N2[172.22.0.23] connection refused!!! (../src/amf/amf-sm.c:873)
-2025-03-21 12:45:14,amf,INFO,[Removed] Number of gNBs is now 0 (../src/amf/context.c:1268)
-2025-03-21 12:45:14,amf,INFO,[Removed] Number of gNB-UEs is now 0 (../src/amf/context.c:2685)
-2025-03-21 12:45:14,amf,INFO,[imsi-001011234567895:1:51][0:0:NULL] /nsmf-pdusession/v1/sm-contexts/{smContextRef}/modify (../src/amf/nsmf-handler.c:920)
+

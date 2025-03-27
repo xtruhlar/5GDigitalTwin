@@ -1,5 +1,5 @@
 services:
-#MongoDB
+  #MongoDB
   mongo:
     image: mongo:6.0
     container_name: mongo
@@ -18,7 +18,7 @@ services:
     networks:
       default:
         ipv4_address: ${MONGO_IP}
-#WebUI
+  #WebUI
   webui:
     image: docker_open5gs
     container_name: webui
@@ -40,7 +40,7 @@ services:
     networks:
       default:
         ipv4_address: ${WEBUI_IP}
-#NRF
+  #NRF
   nrf:
     image: docker_open5gs
     container_name: nrf
@@ -59,7 +59,7 @@ services:
     networks:
       default:
         ipv4_address: ${NRF_IP}
-#SCP
+  #SCP
   scp:
     image: docker_open5gs
     depends_on:
@@ -80,7 +80,7 @@ services:
     networks:
       default:
         ipv4_address: ${SCP_IP}
-#AUSF
+  #AUSF
   ausf:
     image: docker_open5gs
     depends_on:
@@ -102,7 +102,7 @@ services:
     networks:
       default:
         ipv4_address: ${AUSF_IP}
-#UDR
+  #UDR
   udr:
     image: docker_open5gs
     depends_on:
@@ -125,7 +125,7 @@ services:
     networks:
       default:
         ipv4_address: ${UDR_IP}
-#UDM
+  #UDM
   udm:
     image: docker_open5gs
     depends_on:
@@ -147,7 +147,7 @@ services:
     networks:
       default:
         ipv4_address: ${UDM_IP}
-#PCF
+  #PCF
   pcf:
     image: docker_open5gs
     depends_on:
@@ -171,7 +171,7 @@ services:
     networks:
       default:
         ipv4_address: ${PCF_IP}
-#BSF
+  #BSF
   bsf:
     image: docker_open5gs
     depends_on:
@@ -194,7 +194,7 @@ services:
     networks:
       default:
         ipv4_address: ${BSF_IP}
-#NSSF
+  #NSSF
   nssf:
     image: docker_open5gs
     depends_on:
@@ -217,7 +217,7 @@ services:
     networks:
       default:
         ipv4_address: ${NSSF_IP}
-#HSS
+  #HSS
   hss:
     image: docker_open5gs
     container_name: hss
@@ -243,7 +243,7 @@ services:
     networks:
       default:
         ipv4_address: ${HSS_IP}
-#SGWC
+  #SGWC
   sgwc:
     image: docker_open5gs
     depends_on:
@@ -266,7 +266,7 @@ services:
     networks:
       default:
         ipv4_address: ${SGWC_IP}
-#SGWU
+  #SGWU
   sgwu:
     image: docker_open5gs
     depends_on:
@@ -291,7 +291,7 @@ services:
     networks:
       default:
         ipv4_address: ${SGWU_IP}
-#SMF
+  #SMF
   smf:
     image: docker_open5gs
     depends_on:
@@ -324,7 +324,7 @@ services:
     networks:
       default:
         ipv4_address: ${SMF_IP}
-#UPF
+  #UPF
   upf:
     image: docker_open5gs
     depends_on:
@@ -357,7 +357,7 @@ services:
     networks:
       default:
         ipv4_address: ${UPF_IP}
-#AMF
+  #AMF
   amf:
     image: docker_open5gs
     depends_on:
@@ -388,7 +388,7 @@ services:
     networks:
       default:
         ipv4_address: ${AMF_IP}
-#MME
+  #MME
   mme:
     image: docker_open5gs
     depends_on:
@@ -424,7 +424,7 @@ services:
     networks:
       default:
         ipv4_address: ${MME_IP}
-#PCRF
+  #PCRF
   pcrf:
     image: docker_open5gs
     container_name: pcrf
@@ -450,7 +450,7 @@ services:
     networks:
       default:
         ipv4_address: ${PCRF_IP}
-#DNS
+  #DNS
   dns:
     build: ./dns
     image: docker_dns
@@ -497,7 +497,7 @@ services:
     networks:
       default:
         ipv4_address: ${RTPENGINE_IP}
-#MySQL
+  #MySQL
   mysql:
     build: ./mysql
     image: docker_mysql
@@ -514,7 +514,7 @@ services:
     networks:
       default:
         ipv4_address: ${MYSQL_IP}
-#PyHSS
+  #PyHSS
   pyhss:
     build: ./pyhss
     image: docker_pyhss
@@ -534,13 +534,13 @@ services:
     expose:
       - "3868/udp"
       - "3868/tcp"
-      - "8080/tcp"
+      - "8081/tcp"
     ports:
-      - "8080:8080/tcp"
+      - "8081:8081/tcp"
     networks:
       default:
         ipv4_address: ${PYHSS_IP}
-#ICSCF
+  #ICSCF
   icscf:
     image: docker_kamailio
     container_name: icscf
@@ -566,7 +566,7 @@ services:
     networks:
       default:
         ipv4_address: ${ICSCF_IP}
-#SCSCF
+  #SCSCF
   scscf:
     image: docker_kamailio
     container_name: scscf
@@ -592,7 +592,7 @@ services:
     networks:
       default:
         ipv4_address: ${SCSCF_IP}
-#PCSCF
+  #PCSCF
   pcscf:
     image: docker_kamailio
     container_name: pcscf
@@ -637,7 +637,7 @@ services:
     networks:
       default:
         ipv4_address: ${PCSCF_IP}
-#SMSC
+  #SMSC
   smsc:
     image: docker_kamailio
     container_name: smsc
@@ -660,7 +660,7 @@ services:
     networks:
       default:
         ipv4_address: ${SMSC_IP}
-#HLR
+  #HLR
   osmomsc:
     build: ./osmomsc
     image: docker_osmomsc
@@ -682,7 +682,7 @@ services:
     networks:
       default:
         ipv4_address: ${OSMOMSC_IP}
-#HLR
+  #HLR
   osmohlr:
     build: ./osmohlr
     image: docker_osmohlr
@@ -701,7 +701,7 @@ services:
     networks:
       default:
         ipv4_address: ${OSMOHLR_IP}
-#Metrics - Prometheus
+  #Metrics - Prometheus
   metrics:
     build: ./metrics
     image: docker_metrics
@@ -720,7 +720,7 @@ services:
     networks:
       default:
         ipv4_address: ${METRICS_IP}
-#Metrics - Grafana
+  #Metrics - Grafana
   grafana:
     image: grafana/grafana:11.3.0
     container_name: grafana
@@ -747,7 +747,7 @@ services:
     networks:
       default:
         ipv4_address: ${GRAFANA_IP}
-#Metrics - Netdata
+  #Metrics - Netdata
   netdata:
     image: netdata/netdata:edge
     container_name: netdata
@@ -779,7 +779,6 @@ services:
     networks:
       default:
         ipv4_address: ${NETDATA_IP}
-
 # Networks
 networks:
   default:
@@ -798,4 +797,3 @@ volumes:
   netdataconfig:
   netdatalib:
   netdatacache:
-

@@ -3,12 +3,17 @@ import time
 import subprocess
 import threading
 from datetime import datetime, timedelta
+import argparse
 
-# === CONFIG ===
-CSV_PATH = "./digital_shadow/data/physical_simulated.csv"
-UE_CONTAINERS = ["nr-ue.yaml", "nr-ue2.yaml", "nr-ue3.yaml"]
+# === ARGPARSE ===
+parser = argparse.ArgumentParser(description="Mirror UE behavior from CSV.")
+parser.add_argument('--file', type=str, required=True, help='Path to the CSV file to read UE schedule from.')
+args = parser.parse_args()
+
+CSV_PATH = args.file
+UE_CONTAINERS = ["nr-ue1.yaml", "nr-ue2.yaml", "nr-ue3.yaml", "nr-ue4.yaml", "nr-ue5.yaml", "nr-ue6.yaml", "nr-ue7.yaml", "nr-ue8.yaml", "nr-ue9.yaml", "nr-ue10.yaml"]
 CHECK_INTERVAL = 5  # seconds between events (if not syncing to timestamps)
-HOURS_BACK = 1.2  # how many hours back to consider for simulation
+HOURS_BACK = 0 # how many hours back to consider for simulation
 
 # === LOAD TIMELINE ===
 print("📥 Loading simulation data...")
@@ -37,9 +42,9 @@ def get_running_ues():
 def start_ue(index):
     """Start a UE container by its index in the list."""
     if index < len(UE_CONTAINERS):
-        yaml = UE_CONTAINERS[index]
-        print(f"🚀 Starting UE {index+1}: {yaml}")
-        subprocess.run(["docker", "compose", "-f", yaml, "up", "-d"])
+        yaml = f"nr-UEs/{UE_CONTAINERS[index]}"
+        print(f"🚀 Starting container: {yaml}")
+        subprocess.run(["docker", "compose", "-f", yaml, "-p", "implementation", "up", "--build", "-d"])
     else:
         print(f"❌ Cannot start UE {index+1}: no such container defined.")
 
