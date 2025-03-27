@@ -400,9 +400,9 @@ services:
     expose:
       - "3868/udp"
       - "3868/tcp"
-      - "8080/tcp"
+      - "8081/tcp"
     ports:
-      - "8080:8080/tcp"
+      - "8081:8081/tcp"
     networks:
       default:
         ipv4_address: ${PYHSS_IP}

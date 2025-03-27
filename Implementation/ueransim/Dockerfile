@@ -67,6 +67,17 @@ RUN apt-get update && \
         net-tools \
         iputils-ping && \
     apt-get autoremove -y && apt-get autoclean
+    
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3 \
+        python3-pip \
+        curl \
+        iperf3 && \
+    apt-get clean
+
+RUN pip3 install prometheus_client
+
 
 COPY --from=builder /UERANSIM/build /UERANSIM/build
 COPY --from=builder /UERANSIM/config /UERANSIM/config

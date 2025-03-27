@@ -78,3 +78,153 @@ Open5GS daemon v2.7.2-131-g04ec945
 03/20 17:20:07.722: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
 03/20 17:20:07.722: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
 03/20 17:20:10.081: [sgwc] WARNING: PFCP[REQ] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:277)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/23 09:36:33.858: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/23 09:36:33.859: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/23 09:36:33.899: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/23 09:36:33.900: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/23 09:36:33.900: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/23 09:36:33.901: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/23 09:36:33.960: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/23 09:36:36.404: [sgwc] WARNING: PFCP[RSP] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:284)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/23 11:30:25.447: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/23 11:30:25.447: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/23 11:30:25.508: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/23 11:30:25.508: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/23 11:30:25.508: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/23 11:30:25.509: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/23 11:30:25.510: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/23 11:30:28.010: [sgwc] WARNING: PFCP[RSP] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:284)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/23 19:21:02.210: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/23 19:21:02.211: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/23 19:21:02.258: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/23 19:21:02.259: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/23 19:21:02.259: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/23 19:21:02.260: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/23 19:21:02.731: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/23 19:21:04.769: [sgwc] WARNING: PFCP[RSP] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:284)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/24 08:08:21.005: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/24 08:08:21.005: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/24 08:08:21.039: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/24 08:08:21.039: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/24 08:08:21.040: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/24 08:08:21.041: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/24 08:08:21.042: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/24 08:08:23.450: [sgwc] WARNING: PFCP[REQ] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:277)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/24 15:24:54.958: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/24 15:24:54.960: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/24 15:24:55.017: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/24 15:24:55.017: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/24 15:24:55.018: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/24 15:24:55.018: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/24 15:24:55.018: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/24 15:24:57.501: [sgwc] WARNING: PFCP[REQ] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:277)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/24 21:48:36.223: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/24 21:48:36.223: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/24 21:48:36.293: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/24 21:48:36.293: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/24 21:48:36.293: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/24 21:48:36.294: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/24 21:48:36.376: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/24 21:48:38.798: [sgwc] WARNING: PFCP[RSP] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:284)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/25 09:59:23.004: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/25 09:59:23.004: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/25 09:59:23.033: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/25 09:59:23.034: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/25 09:59:23.034: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/25 09:59:23.034: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/25 09:59:23.320: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/25 09:59:25.540: [sgwc] WARNING: PFCP[RSP] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:284)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/25 19:59:11.186: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/25 19:59:11.186: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/25 19:59:11.221: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/25 19:59:11.221: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/25 19:59:11.222: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/25 19:59:11.222: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/25 19:59:11.222: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/25 19:59:13.670: [sgwc] WARNING: PFCP[REQ] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:277)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/25 22:08:16.346: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/25 22:08:16.346: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/25 22:08:16.380: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/25 22:08:16.380: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/25 22:08:16.380: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/25 22:08:16.381: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/25 22:08:16.557: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/25 22:08:18.888: [sgwc] WARNING: PFCP[RSP] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:284)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/26 09:54:13.138: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/26 09:54:13.138: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/26 09:54:13.180: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/26 09:54:13.181: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/26 09:54:13.181: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/26 09:54:13.182: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/26 09:54:13.182: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/26 09:54:15.594: [sgwc] WARNING: PFCP[REQ] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:277)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/26 19:07:13.213: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/26 19:07:13.214: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/26 19:07:13.257: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/26 19:07:13.258: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/26 19:07:13.259: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/26 19:07:13.260: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/26 19:07:13.260: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/26 19:07:15.537: [sgwc] WARNING: PFCP[REQ] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:277)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/26 23:34:15.882: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/26 23:34:15.883: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/26 23:34:15.950: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/26 23:34:15.952: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/26 23:34:15.954: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/26 23:34:15.964: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/26 23:34:16.132: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/26 23:34:18.464: [sgwc] WARNING: PFCP[RSP] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:284)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/27 11:32:04.720: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/27 11:32:04.720: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/27 11:32:04.745: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/27 11:32:04.745: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/27 11:32:04.745: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/27 11:32:04.746: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/27 11:32:04.783: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/27 11:32:07.249: [sgwc] WARNING: PFCP[RSP] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:284)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/27 19:07:35.912: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/27 19:07:35.914: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/27 19:07:35.977: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/27 19:07:35.978: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/27 19:07:35.978: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/27 19:07:35.979: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/27 19:07:35.979: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/27 19:07:38.465: [sgwc] WARNING: PFCP[REQ] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:277)
+Open5GS daemon v2.7.2-131-g04ec945
+
+03/27 19:40:33.211: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/sgwc.yaml' (../lib/app/ogs-init.c:144)
+03/27 19:40:33.212: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/sgwc.log' (../lib/app/ogs-init.c:147)
+03/27 19:40:33.270: [gtp] INFO: gtp_server() [172.22.0.5]:2123 (../lib/gtp/path.c:30)
+03/27 19:40:33.270: [pfcp] INFO: pfcp_server() [172.22.0.5]:8805 (../lib/pfcp/path.c:30)
+03/27 19:40:33.270: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.6]:8805 (../lib/pfcp/path.c:61)
+03/27 19:40:33.272: [app] INFO: SGW-C initialize...done (../src/sgwc/app.c:31)
+03/27 19:40:33.288: [sgwc] INFO: PFCP associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:183)
+03/27 19:40:35.774: [sgwc] WARNING: PFCP[RSP] has already been associated [172.22.0.6]:8805 (../src/sgwc/pfcp-sm.c:284)
