@@ -1343,3 +1343,15 @@ Open5GS daemon v2.7.2-131-g04ec945
 04/01 20:03:06.567: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
 04/01 20:03:06.569: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
 04/01 20:03:16.654: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#9): (../lib/diameter/common/logger.c:81)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/02 00:31:28.324: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/02 00:31:28.324: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/02 00:31:28.328: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/02 00:31:28.369: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/02 00:31:28.369: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/02 00:31:28.369: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/02 00:31:28.369: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/02 00:31:28.370: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/02 00:31:28.370: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/02 00:31:37.031: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#8): (../lib/diameter/common/logger.c:81)
