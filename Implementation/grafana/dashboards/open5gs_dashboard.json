@@ -600,7 +600,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "currently_active_ues",
+          "expr": "ran_ue",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -1572,6 +1572,6 @@
   "timezone": "browser",
   "title": "Open5Gs",
   "uid": "fdg9t0npkjj7ka",
-  "version": 13,
+  "version": 15,
   "weekStart": ""
 }
