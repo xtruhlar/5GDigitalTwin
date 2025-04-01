@@ -41,7 +41,24 @@ docker compose -f srsue_5g_zmq.yaml up -d && docker container attach srsue_5g_zm
 docker compose -f nr-gnb.yaml up -d && docker container attach nr_gnb
 
 # UERANSIM NR-UE (RF simulated)
-docker compose -f nr-ue.yaml up -d && docker container attach nr_ue
-docker compose -f nr-ue2.yaml up -d && docker container attach nr_ue2
-docker compose -f nr-ue3.yaml up -d && docker container attach nr_ue3
+docker compose -f nr-UEs/nr-ue1.yaml -p implementation up --build -d
+# UC 1 - 6
+```
+#UC1
+./uc1-surge.sh --ues 10
+
+#UC2
+./uc2-rampup.sh --ues 10 --interval 10
+
+#UC3
+./uc3-handover.sh --rounds 2 --wait 5
+
+#UC4
+./uc4-traffic.sh --ues 5 --traffic-ues 2 --downloads 10
+
+#UC5
+./uc5-idle.sh --time 300
+
+#UC6
+./uc6-reset.sh --ues 5 wait 5
 ```

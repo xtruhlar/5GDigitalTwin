@@ -46,10 +46,16 @@ RUN apt-get update && \
         libssl-dev \
         cmake
 
-# Clone and build UERANSIM
-RUN git clone https://github.com/aligungr/UERANSIM && \
-    cd UERANSIM && git checkout tags/v3.2.6 && \
-    make -j`nproc`
+# Clone repo and checkout tag first
+RUN git clone https://github.com/aligungr/UERANSIM
+
+# Now copy in your modified files (after checkout!)
+COPY ./task.cpp /UERANSIM/src/gnb/rls/task.cpp
+COPY ./task.hpp /UERANSIM/src/gnb/ngap/task.hpp
+
+# Build
+RUN cd /UERANSIM && make -j$(nproc)
+
 
 # Build final image
 FROM ubuntu:jammy

@@ -1,9 +1,28 @@
 #!/bin/bash
 
-# === CONFIG ===
+# === DEFAULTS ===
 CSV_PATH="./digital_shadow/data/uc2_rampup.csv"
 NUM_UES=10
 INTERVAL_SECONDS=10
+
+# === PARSE FLAGS ===
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    --ues)
+      NUM_UES="$2"
+      shift 2
+      ;;
+    --interval)
+      INTERVAL_SECONDS="$2"
+      shift 2
+      ;;
+    *)
+      echo "❌ Unknown argument: $1"
+      echo "Usage: $0 [--count N] [--interval S]"
+      exit 1
+      ;;
+  esac
+done
 
 echo "📁 Creating UC2 CSV: Gradual UE Ramp-up..."
 python3 - <<EOF
