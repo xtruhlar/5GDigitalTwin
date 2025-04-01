@@ -3,6 +3,8 @@
 export IP_ADDR=$(awk 'END{print $1}' /etc/hosts)
 
 cp /mnt/ueransim/${COMPONENT_NAME}.yaml /UERANSIM/config/${COMPONENT_NAME}.yaml
+cp /mnt/ueransim/deregister.sh /UERANSIM/deregister.sh
+chmod +x /UERANSIM/deregister.sh  # Make the script executable
 
 sed -i 's|MNC|'$MNC'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
 sed -i 's|MCC|'$MCC'|g' /UERANSIM/config/${COMPONENT_NAME}.yaml

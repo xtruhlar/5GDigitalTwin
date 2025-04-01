@@ -20,6 +20,7 @@
   "graphTooltip": 0,
   "id": 2,
   "links": [],
+  "liveNow": true,
   "panels": [
     {
       "collapsed": false,
@@ -952,7 +953,7 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
@@ -1013,7 +1014,7 @@
           "useBackend": false
         }
       ],
-      "title": "AMF Sessions",
+      "title": "AMF, SMF and UPF Sessions",
       "type": "timeseries"
     },
     {
@@ -1557,7 +1558,7 @@
       "type": "timeseries"
     }
   ],
-  "preload": false,
+  "preload": true,
   "schemaVersion": 40,
   "tags": [],
   "templating": {
@@ -1571,6 +1572,6 @@
   "timezone": "browser",
   "title": "Open5Gs",
   "uid": "fdg9t0npkjj7ka",
-  "version": 11,
+  "version": 13,
   "weekStart": ""
 }

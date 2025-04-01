@@ -1,0 +1,56 @@
+
+diff --git a/src/gnb/ngap/task.hpp b/src/gnb/ngap/task.hpp
+index 14ea956..48af950 100644
+--- a/src/gnb/ngap/task.hpp
++++ b/src/gnb/ngap/task.hpp
+@@ -61,6 +61,7 @@ class NgapTask : public NtsTask
+   public:
+     explicit NgapTask(TaskBase *base);
+     ~NgapTask() override = default;
++    void sendContextRelease(int ueId, NgapCause cause);
+ 
+   protected:
+     void onStart() override;
+@@ -115,7 +116,6 @@ class NgapTask : public NtsTask
+     void receiveInitialContextSetup(int amfId, ASN_NGAP_InitialContextSetupRequest *msg);
+     void receiveContextRelease(int amfId, ASN_NGAP_UEContextReleaseCommand *msg);
+     void receiveContextModification(int amfId, ASN_NGAP_UEContextModificationRequest *msg);
+-    void sendContextRelease(int ueId, NgapCause cause);
+ 
+     /* NAS Node Selection */
+     NgapAmfContext *selectAmf(int ueId, int32_t &requestedSliceType);
+@@ -126,4 +126,4 @@ class NgapTask : public NtsTask
+     void receivePaging(int amfId, ASN_NGAP_Paging *msg);
+ };
+ 
+-} // namespace nr::gnb
+\ No newline at end of file
++} // namespace nr::gnb
+diff --git a/src/gnb/rls/task.cpp b/src/gnb/rls/task.cpp
+index b31f64c..04c4292 100644
+--- a/src/gnb/rls/task.cpp
++++ b/src/gnb/rls/task.cpp
+@@ -12,6 +12,8 @@
+ #include <gnb/rrc/task.hpp>
+ #include <utils/common.hpp>
+ #include <utils/random.hpp>
++#include <gnb/ngap/task.hpp>
++
+ 
+ namespace nr::gnb
+ {
+@@ -54,6 +56,14 @@ void GnbRlsTask::onLoop()
+         }
+         case NmGnbRlsToRls::SIGNAL_LOST: {
+             m_logger->debug("UE[%d] signal lost", w.ueId);
++
++            if (m_base->ngapTask != nullptr) {
++                m_logger->info("Triggering UE Context Release Request for UE[%d]", w.ueId);
++                m_base->ngapTask->sendContextRelease(w.ueId, NgapCause::RadioNetwork_radio_connection_with_ue_lost);
++            } else {
++                m_logger->err("NGAP task not available, cannot send context release");
++            }
++
+             break;
+         }
+         case NmGnbRlsToRls::UPLINK_DATA: {
