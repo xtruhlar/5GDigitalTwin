@@ -13840,3 +13840,5 @@ Open5GS daemon v2.7.2-131-g04ec945
 04/05 00:32:21.535: [sbi] INFO: NF EndPoint(addr) setup [172.22.0.27:7777] (../lib/sbi/context.c:2089)
 🔥 test from amf at Sat Apr  5 00:35:18 CEST 2025
 🔥 test from amf at Sat Apr  5 00:41:00 CEST 2025
+04/05 00:43:13.021: [sbi] WARNING: [a683420a-11a4-41f0-9b68-43d75f547607] (NRF-notify) Not found (../lib/sbi/nnrf-handler.c:1171)
+04/05 00:43:43.375: [sbi] INFO: [a6e9deb6-11a4-41f0-b621-1db73ec4e6b6] (NRF-notify) NF_DEREGISTERED event [type:SMF] (../lib/sbi/nnrf-handler.c:1165)
