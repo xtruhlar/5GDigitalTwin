@@ -1,0 +1,26 @@
+services:
+  nr_ue85:
+    image: docker_ueransim
+    container_name: nr_ue85
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../ueransim:/mnt/ueransim
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - ../.env
+    environment:
+      - COMPONENT_NAME=ueransim-ue85
+    expose:
+      - "4997/udp"
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    networks:
+      default:
+        ipv4_address: ${NR_UE85_IP}
+networks:
+  default:
+      name: docker_open5gs_default
+      external: true
