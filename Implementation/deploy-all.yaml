@@ -748,6 +748,22 @@ services:
     networks:
       default:
         ipv4_address: ${GRAFANA_IP}
+  #Metrics - Loki
+  loki:
+    image: grafana/loki:2.9.4
+    container_name: loki
+    restart: always
+    command: -config.file=/etc/loki/config.yaml
+    volumes:
+      - ./loki/loki-config.yaml:/etc/loki/config.yaml
+      - loki_data:/loki
+    expose:
+      - "3100"
+    ports:
+      - "3100:3100"
+    networks:
+      default:
+        ipv4_address: 172.22.0.40
   #Metrics - Netdata
   netdata:
     image: netdata/netdata:edge
@@ -797,3 +813,5 @@ volumes:
   netdataconfig:
   netdatalib:
   netdatacache:
+  loki_data:
+

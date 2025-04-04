@@ -1,0 +1,19 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/promtail-positions.yaml  # ✅ Safe temp path
+
+
+clients:
+  - url: http://localhost:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: open5gs_amf
+    static_configs:
+      - targets: [localhost]
+        labels:
+          job: open5gs
+          component: amf
+          __path__: /Users/davidtruhlar/Documents/FIIT/BP/5GDigitalTwin/Implementation/log/amf.log
