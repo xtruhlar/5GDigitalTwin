@@ -61,4 +61,9 @@ docker compose -f nr-UEs/nr-ue1.yaml -p implementation up --build -d
 
 #UC6
 ./uc6-reset.sh --ues 5 wait 5
+
+# Promtail
+./promtail -config.file=promtail-config.yaml
+
 ```
+
