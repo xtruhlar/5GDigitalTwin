@@ -1,9 +1,0 @@
-apiVersion: 2
-
-datasources:
-  - name: srsRAN
-    type: prometheus
-    access: proxy
-    url: http://172.22.0.36:55555
-    disableDeletion: false
-    editable: true
