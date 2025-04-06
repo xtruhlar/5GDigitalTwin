@@ -764,6 +764,23 @@ services:
     networks:
       default:
         ipv4_address: 172.22.0.40
+  # Promtail
+  promtail:
+    image: grafana/promtail:2.9.4
+    container_name: promtail
+    volumes:
+      - ./promtail-config.yaml:/etc/promtail/config.yaml
+      - ./log:/mnt/logs
+      - /etc/hostname:/etc/hostname
+      - /etc/localtime:/etc/localtime:ro
+    command: -config.file=/etc/promtail/config.yaml
+    networks:
+      default:
+        ipv4_address: 172.22.0.42
+    depends_on:
+      - loki
+
+
   #Metrics - Netdata
   # netdata:
   #   image: netdata/netdata:edge
