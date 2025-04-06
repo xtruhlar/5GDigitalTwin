@@ -6,9 +6,9 @@ DB_NAME = "open5gs"
 COLLECTION_NAME = "subscribers"
 
 # Define the base IMSI, KI, OP, and AMF values
-IMSI_PREFIX = "0010112345678"
-KI_PREFIX = "8baf473f2f8fd09487cccbd7097c68"
-OP_PREFIX = "111111111111111111111111111111"
+IMSI_PREFIX = "001011234567"
+KI_PREFIX = "8baf473f2f8fd09487cccbd7097c6"
+OP_PREFIX = "11111111111111111111111111111"
 AMF = "8000"
 
 # MongoDB client
@@ -25,9 +25,12 @@ def remove_all_subscribers():
 def add_subscribers(count):
     subscribers = []
     for i in range(1, count + 1):
-        imsi = f"{IMSI_PREFIX}{i:02d}"
-        ki = f"{KI_PREFIX}{i:02d}"
-        op = f"{OP_PREFIX}{i:02d}"
+        # Generate IMSI, KI, and OP with proper padding
+        imsi = f"{IMSI_PREFIX}{i:03d}"  # Pad with leading zeros to maintain length
+        ki = f"{KI_PREFIX}{i:03d}"      # Pad with leading zeros to maintain length
+        op = f"{OP_PREFIX}{i:03d}"      # Pad with leading zeros to maintain length
+
+        # Create the subscriber document
         subscriber = {
             "_id": imsi,
             "imsi": imsi,
@@ -80,7 +83,7 @@ def add_subscribers(count):
 # Main function
 def main():
     remove_all_subscribers()
-    add_subscribers(100)
+    add_subscribers(256)
 
 if __name__ == "__main__":
     main()

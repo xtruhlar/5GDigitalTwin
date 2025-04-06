@@ -64,6 +64,5 @@ docker compose -f nr-UEs/nr-ue1.yaml -p implementation up --build -d
 
 # Promtail
 ./promtail -config.file=promtail-config.yaml
-
 ```
 

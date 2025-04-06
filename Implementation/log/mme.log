@@ -218,3 +218,162 @@ Open5GS daemon v2.7.2-131-g04ec945
 04/05 00:32:12.483: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
 04/05 00:32:12.483: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
 04/05 00:32:21.027: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#8): (../lib/diameter/common/logger.c:81)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/05 19:05:33.212: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/05 19:05:33.212: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/05 19:05:33.214: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/05 19:05:33.239: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/05 19:05:33.240: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/05 19:05:33.240: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/05 19:05:33.241: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/05 19:05:33.242: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/05 19:05:33.242: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/05 19:05:42.092: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#8): (../lib/diameter/common/logger.c:81)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/05 19:19:48.140: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/05 19:19:48.140: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/05 19:19:48.141: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/05 19:19:48.167: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/05 19:19:48.167: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/05 19:19:48.167: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/05 19:19:48.167: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/05 19:19:48.168: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/05 19:19:48.168: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/05 19:19:48.169: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#17): (../lib/diameter/common/logger.c:81)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/05 19:22:23.839: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/05 19:22:23.839: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/05 19:22:23.840: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/05 19:22:23.861: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/05 19:22:23.861: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/05 19:22:23.861: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/05 19:22:23.861: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/05 19:22:23.861: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/05 19:22:23.861: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/05 19:22:23.863: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#18): (../lib/diameter/common/logger.c:81)
+04/06 09:45:58.283: [sock] ERROR: sctp_connectx() failed to connect (111:Connection refused) (../lib/sctp/ogs-lksctp.c:388)
+04/06 09:45:58.284: [sock] ERROR: sctp_client() [172.22.0.31]:29118 failed (111:Connection refused) (../lib/sctp/ogs-lksctp.c:416)
+04/06 09:45:58.284: [mme] INFO: VLR-SGs [172.22.0.31]:29118 connection refused!!! (../src/mme/mme-sm.c:1006)
+04/06 09:46:01.284: [mme] WARNING: [SGsAP] Connect to VLR [172.22.0.31]:29118 failed (../src/mme/sgsap-sm.c:98)
+04/06 09:46:01.284: [core] FATAL: epoll_remove: Assertion `map' failed. (../lib/core/ogs-epoll.c:170)
+04/06 09:46:01.285: [core] FATAL: backtrace() returned 12 addresses (../lib/core/ogs-abort.c:37)
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(+0x25eac) [0xffff992baeac]
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(ogs_pollset_remove+0x104) [0xffff992afcd8]
+./open5gs-mmed(+0x19a90) [0xaaaaacf49a90]
+./open5gs-mmed(+0x989d0) [0xaaaaacfc89d0]
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(ogs_fsm_dispatch+0x120) [0xffff992b5fc8]
+./open5gs-mmed(+0x8aea0) [0xaaaaacfbaea0]
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(ogs_fsm_dispatch+0x120) [0xffff992b5fc8]
+./open5gs-mmed(+0x8d74) [0xaaaaacf38d74]
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(+0x114fc) [0xffff992a64fc]
+/lib/aarch64-linux-gnu/libpthread.so.0(+0x7624) [0xffff98c40624]
+/lib/aarch64-linux-gnu/libc.so.6(+0xd166c) [0xffff98b9766c]
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/06 20:05:30.796: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/06 20:05:30.796: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/06 20:05:30.800: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/06 20:05:30.846: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/06 20:05:30.846: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/06 20:05:30.847: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/06 20:05:30.848: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/06 20:05:30.848: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/06 20:05:30.848: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/06 20:05:40.845: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#9): (../lib/diameter/common/logger.c:81)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/06 20:52:26.731: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/06 20:52:26.731: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/06 20:52:26.733: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/06 20:52:26.788: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/06 20:52:26.792: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/06 20:52:26.793: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/06 20:52:26.793: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/06 20:52:26.793: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/06 20:52:26.793: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/06 20:52:34.475: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#9): (../lib/diameter/common/logger.c:81)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/06 20:56:12.447: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/06 20:56:12.447: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/06 20:56:12.449: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/06 20:56:12.487: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/06 20:56:12.487: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/06 20:56:12.487: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/06 20:56:12.487: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/06 20:56:12.487: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/06 20:56:12.487: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/06 20:56:20.144: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#8): (../lib/diameter/common/logger.c:81)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/06 21:38:09.043: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/06 21:38:09.044: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/06 21:38:09.046: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/06 21:38:09.097: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/06 21:38:09.097: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/06 21:38:09.097: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/06 21:38:09.098: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/06 21:38:09.098: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/06 21:38:09.098: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/06 21:38:17.594: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#14): (../lib/diameter/common/logger.c:81)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/06 21:52:38.371: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/06 21:52:38.371: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/06 21:52:38.374: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/06 21:52:38.429: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/06 21:52:38.429: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/06 21:52:38.430: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/06 21:52:38.430: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/06 21:52:38.430: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/06 21:52:38.431: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/06 21:52:45.443: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#8): (../lib/diameter/common/logger.c:81)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/06 22:48:22.057: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/06 22:48:22.057: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/06 22:48:22.073: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/06 22:48:22.210: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/06 22:48:22.220: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/06 22:48:22.221: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/06 22:48:22.224: [mme] INFO: sgsap client() [172.22.0.31]:29118 (../src/mme/sgsap-sctp.c:55)
+04/06 22:48:22.227: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/06 22:48:22.229: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/06 22:48:26.603: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#8): (../lib/diameter/common/logger.c:81)
+04/06 23:00:14.724: [sock] ERROR: sctp_connectx() failed to connect (111:Connection refused) (../lib/sctp/ogs-lksctp.c:388)
+04/06 23:00:14.725: [sock] ERROR: sctp_client() [172.22.0.31]:29118 failed (111:Connection refused) (../lib/sctp/ogs-lksctp.c:416)
+04/06 23:00:14.726: [mme] INFO: VLR-SGs [172.22.0.31]:29118 connection refused!!! (../src/mme/mme-sm.c:1006)
+04/06 23:00:17.738: [mme] WARNING: [SGsAP] Connect to VLR [172.22.0.31]:29118 failed (../src/mme/sgsap-sm.c:98)
+04/06 23:00:17.762: [core] FATAL: epoll_remove: Assertion `map' failed. (../lib/core/ogs-epoll.c:170)
+04/06 23:00:17.777: [core] FATAL: backtrace() returned 12 addresses (../lib/core/ogs-abort.c:37)
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(+0x25eac) [0xffff8e0b2eac]
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(ogs_pollset_remove+0x104) [0xffff8e0a7cd8]
+./open5gs-mmed(+0x19a90) [0xaaaabdc99a90]
+./open5gs-mmed(+0x989d0) [0xaaaabdd189d0]
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(ogs_fsm_dispatch+0x120) [0xffff8e0adfc8]
+./open5gs-mmed(+0x8aea0) [0xaaaabdd0aea0]
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(ogs_fsm_dispatch+0x120) [0xffff8e0adfc8]
+./open5gs-mmed(+0x8d74) [0xaaaabdc88d74]
+/open5gs/install/lib/aarch64-linux-gnu/libogscore.so.2(+0x114fc) [0xffff8e09e4fc]
+/lib/aarch64-linux-gnu/libpthread.so.0(+0x7624) [0xffff8da40624]
+/lib/aarch64-linux-gnu/libc.so.6(+0xd166c) [0xffff8d99766c]
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/06 23:00:20.889: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/mme.yaml' (../lib/app/ogs-init.c:144)
+04/06 23:00:20.889: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/mme.log' (../lib/app/ogs-init.c:147)
+04/06 23:00:20.903: [metrics] INFO: metrics_server() [http://172.22.0.9]:9091 (../lib/metrics/prometheus/context.c:299)
+04/06 23:00:20.997: [app] INFO: Polling freeDiameter stats every 60000000 usecs (../lib/diameter/common/stats.c:77)
+04/06 23:00:20.999: [gtp] INFO: gtp_server() [172.22.0.9]:2123 (../lib/gtp/path.c:30)
+04/06 23:00:21.000: [gtp] INFO: gtp_connect() [172.22.0.5]:2123 (../lib/gtp/path.c:60)
+04/06 23:00:21.042: [diam] INFO: CONNECTED TO 'hss.epc.mnc001.mcc001.3gppnetwork.org' (SCTP,soc#16): (../lib/diameter/common/logger.c:81)
+04/06 23:00:54.953: [sock] ERROR: sctp_connectx() failed to connect (110:Connection timed out) (../lib/sctp/ogs-lksctp.c:388)
+04/06 23:00:54.954: [sock] ERROR: sctp_client() [172.22.0.31]:29118 failed (110:Connection timed out) (../lib/sctp/ogs-lksctp.c:416)
+04/06 23:00:54.954: [mme] INFO: s1ap_server() [172.22.0.9]:36412 (../src/mme/s1ap-sctp.c:62)
+04/06 23:00:54.955: [sctp] INFO: MME initialize...done (../src/mme/app-init.c:33)
+04/06 23:00:54.955: [mme] WARNING: [SGsAP] Connect to VLR [172.22.0.31]:29118 failed (../src/mme/sgsap-sm.c:98)
+04/06 23:01:28.741: [sock] ERROR: sctp_connectx() failed to connect (110:Connection timed out) (../lib/sctp/ogs-lksctp.c:388)
+04/06 23:01:28.743: [sock] ERROR: sctp_client() [172.22.0.31]:29118 failed (110:Connection timed out) (../lib/sctp/ogs-lksctp.c:416)
+04/06 23:01:28.751: [mme] WARNING: [SGsAP] Connect to VLR [172.22.0.31]:29118 failed (../src/mme/sgsap-sm.c:98)

@@ -17,3 +17,35 @@ scrape_configs:
           job: open5gs
           component: amf
           __path__: /Users/davidtruhlar/Documents/FIIT/BP/5GDigitalTwin/Implementation/log/amf.log
+
+  - job_name: open5gs_ausf
+    static_configs:
+      - targets: [localhost]
+        labels:
+          job: open5gs
+          component: ausf
+          __path__: /Users/davidtruhlar/Documents/FIIT/BP/5GDigitalTwin/Implementation/log/ausf.log
+
+  - job_name: open5gs_pcf
+    static_configs:
+      - targets: [localhost]
+        labels:
+          job: open5gs
+          component: pcf
+          __path__: /Users/davidtruhlar/Documents/FIIT/BP/5GDigitalTwin/Implementation/log/pcf.log
+
+  - job_name: open5gs_smf
+    static_configs:
+      - targets: [localhost]
+        labels:
+          job: open5gs
+          component: smf
+          __path__: /Users/davidtruhlar/Documents/FIIT/BP/5GDigitalTwin/Implementation/log/smf.log
+
+  - job_name: open5gs_upf
+    static_configs:
+      - targets: [localhost]
+        labels:
+          job: open5gs
+          component: upf
+          __path__: /Users/davidtruhlar/Documents/FIIT/BP/5GDigitalTwin/Implementation/log/upf.log
