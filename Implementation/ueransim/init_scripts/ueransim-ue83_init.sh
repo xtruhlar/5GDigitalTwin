@@ -28,18 +28,18 @@
 
 export IP_ADDR=$(awk 'END{print $1}' /etc/hosts)
 
-cp /mnt/ueransim/yaml_configs/${COMPONENT_NAME}.yaml /UERANSIM/config/${COMPONENT_NAME}.yaml
+cp /mnt/ueransim/yaml_configs/ueransim-ue83.yaml /UERANSIM/config/ueransim-ue83.yaml
 
-sed -i 's|MNC|01|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
-sed -i 's|MCC|001|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|MNC|'$MNC'|g' /UERANSIM/config/ueransim-ue83.yaml
+sed -i 's|MCC|'$MCC'|g' /UERANSIM/config/ueransim-ue83.yaml
 
-sed -i 's|UE83_KI|8baf473f2f8fd09487cccbd7097c6883|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
-sed -i 's|UE83_OP|11111111111111111111111111111183|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
-sed -i 's|UE83_AMF|8000|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
-sed -i 's|UE83_IMEISV|4370816125816151|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
-sed -i 's|UE83_IMEI|356938035643803|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
-sed -i 's|UE83_IMSI|001011234567883|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
-sed -i 's|NR_GNB_IP|172.22.0.23|g' /UERANSIM/config/${COMPONENT_NAME}.yaml
+sed -i 's|UE83_KI|'$UE83_KI'|g' /UERANSIM/config/ueransim-ue83.yaml
+sed -i 's|UE83_OP|'$UE83_OP'|g' /UERANSIM/config/ueransim-ue83.yaml
+sed -i 's|UE83_AMF|'$UE83_AMF'|g' /UERANSIM/config/ueransim-ue83.yaml
+sed -i 's|UE83_IMEISV|'$UE83_IMEISV'|g' /UERANSIM/config/ueransim-ue83.yaml
+sed -i 's|UE83_IMEI|'$UE83_IMEI'|g' /UERANSIM/config/ueransim-ue83.yaml
+sed -i 's|UE83_IMSI|'$UE83_IMSI'|g' /UERANSIM/config/ueransim-ue83.yaml
+sed -i 's|NR_GNB_IP|'$NR_GNB_IP'|g' /UERANSIM/config/ueransim-ue83.yaml
 
 # Sync docker time
 #ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /mnt/ueransim/timezone

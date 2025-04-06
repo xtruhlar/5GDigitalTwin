@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # === Default values ===
-UE_COUNT=5
-TRAFFIC_UE_COUNT=2
-DOWNLOADS=10
+UE_COUNT=1
+TRAFFIC_UE_COUNT=1
+DOWNLOADS=1
 
 # === Parse CLI args ===
 while [[ "$#" -gt 0 ]]; do
@@ -35,8 +35,8 @@ for ((i=1; i<=TRAFFIC_UE_COUNT; i++)); do
   CONTAINER="nr_ue${i}"
   echo "📡 Simulating traffic in $CONTAINER..."
 
-  docker exec "$CONTAINER" bash -c \
-    "for i in \$(seq 1 $DOWNLOADS); do curl -s -o /dev/null http://speedtest.tele2.net/10MB.zip; done" &
+docker exec "$CONTAINER" bash -c \
+  "for i in \$(seq 1 $DOWNLOADS); do echo \"Downloading #\$i...\"; curl -4 -s -o /dev/null http://speedtest.tele2.net/1MB.zip; echo \"✅ Done #\$i\"; done" &
 done
 
 wait
