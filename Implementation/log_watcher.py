@@ -105,14 +105,6 @@ def parse_amf(lines, previous_state):
             current_imsi = match.group(1)
 
         # Deregistration by SUCI or IMSI
-        # 04/04 21:18:41.076: [amf] INFO: UE Context Release [Action:2] (../src/amf/ngap-handler.c:1733)
-        # 04/04 21:18:41.076: [amf] INFO:     RAN_UE_NGAP_ID[153] AMF_UE_NGAP_ID[268] (../src/amf/ngap-handler.c:1734)
-        # 04/04 21:18:41.076: [amf] INFO:     SUCI[suci-0-001-01-0000-0-0-1234567810] (../src/amf/ngap-handler.c:1738)
-        # 04/04 21:18:41.076: [amf] INFO: [Removed] Number of gNB-UEs is now 0 (../src/amf/context.c:2685)
-
-        # If 2 lines before this line contain "UE Context Release" or "Implicit De-registered" or "De-register UE"
-        # and the line contains "SUCI" or "imsi-" or suci, then it's a deregistration
-
         if "UE Context Release" in line or "Implicit De-registered" in line or "De-register UE" in line:
             dereg_block.append(line)
 
@@ -124,11 +116,7 @@ def parse_amf(lines, previous_state):
             imsi = imsi_match.group(1) if imsi_match else current_imsi
             suci = suci_match.group(1) if suci_match else last_seen_suci
 
-            #suci to imsi conversion
-            # imsi-001011234567803
-            # suci-0-001-01-0000-0-0-1234567803
-            # The last 10 digits of the SUCI are the IMSI
-
+            # SUCI to imsi conversion
             if suci and len(suci) == 33:
                 sufix = suci[-10:]
                 tac = suci[7:10]

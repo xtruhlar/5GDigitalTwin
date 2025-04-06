@@ -22,5 +22,5 @@ services:
         ipv4_address: ${NR_UE98_IP}
 networks:
   default:
-      name: docker_open5gs_default
+      name: docker_open5gs_default 
       external: true
