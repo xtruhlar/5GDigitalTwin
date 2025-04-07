@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+# Install dependencies
+RUN pip install flask prometheus_client pygtail
+
+# Set working directory
+WORKDIR /app
+
+# Copy the Python file into the image
+COPY log_watcher.py .
+
+# Expose the port
+EXPOSE 9000
+
+# Run the script
+CMD ["python", "log_watcher.py"]
