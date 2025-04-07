@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -372,7 +372,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "PA240B69645956401"
       },
       "fieldConfig": {
@@ -452,74 +451,18 @@
       "pluginVersion": "11.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "amf_session",
+          "expr": "bearers_active",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "Active bearers",
           "range": true,
           "refId": "A",
           "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "fivegs_upffunction_upf_sessionnbr",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{job}}",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "fivegs_pcffunction_pa_sessionnbr",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{job}}",
-          "range": true,
-          "refId": "C",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "fivegs_smffunction_sm_sessionnbr",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{job}}",
-          "range": true,
-          "refId": "D",
-          "useBackend": false
         }
       ],
-      "title": "Panel Title",
+      "title": "Bearers",
       "type": "timeseries"
     },
     {
@@ -914,7 +857,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "builder",
-          "expr": "{filename=\"/Users/davidtruhlar/Documents/FIIT/BP/5GDigitalTwin/Implementation/log/amf.log\"} != `[metrics]` != `LOCAL` != `UTC` != `daemon`",
+          "expr": "{filename=\"/mnt/logs/amf.log\"} != `[metrics]` != `LOCAL` != `UTC` != `daemon`",
           "queryType": "range",
           "refId": "A"
         }
@@ -956,7 +899,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "builder",
-          "expr": "{filename=\"/Users/davidtruhlar/Documents/FIIT/BP/5GDigitalTwin/Implementation/log/amf.log\"} |= `WARNING`",
+          "expr": "{filename=\"/mnt/logs/amf.log\"} |= `WARNING`",
           "queryType": "range",
           "refId": "A"
         }
@@ -980,6 +923,6 @@
   "timezone": "browser",
   "title": "Current state Dash",
   "uid": "bei0qsvxus64ga",
-  "version": 1,
+  "version": 13,
   "weekStart": ""
 }

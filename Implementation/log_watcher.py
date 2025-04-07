@@ -8,15 +8,14 @@ from pygtail import Pygtail
 from prometheus_client import Gauge, start_http_server
 
 CURRENT_YEAR = datetime.now().year
-LOG_FILE = "./log/amf.log"
+LOG_FILE = "/open5gs/install/var/log/open5gs/amf.log"
 
 # Prometheus metrics
-ue_connected = Gauge("ue_connected_total", "Currently connected UEs")
-
 ue_reg_time_last = Gauge("ue_registration_duration_seconds_last", "Last registration duration")
 ue_reg_time_avg = Gauge("ue_registration_duration_seconds_avg", "Average registration duration")
 ue_reg_time_min = Gauge("ue_registration_duration_seconds_min", "Min registration duration")
 ue_reg_time_max = Gauge("ue_registration_duration_seconds_max", "Max registration duration")
+
 ue_sess_time_last = Gauge("ue_session_duration_seconds_last", "Last session duration")
 ue_sess_time_avg = Gauge("ue_session_duration_seconds_avg", "Average session duration")
 ue_sess_time_min = Gauge("ue_session_duration_seconds_min", "Min session duration")
@@ -76,7 +75,7 @@ def parse_amf(lines, previous_state):
         if "Registration complete" in line and current_reg["imsi"]:
             imsi = current_reg["imsi"]
             ue = ue_details.get(imsi, {
-                "suci": current_reg["suci"],
+                "suci": current_reg.get("suci", "unknown"),
                 "imsi": imsi,
                 "reg_start": current_reg["start_time"],
                 "reg_end": None,
@@ -157,7 +156,7 @@ def main_loop(interval=5, prometheus_port=9000):
 
     try:
         while True:
-            lines = list(Pygtail(LOG_FILE, offset_file=f"{LOG_FILE}.offset"))
+            lines = list(Pygtail(LOG_FILE, offset_file=f"{LOG_FILE}.offset", encoding="latin-1"))
             ue_details, new_regs, new_sessions = parse_amf(lines, previous_state)
 
             previous_state["ue_details"] = ue_details
@@ -177,7 +176,6 @@ def main_loop(interval=5, prometheus_port=9000):
             ue_counts = previous_state["connected_ue_history"]
 
             # Export to Prometheus
-            ue_connected.set(connected_now)
             if reg_times:
                 ue_reg_time_last.set(reg_times[-1])
                 ue_reg_time_avg.set(sum(reg_times) / len(reg_times))

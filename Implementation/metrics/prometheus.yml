@@ -26,7 +26,7 @@ scrape_configs:
       format: [prometheus]
     static_configs:
       - targets: ['host.docker.internal:19999']
-  - job_name: 'ue_connection_exporter'
+  - job_name: 'logwatcher'
     static_configs:
-      - targets: ['host.docker.internal:9000']  # or 'localhost:9000' if not in container
+      - targets: ['logwatcher:9000']  # or 'localhost:9000' if not in container
 

@@ -779,6 +779,20 @@ services:
         ipv4_address: 172.22.0.42
     depends_on:
       - loki
+  logwatcher:
+    build:
+      context: .
+      dockerfile: Dockerfile.logwatcher
+    container_name: logwatcher
+    volumes:
+      - ./log:/open5gs/install/var/log/open5gs  # mount Open5GS logs
+    expose:
+      - "9000"
+    ports:
+      - "9000:9000"
+    networks:
+      default:
+        ipv4_address: 172.22.0.38
 
 
   #Metrics - Netdata
