@@ -74,15 +74,15 @@ metrics = {
         "process_start_time_seconds",
         "process_virtual_memory_bytes",
         "process_virtual_memory_max_bytes",
-    ],
-    "custom": [
-        "ue_registration_duration_seconds_min",
-        "ue_registration_duration_seconds_max",
-        "ue_registration_duration_seconds_avg",
-        "ue_registration_duration_seconds_last",
-        "ue_session_duration_seconds_avg",
-        "ue_session_duration_seconds_min",
-        "ue_session_duration_seconds_max",
-        "ue_session_duration_seconds_last",
-    ]
+    ]#,
+    # "custom": [
+    #     "ue_registration_duration_seconds_min",
+    #     "ue_registration_duration_seconds_max",
+    #     "ue_registration_duration_seconds_avg",
+    #     "ue_registration_duration_seconds_last",
+    #     "ue_session_duration_seconds_avg",
+    #     "ue_session_duration_seconds_min",
+    #     "ue_session_duration_seconds_max",
+    #     "ue_session_duration_seconds_last",
+    # ]
 }

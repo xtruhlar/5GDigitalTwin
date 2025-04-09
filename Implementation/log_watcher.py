@@ -72,7 +72,7 @@ def parse_amf(lines, previous_state):
             current_reg["imsi"] = match.group(1)
 
         # Registration complete
-        if "Registration complete" in line and current_reg["imsi"]:
+        if "Registration complete" in line and current_reg.get("imsi") and current_reg.get("start_time"):
             imsi = current_reg["imsi"]
             ue = ue_details.get(imsi, {
                 "suci": current_reg.get("suci", "unknown"),
