@@ -18,7 +18,7 @@ done
 stop_ue() {
   local ue_id=$1
   echo "🔻 Stopping nr-ue${ue_id}..."
-  docker compose -f nr-UEs/nr-ue${ue_id}.yaml -p implementation down
+  docker compose -f nr-UEs/nr-ue${ue_id}.yaml -p slowddos down
   echo "✅ nr-ue${ue_id} stopped!"
 }
 

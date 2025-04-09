@@ -41,7 +41,7 @@ docker compose -f srsue_5g_zmq.yaml up -d && docker container attach srsue_5g_zm
 docker compose -f nr-gnb.yaml up -d && docker container attach nr_gnb
 
 # UERANSIM NR-UE (RF simulated)
-docker compose -f nr-UEs/nr-ue1.yaml -p implementation up --build -d
+docker compose -f nr-UEs/nr-ue1.yaml -p ues up --build -d
 # UC 1 - 6
 ```
 #UC1
@@ -61,8 +61,5 @@ docker compose -f nr-UEs/nr-ue1.yaml -p implementation up --build -d
 
 #UC6
 ./uc6-reset.sh --ues 5 wait 5
-
-# Promtail
-./promtail -config.file=promtail-config.yaml
 ```
 

@@ -21,3 +21,6 @@ nrf:
       server:
       - address: NRF_IP
         port: 7777
+    metric:
+      - address: NRF_IP
+        port: 9091
