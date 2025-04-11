@@ -2,14 +2,17 @@ import subprocess
 import time
 import random
 
-UE_COUNT = 8
+UE_COUNT = 4
 SESSION_DURATION = 600  # 10 minút worst case
 PING_INTERVAL_MIN = 30
 PING_INTERVAL_MAX = 60
 TARGET_URL = "https://phet-dev.colorado.edu/html/build-an-atom/0.0.0-3/simple-text-only-test-page.html"
 
 print(f"📡 Starting Periodic Keep-Alive (UC3) with {UE_COUNT} UEs")
-print(f"Current time: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}")
+
+with open("current_uc.txt", "w") as f:
+    f.write("uc3")
+
 
 # Spusti všetky UE
 for i in range(1, UE_COUNT + 1):
@@ -36,6 +39,8 @@ while True:
     time.sleep(sleep_time)
 
 print("🛑 UC3 complete. Stopping all UEs...")
-print(f"Current time: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}")
 subprocess.run(["docker", "compose", "-p", "uc3", "down"])
 
+
+with open("current_uc.txt", "w") as f:
+    f.write("no_uc")

@@ -2,12 +2,15 @@ import subprocess
 import time
 import random
 
-UE_COUNT = 8
-SESSION_DURATION = 960  # 16 minút worst case
+UE_COUNT = 4
+SESSION_DURATION = 600 
 DOWNLOAD_INTERVAL_MIN = 10
-DOWNLOAD_INTERVAL_MAX = 20
+DOWNLOAD_INTERVAL_MAX = 15
 
 print(f"🌐 Starting Normal Surfing (UC1) with {UE_COUNT} UEs")
+
+with open("current_uc.txt", "w") as f:
+    f.write("uc1")
 
 # Na začiatku pripojme polovicu UE
 for i in range(1, UE_COUNT // 2 + 1):
@@ -36,12 +39,12 @@ while True:
                 print(f"✅ UE{i} finished downloading {data_mb}MB")
 
             # Občasné odpojenie
-            if random.randint(0, 99) < 2:
+            if random.randint(0, 99) < 4:
                 print(f"❌ UE{i} disconnecting...")
                 subprocess.run(["docker", "compose", "-f", f"nr-UEs/nr-ue{i}.yaml", "-p", "uc1", "down"])
         else:
             # Občasné pripojenie
-            if random.randint(0, 99) < 2:
+            if random.randint(0, 99) < 4:
                 print(f"🔌 UE{i} connecting...")
                 subprocess.run(["docker", "compose", "-f", f"nr-UEs/nr-ue{i}.yaml", "-p", "uc1", "up", "--build", "-d"])
 
@@ -51,3 +54,6 @@ while True:
 
 print("🛑 UC1 complete. Stopping all UEs...")
 subprocess.run(["docker", "compose", "-p", "uc1", "down"])
+
+with open("current_uc.txt", "w") as f:
+    f.write("no_uc")

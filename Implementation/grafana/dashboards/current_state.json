@@ -113,7 +113,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "ran_ue{job=\"amf\"}",
+          "expr": "ran_ue",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -205,7 +205,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "gnb{instance=\"172.22.0.10:9091\"}",
+          "expr": "gnb",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -371,8 +371,63 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PA240B69645956401"
+      },
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
         "overrides": []
       },
       "gridPos": {
@@ -383,17 +438,89 @@
       },
       "id": 10,
       "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "content": "Placeholder for prediction",
-        "mode": "markdown"
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "11.3.0",
-      "title": "Prediction (placeholder)",
-      "type": "text"
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA240B69645956401"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "amf_session",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{job}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA240B69645956401"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "fivegs_upffunction_upf_sessionnbr",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{job}}",
+          "range": true,
+          "refId": "B",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA240B69645956401"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "fivegs_pcffunction_pa_sessionnbr",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{job}}",
+          "range": true,
+          "refId": "C",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA240B69645956401"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "fivegs_smffunction_sm_sessionnbr",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{job}}",
+          "range": true,
+          "refId": "D",
+          "useBackend": false
+        }
+      ],
+      "title": "Panel Title",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -468,7 +595,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "up{job!=\"mme\", job!=\"netdata\", job!=\"logwatcher\", instance!=\"host.docker.internal:9000\"}",
+          "expr": "up{job!=\"mme\", job!=\"netdata\", instance!=\"host.docker.internal:9000\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -853,6 +980,6 @@
   "timezone": "browser",
   "title": "Current state Dash",
   "uid": "bei0qsvxus64ga",
-  "version": 20,
+  "version": 32,
   "weekStart": ""
 }

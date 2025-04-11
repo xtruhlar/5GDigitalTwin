@@ -7,7 +7,7 @@ import os
 
 notebook_path = "./main.ipynb"              # Path to your notebook
 log_path = "./log_execution.txt"            # Log file
-csv_file = "merged_data.csv"                # Main output file
+csv_file = "running_data.csv"                # Main output file
 backup_dir = "./backup"                     # Folder to store backups
 execution_interval = 1                      # Run every second
 backup_interval = 600                        # Backup every 60 loops

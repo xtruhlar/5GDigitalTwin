@@ -642,3 +642,18 @@ Open5GS daemon v2.7.2-131-g04ec945
 04/10 11:35:38.302: [sbi] INFO: [29507e70-15ef-41f0-abbb-41edc83d3185] NF registered [Heartbeat:10s] (../lib/sbi/nf-sm.c:208)
 04/10 11:35:38.303: [sbi] INFO: NF EndPoint(addr) setup [172.22.0.12:7777] (../lib/sbi/nnrf-handler.c:949)
 04/10 11:35:38.303: [sbi] INFO: [29510494-15ef-41f0-9894-cbb868c8ab53] Subscription created until 2025-04-11T11:35:38.302905+02:00 [duration:86400000000,validity:86400.000000,patch:43200.000000] (../lib/sbi/nnrf-handler.c:868)
+04/11 01:44:30.606: [udr] INFO: [29510494-15ef-41f0-9894-cbb868c8ab53] Need to update Subscription (../src/udr/udr-sm.c:339)
+04/11 01:44:30.608: [sbi] INFO: [29510494-15ef-41f0-9894-cbb868c8ab53] Subscription updated(204 No Content) until 2025-04-12T01:44:30.608183+02:00 [duration:86400000000,validity:86400.000000,patch:43200.000000] (../lib/sbi/nnrf-handler.c:868)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/11 09:27:30.345: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/udr.yaml' (../lib/app/ogs-init.c:144)
+04/11 09:27:30.346: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/udr.log' (../lib/app/ogs-init.c:147)
+04/11 09:27:30.348: [sbi] INFO: NF EndPoint(addr) setup [172.22.0.12:7777] (../lib/sbi/context.c:457)
+04/11 09:27:30.348: [sbi] INFO: NF EndPoint(addr) setup [172.22.0.35:7777] (../lib/sbi/context.c:505)
+04/11 09:27:30.350: [dbi] INFO: MongoDB URI: 'mongodb://172.22.0.2/open5gs' (../lib/dbi/ogs-mongoc.c:130)
+04/11 09:27:30.350: [sbi] INFO: NF Service [nudr-dr] (../lib/sbi/context.c:1970)
+04/11 09:27:30.350: [sbi] INFO: nghttp2_server() [http://172.22.0.14]:7777 (../lib/sbi/nghttp2-server.c:435)
+04/11 09:27:30.350: [app] INFO: UDR initialize...done (../src/udr/app.c:31)
+04/11 09:27:30.356: [sbi] INFO: [6d5a0840-16a6-41f0-8b97-ebf1f4387ff9] NF registered [Heartbeat:10s] (../lib/sbi/nf-sm.c:208)
+04/11 09:27:30.357: [sbi] INFO: NF EndPoint(addr) setup [172.22.0.12:7777] (../lib/sbi/nnrf-handler.c:949)
+04/11 09:27:30.357: [sbi] INFO: [6d5b48fe-16a6-41f0-a340-1dfad0f8c532] Subscription created until 2025-04-12T09:27:30.357009+02:00 [duration:86400000000,validity:86400.000000,patch:43200.000000] (../lib/sbi/nnrf-handler.c:868)
