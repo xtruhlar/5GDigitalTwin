@@ -5,30 +5,30 @@ global:
   external_labels:
     monitor: 'open5gs-monitor'
 scrape_configs:
-  # - job_name: 'amf'
-  #   static_configs:
-  #     - targets: ['AMF_IP:9091']
-  # - job_name: 'smf'
-  #   static_configs:
-  #     - targets: ['SMF_IP:9091']
-  # - job_name: 'pcf'
-  #   static_configs:
-  #     - targets: ['PCF_IP:9091'] 
-  # - job_name: 'upf'
-  #   static_configs:
-  #     - targets: ['UPF_IP:9091'] 
-  # - job_name: 'logwatcher'
-  #   static_configs:
-  #     - targets: ['logwatcher:9000']
-  - job_name: 'real5G-AMF'
+  - job_name: 'amf'
     static_configs:
-      - targets: ['192.168.50.5:9090']
-  - job_name: 'real5G-SMF'
+      - targets: ['AMF_IP:9091']
+  - job_name: 'smf'
     static_configs:
-      - targets: ['192.168.50.4:9090']
-  - job_name: 'real5G-PCF'
+      - targets: ['SMF_IP:9091']
+  - job_name: 'pcf'
     static_configs:
-      - targets: ['192.168.50.5:50505']
-  - job_name: 'real5G-UPF'
+      - targets: ['PCF_IP:9091'] 
+  - job_name: 'upf'
     static_configs:
-      - targets: ['192.168.50.29:9090']
+      - targets: ['UPF_IP:9091'] 
+  - job_name: 'logwatcher'
+    static_configs:
+      - targets: ['logwatcher:9000']
+  # - job_name: 'real5G-AMF'
+  #   static_configs:
+  #     - targets: ['192.168.50.5:9090']
+  # - job_name: 'real5G-SMF'
+  #   static_configs:
+  #     - targets: ['192.168.50.4:9090']
+  # - job_name: 'real5G-PCF'
+  #   static_configs:
+  #     - targets: ['192.168.50.5:50505']
+  # - job_name: 'real5G-UPF'
+  #   static_configs:
+  #     - targets: ['192.168.50.29:9090']

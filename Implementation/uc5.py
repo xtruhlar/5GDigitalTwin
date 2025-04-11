@@ -1,11 +1,13 @@
 import time
 import subprocess
 
-UC5_UE_COUNT = 8
-UC5_DURATION = 300  # 5 minút
+UC5_UE_COUNT = 4
+UC5_DURATION = 600  # 5 minút
 
 print(f"🚨 Starting UC5: Load Registration Anomaly with {UC5_UE_COUNT} UEs")
-print(f"Current time: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}")
+
+with open("current_uc.txt", "w") as f:
+    f.write("uc5")
 
 # Spustenie všetkých UE paralelne
 processes = []
@@ -22,7 +24,9 @@ print("✅ All UEs connected nearly simultaneously.")
 print("🕒 Holding all connections for UC5 duration...")
 time.sleep(UC5_DURATION)
 
-print(f"Current time: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}")
 print("🛑 UC5 complete. Stopping all UEs...")
 subprocess.run(["docker", "compose", "-p", "uc5", "down"])
 
+
+with open("current_uc.txt", "w") as f:
+    f.write("no_uc")
