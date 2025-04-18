@@ -7,3 +7,5 @@ datasources:
     url: http://${METRICS_IP}:9090
     disableDeletion: false
     editable: true
+
+# BSD 2-Clause License | Copyright © 2020 Supreeth Herle | All rights reserved.

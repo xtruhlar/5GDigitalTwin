@@ -3,8 +3,7 @@ import time
 import random
 
 UE_COUNT = 4
-SESSION_DURATION = 600  # 10 minút worst case
-
+SESSION_DURATION = random.randint(300, 600)  # 10 min
 print(f"📺 Starting Video Streaming (UC2) with {UE_COUNT} UEs")
 
 with open("current_uc.txt", "w") as f:
