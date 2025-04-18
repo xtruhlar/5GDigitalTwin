@@ -3,9 +3,9 @@ import time
 import random
 
 UE_COUNT = 4
-SESSION_DURATION = 600  # 10 minút worst case
+SESSION_DURATION = random.randint(300, 600)  # 10 min
 PING_INTERVAL_MIN = 30
-PING_INTERVAL_MAX = 60
+PING_INTERVAL_MAX = 35
 TARGET_URL = "https://phet-dev.colorado.edu/html/build-an-atom/0.0.0-3/simple-text-only-test-page.html"
 
 print(f"📡 Starting Periodic Keep-Alive (UC3) with {UE_COUNT} UEs")

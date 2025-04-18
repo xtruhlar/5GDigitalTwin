@@ -20,9 +20,9 @@ def increment_ip(ip):
         ip[2] += 1
     return ip
 
-# Generate 500 UEs
+# Generate 10 UEs
 with open(output_file, "w") as file:
-    for i in range(1, 501):
+    for i in range(1, 10):
         # Generate IP address
         ip = ".".join(map(str, base_ip))
         base_ip = increment_ip(base_ip)
@@ -54,4 +54,4 @@ with open(output_file, "w") as file:
         file.write(f"UE{i}_IMEI={imei}\n")
         file.write(f"UE{i}_IMEISV={imeisv}\n\n")
 
-print(f"Generated 500 UEs in {output_file}")
+print(f"Generated 10 UEs in {output_file}")
