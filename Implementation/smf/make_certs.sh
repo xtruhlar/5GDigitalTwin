@@ -43,3 +43,5 @@ rm -rf demoCA
 rm -f 01.pem 02.pem 03.pem 04.pem
 rm -f cakey.pem
 rm -f mme.csr.pem hss.csr.pem smf.csr.pem pcrf.csr.pem
+
+# BSD 2-Clause License | Copyright © 2020 Supreeth Herle | All rights reserved.

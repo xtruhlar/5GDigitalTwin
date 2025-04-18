@@ -3,7 +3,7 @@ import time
 import random
 
 BURST_UE_COUNT = 4
-BURST_DURATION = 600  # 10 min
+BURST_DURATION = random.randint(300, 600)  # 10 min
 
 print(f"⚡ Starting UC4: Short Burst Sessions with {BURST_UE_COUNT} UEs")
 

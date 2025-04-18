@@ -31,8 +31,9 @@ docker compose -f nr-gnb.yaml up -d && docker container attach nr_gnb
 docker compose -f nr-UEs/nr-ue1.yaml -p ues up --build -d
 
 # UC 1 - 6
+
+# Obnova databázy
 ```
-
-
+docker cp ./mongodb_backup/open5gs mongo:/data/backup/open5gs
+docker exec -it mongo mongorestore --uri="mongodb://localhost:27017" /data/backup/open5gs
 ```
-

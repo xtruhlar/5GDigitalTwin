@@ -1,16 +1,16 @@
 FROM python:3.11-slim
 
-# Install dependencies
+# Nainštalujeme potrebné knižnice
 RUN pip install flask prometheus_client pygtail
 
-# Set working directory
+# Nastavíme pracovný adresár
 WORKDIR /app
 
-# Copy the Python file into the image
+# Skopírujeme Python súbor do obrazu
 COPY log_watcher.py .
 
-# Expose the port
+# Otvoríme port
 EXPOSE 9000
 
-# Run the script
+# Spustíme skript
 CMD ["python", "log_watcher.py"]

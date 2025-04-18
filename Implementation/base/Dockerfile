@@ -1,29 +1,3 @@
-# BSD 2-Clause License
-
-# Copyright (c) 2020, Supreeth Herle
-# All rights reserved.
-
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are met:
-
-# 1. Redistributions of source code must retain the above copyright notice, this
-#    list of conditions and the following disclaimer.
-
-# 2. Redistributions in binary form must reproduce the above copyright notice,
-#    this list of conditions and the following disclaimer in the documentation
-#    and/or other materials provided with the distribution.
-
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 FROM ubuntu:focal AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -122,10 +96,6 @@ RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg -
 
 RUN update-ca-certificates
 
-# Install NetData
-#RUN wget -O /tmp/netdata-kickstart.sh https://get.netdata.cloud/kickstart.sh && \
-#    sh /tmp/netdata-kickstart.sh --stable-channel --claim-token 5DrPhEWt5BiQFuALvfSYO0j16QcUsbnkGvi86tWvnMJTi9zB208VIST-9KW9dMMGpwi1Kxz7oSls2_X6E7ggDWCkpMuaMaIfquYdEvtmxJkPDc2i0C3DtmynLccVxAHRNu909h4 --claim-rooms d655de6e-b3e1-4a89-ac8a-d6f94a6bc10b --claim-url https://app.netdata.cloud
-
 COPY --from=builder /open5gs/install/bin /open5gs/install/bin
 COPY --from=builder /open5gs/install/etc /open5gs/install/etc
 COPY --from=builder /open5gs/install/include /open5gs/install/include
@@ -133,8 +103,9 @@ COPY --from=builder /open5gs/install/lib /open5gs/install/lib
 COPY --from=builder /open5gs/webui /open5gs/webui
 COPY --from=builder /open5gs/misc/db /open5gs/misc/db
 
-# Set the working directory to open5gs
 WORKDIR /open5gs
 
 COPY open5gs_init.sh /
 CMD ["/bin/bash", "-c", "/open5gs_init.sh"]
+
+# BSD 2-Clause License | Copyright © 2020 Supreeth Herle | All rights reserved.

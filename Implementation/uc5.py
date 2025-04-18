@@ -1,8 +1,9 @@
 import time
 import subprocess
+import random
 
 UC5_UE_COUNT = 4
-UC5_DURATION = 600  # 5 minút
+UC5_DURATION = random.randint(300, 600)  # 10 min
 
 print(f"🚨 Starting UC5: Load Registration Anomaly with {UC5_UE_COUNT} UEs")
 

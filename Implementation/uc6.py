@@ -1,10 +1,11 @@
 import time
+import random
 import subprocess
 
 AUTH_FAIL_UE_ID = 100  # predpokladáme, že pre UC6 máš vytvorený samostatný súbor (napr. s nevalidným IMSI)
-AUTH_FAIL_RETRIES = 5  # max 5 pokusov
-AUTH_FAIL_INTERVAL = 30  # každých 30s nový pokus
-AUTH_FAIL_DURATION = 120  # 2 minúty max
+AUTH_FAIL_RETRIES = random.randint(3, 6)  # max 5 pokusov
+AUTH_FAIL_INTERVAL = random.randint(20, 40)  # každých 30s nový pokus
+AUTH_FAIL_DURATION = random.randint(120, 300)  # 10 min
 
 print(f"🔒 Starting UC6: Authentication Failure Alert (max {AUTH_FAIL_RETRIES} retries)")
 
