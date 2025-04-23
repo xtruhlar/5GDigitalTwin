@@ -3,16 +3,17 @@ import time
 import random
 
 UE_COUNT = 4
-SESSION_DURATION = 600 
+# SESSION_DURATION = 600 
+SESSION_DURATION = random.randint(60, 120)  # 10 min
 DOWNLOAD_INTERVAL_MIN = 5
 DOWNLOAD_INTERVAL_MAX = 25
 
 print(f"🌐 Starting Normal Surfing (UC1) with {UE_COUNT} UEs")
 
-with open("current_uc.txt", "w") as f:
+with open("data/current_uc.txt", "w") as f:
     f.write("uc1")
 
-# Na začiatku pripojme polovicu UE
+# 🌗 Na začiatku pripojme polovicu UE
 for i in range(1, UE_COUNT // 2 + 1):
     subprocess.run(["docker", "compose", "-f", f"nr-UEs/nr-ue{i}.yaml", "-p", "uc1", "up", "--build", "-d"])
     print(f"✅ UE{i} started")
@@ -31,19 +32,19 @@ while True:
         ue_name = f"nr_ue{i}"
 
         if ue_name in running_containers:
-            # Náhodné sťahovanie dát
+            # ⬇️ Náhodné sťahovanie dát
             if random.randint(0, 9) < 3:
                 data_mb = random.randint(5, 50)
                 print(f"📥 UE{i} downloading {data_mb}MB")
                 subprocess.run(["docker", "exec", "-d", ue_name, "bash", "-c", f"dd if=/dev/urandom bs=1M count={data_mb} of=/dev/null"])
                 print(f"✅ UE{i} finished downloading {data_mb}MB")
 
-            # Občasné odpojenie
+            # 👋🏻 Občasné odpojenie
             if random.randint(0, 99) < 30:
                 print(f"❌ UE{i} disconnecting...")
                 subprocess.run(["docker", "compose", "-f", f"nr-UEs/nr-ue{i}.yaml", "-p", "uc1", "down"])
         else:
-            # Občasné pripojenie
+            # 🙏 Občasné pripojenie
             if random.randint(0, 99) < 30:
                 print(f"🔌 UE{i} connecting...")
                 subprocess.run(["docker", "compose", "-f", f"nr-UEs/nr-ue{i}.yaml", "-p", "uc1", "up", "--build", "-d"])
@@ -55,5 +56,5 @@ while True:
 print("🛑 UC1 complete. Stopping all UEs...")
 subprocess.run(["docker", "compose", "-p", "uc1", "down"])
 
-with open("current_uc.txt", "w") as f:
-    f.write("no_uc")
+with open("data/current_uc.txt", "w") as f:
+    f.write("uc1")

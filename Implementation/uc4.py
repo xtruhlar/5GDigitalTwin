@@ -3,11 +3,12 @@ import time
 import random
 
 BURST_UE_COUNT = 4
-BURST_DURATION = random.randint(300, 600)  # 10 min
+# BURST_DURATION = random.randint(300, 600)  # 10 min
+BURST_DURATION = random.randint(60, 120)  # 10 min
 
 print(f"⚡ Starting UC4: Short Burst Sessions with {BURST_UE_COUNT} UEs")
 
-with open("current_uc.txt", "w") as f:
+with open("data/current_uc.txt", "w") as f:
     f.write("uc4")
 
 start_time = time.time()
@@ -23,5 +24,5 @@ while time.time() - start_time < BURST_DURATION:
 
 print("🛑 UC4 complete.")
 
-with open("current_uc.txt", "w") as f:
-    f.write("no_uc")
+with open("data/current_uc.txt", "w") as f:
+    f.write("uc1")

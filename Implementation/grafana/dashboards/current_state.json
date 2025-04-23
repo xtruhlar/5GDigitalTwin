@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 4,
   "links": [],
   "panels": [
     {
@@ -37,7 +37,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PA240B69645956401"
+        "uid": "PA870AD50B9C2860C"
       },
       "fieldConfig": {
         "defaults": {
@@ -109,7 +109,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -129,7 +129,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PA240B69645956401"
+        "uid": "PA870AD50B9C2860C"
       },
       "fieldConfig": {
         "defaults": {
@@ -201,7 +201,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -221,7 +221,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PA240B69645956401"
+        "uid": "PA870AD50B9C2860C"
       },
       "fieldConfig": {
         "defaults": {
@@ -280,7 +280,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 6,
+        "w": 4,
         "x": 9,
         "y": 1
       },
@@ -302,7 +302,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -318,7 +318,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -335,7 +335,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -352,7 +352,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -372,58 +372,51 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "PA240B69645956401"
+        "uid": "PA870AD50B9C2860C"
       },
+      "description": "Model with BatchNormalization",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "Base - the \"normal state\", there are a few connected UEs with possibility to disconnect or connect, the traffic is also in \"normal\""
+                },
+                "1": {
+                  "index": 1,
+                  "text": "Video Stream - All UEs are connected and 2 of them are downloading from 100MB to 200MB to simulate video stream"
+                },
+                "2": {
+                  "index": 2,
+                  "text": "Keep Alive - All UEs are connected and in regular intervals they send small amount of data (1MB) to simulate keep alive messages"
+                },
+                "3": {
+                  "index": 3,
+                  "text": "Short Burst Sessions - A random subset of 4 UEs initiates short data sessions, sending 2MB of random data during each session, with sessions starting and stopping at random intervals to simulate burst traffic patterns."
+                },
+                "4": {
+                  "index": 4,
+                  "text": "All at once - all UEs connects in very short time period and then they disconnect"
+                },
+                "5": {
+                  "index": 5,
+                  "text": "Auth Fail - One UE with wrong IMSI is trying to connect"
+                }
+              },
+              "type": "value"
             }
-          },
-          "mappings": [],
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -432,100 +425,52 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 6,
-        "x": 15,
+        "w": 8,
+        "x": 13,
         "y": 1
       },
       "id": 10,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 20
+        },
+        "textMode": "auto",
+        "wideLayout": true
       },
       "pluginVersion": "11.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "amf_session",
+          "expr": "classified_uc_class",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A",
           "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "fivegs_upffunction_upf_sessionnbr",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{job}}",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "fivegs_pcffunction_pa_sessionnbr",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{job}}",
-          "range": true,
-          "refId": "C",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "fivegs_smffunction_sm_sessionnbr",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{job}}",
-          "range": true,
-          "refId": "D",
-          "useBackend": false
         }
       ],
-      "title": "Panel Title",
-      "type": "timeseries"
+      "title": "Current State (classification)",
+      "type": "stat"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PA240B69645956401"
+        "uid": "PA870AD50B9C2860C"
       },
       "fieldConfig": {
         "defaults": {
@@ -590,12 +535,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "up{job!=\"mme\", job!=\"netdata\", instance!=\"host.docker.internal:9000\"}",
+          "expr": "up{job!=\"mme\", job!=\"logwatcher\", instance!=\"host.docker.internal:9000\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -613,7 +558,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PA240B69645956401"
+        "uid": "PA870AD50B9C2860C"
       },
       "fieldConfig": {
         "defaults": {
@@ -639,7 +584,7 @@
             "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 5,
+            "pointSize": 1,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -653,17 +598,52 @@
               "mode": "off"
             }
           },
-          "mappings": [],
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "purple",
+                  "index": 0,
+                  "text": "UC1"
+                },
+                "1": {
+                  "color": "blue",
+                  "index": 1,
+                  "text": "UC2"
+                },
+                "2": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "UC3"
+                },
+                "3": {
+                  "color": "yellow",
+                  "index": 3,
+                  "text": "UC4"
+                },
+                "4": {
+                  "color": "orange",
+                  "index": 4,
+                  "text": "UC5"
+                },
+                "5": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "UC6"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "max": 5.01,
+          "min": -0.01,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -671,12 +651,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 11,
+        "h": 8,
+        "w": 10,
         "x": 1,
         "y": 6
       },
-      "id": 5,
+      "id": 20,
       "options": {
         "legend": {
           "calcs": [],
@@ -694,61 +674,255 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "ue_registration_duration_seconds_avg",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "Avg",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "ue_registration_duration_seconds_min",
+          "expr": "classified_uc_class",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "Min",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "ue_registration_duration_seconds_max",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "Max",
+          "legendFormat": "Classified UC",
           "range": true,
           "refId": "C",
           "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA870AD50B9C2860C"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "true_uc_class",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Real UC",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
         }
       ],
-      "title": "Time of UE registration",
+      "title": "Classified UCs over time",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PA240B69645956401"
+        "uid": "PA870AD50B9C2860C"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 50
+              },
+              {
+                "color": "light-green",
+                "value": 75
+              },
+              {
+                "color": "green",
+                "value": 85
+              },
+              {
+                "color": "dark-green",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 11,
+        "y": 6
+      },
+      "id": 11,
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 0,
+        "namePlacement": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "manual",
+        "text": {},
+        "valueMode": "color"
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA870AD50B9C2860C"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "classified_uc_confidence * 100",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Confidence",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PA870AD50B9C2860C"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 13,
+        "y": 6
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA870AD50B9C2860C"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "model_loss",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Max",
+          "range": true,
+          "refId": "C",
+          "useBackend": false
+        }
+      ],
+      "title": "Model Loss",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 12,
+      "panels": [],
+      "title": "Selected features",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PA870AD50B9C2860C"
       },
       "fieldConfig": {
         "defaults": {
@@ -806,18 +980,18 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 11,
-        "x": 12,
-        "y": 6
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 15
       },
-      "id": 6,
+      "id": 13,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
           "mode": "single",
@@ -829,55 +1003,421 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "ue_session_duration_seconds_avg",
+          "expr": "fivegs_smffunction_sm_n4sessionreportsucc",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "Avg",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A",
           "useBackend": false
+        }
+      ],
+      "title": "fivegs_smffunction_sm_n4sessionreportsucc_value",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PA870AD50B9C2860C"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 15
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PA240B69645956401"
+            "uid": "PA870AD50B9C2860C"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "ue_session_duration_seconds_min",
+          "expr": "fivegs_pcffunction_pa_sessionnbr",
           "fullMetaSearch": false,
-          "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "Min",
+          "legendFormat": "__auto",
           "range": true,
-          "refId": "B",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PA240B69645956401"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "ue_session_duration_seconds_max",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "Max",
-          "range": true,
-          "refId": "C",
+          "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Time of UE session",
+      "title": "fivegs_pcffunction_pa_sessionnbr_value",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PA870AD50B9C2860C"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 15
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA870AD50B9C2860C"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "fivegs_pcffunction_pa_policysmassosucc",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "fivegs_pcffunction_pa_policysmassosucc_value",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PA870AD50B9C2860C"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 21
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA870AD50B9C2860C"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "fivegs_smffunction_sm_pdusessioncreationreq",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "fivegs_smffunction_sm_pdusessioncreationreq_value",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PA870AD50B9C2860C"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 21
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PA870AD50B9C2860C"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "fivegs_smffunction_sm_qos_flow_nbr",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "fivegs_smffunction_sm_qos_flow_nbr_value",
       "type": "timeseries"
     },
     {
@@ -890,16 +1430,16 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 11,
-        "x": 1,
-        "y": 11
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 21
       },
-      "id": 7,
+      "id": 19,
       "options": {
-        "dedupStrategy": "numbers",
+        "dedupStrategy": "none",
         "enableLogDetails": true,
-        "prettifyLogMessage": false,
+        "prettifyLogMessage": true,
         "showCommonLabels": false,
         "showLabels": false,
         "showTime": false,
@@ -914,54 +1454,12 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "builder",
-          "expr": "{filename=\"/mnt/logs/amf.log\"} != `[metrics]` != `LOCAL` != `UTC` != `daemon`",
+          "expr": "{job=\"open5gs\"}",
           "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "AMF Logs",
-      "type": "logs"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "P8E80F9AEF21F6940"
-      },
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 11,
-        "x": 12,
-        "y": 11
-      },
-      "id": 8,
-      "options": {
-        "dedupStrategy": "exact",
-        "enableLogDetails": false,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "11.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P8E80F9AEF21F6940"
-          },
-          "editorMode": "builder",
-          "expr": "{filename=\"/mnt/logs/amf.log\"} |= `WARNING`",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "AMF Warnings",
+      "title": "Logs",
       "type": "logs"
     }
   ],
@@ -980,6 +1478,6 @@
   "timezone": "browser",
   "title": "Current state Dash",
   "uid": "bei0qsvxus64ga",
-  "version": 32,
+  "version": 6,
   "weekStart": ""
 }

@@ -25,7 +25,7 @@ docker compose -f deploy-all.yaml up --build -d
 
 ```
 # UERANSIM gNB (RF simulated)
-docker compose -f nr-gnb.yaml up -d && docker container attach nr_gnb
+docker compose -f nr-gnb.yaml -p gnodeb up -d && docker container attach nr_gnb
 
 # UERANSIM NR-UE (RF simulated)
 docker compose -f nr-UEs/nr-ue1.yaml -p ues up --build -d
