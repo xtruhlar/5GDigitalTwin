@@ -2,10 +2,10 @@
 
 echo "🛑 Stopping UEs in parallel..."
 
-# Default number of UEs
-num_ues=100
+# 💯 Prednastavený počet UE
+num_ues=11
 
-# Parse command-line arguments
+# 💬 Spracovanie argumentov príkazového riadku
 while [[ "$#" -gt 0 ]]; do
   case $1 in
     --ues) num_ues="$2"; shift ;;
@@ -14,7 +14,7 @@ while [[ "$#" -gt 0 ]]; do
   shift
 done
 
-# Function to stop a single UE
+# 🛑 Funkcia na zastavenie UE
 stop_ue() {
   local ue_id=$1
   echo "🔻 Stopping nr-ue${ue_id}..."
@@ -22,13 +22,13 @@ stop_ue() {
   echo "✅ nr-ue${ue_id} stopped!"
 }
 
-# Loop to start threads for each UE
+# 🛑 Zastavenie všetkých UE v paralelných threadoch
 for ((i=1; i<=num_ues; i++)); do
   stop_ue "$i" &
   sleep 0.75
 done
 
-# Wait for all threads to complete
+# ⏳ Čakanie na dokončenie všetkých pozadí
 wait
 
 echo "✅ All UEs stopped in parallel!"

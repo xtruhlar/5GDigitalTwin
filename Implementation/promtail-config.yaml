@@ -3,11 +3,11 @@ server:
   grpc_listen_port: 0
 
 positions:
-  filename: /tmp/promtail-positions.yaml  # ✅ Safe temp path
+  filename: /tmp/promtail-positions.yaml
 
 
 clients:
-  - url: http://172.22.0.40:3100/loki/api/v1/push
+  - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
   - job_name: open5gs_amf

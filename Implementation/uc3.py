@@ -3,18 +3,19 @@ import time
 import random
 
 UE_COUNT = 4
-SESSION_DURATION = random.randint(300, 600)  # 10 min
+# SESSION_DURATION = random.randint(300, 600)  # 10 min
+SESSION_DURATION = random.randint(60, 120)  # 10 min
 PING_INTERVAL_MIN = 30
 PING_INTERVAL_MAX = 35
 TARGET_URL = "https://phet-dev.colorado.edu/html/build-an-atom/0.0.0-3/simple-text-only-test-page.html"
 
 print(f"📡 Starting Periodic Keep-Alive (UC3) with {UE_COUNT} UEs")
 
-with open("current_uc.txt", "w") as f:
+with open("data/current_uc.txt", "w") as f:
     f.write("uc3")
 
 
-# Spusti všetky UE
+# 🏁 Spusti všetky UE
 for i in range(1, UE_COUNT + 1):
     subprocess.run(["docker", "compose", "-f", f"nr-UEs/nr-ue{i}.yaml", "-p", "uc3", "up", "--build", "-d"])
     print(f"✅ UE{i} started")
@@ -42,5 +43,5 @@ print("🛑 UC3 complete. Stopping all UEs...")
 subprocess.run(["docker", "compose", "-p", "uc3", "down"])
 
 
-with open("current_uc.txt", "w") as f:
-    f.write("no_uc")
+with open("data/current_uc.txt", "w") as f:
+    f.write("uc1")

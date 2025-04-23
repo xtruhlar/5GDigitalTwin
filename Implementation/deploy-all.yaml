@@ -394,6 +394,7 @@ services:
     container_name: logwatcher
     volumes:
       - ./log:/open5gs/install/var/log/open5gs
+      - ./data:/app/data
     expose:
       - "9000"
     ports:

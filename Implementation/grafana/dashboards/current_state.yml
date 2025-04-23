@@ -4,4 +4,4 @@ providers:
   - name: current_state
     type: file
     options:
-      path: /etc/grafana/provisioning/dashboardsA
+      path: /etc/grafana/provisioning/dashboards
