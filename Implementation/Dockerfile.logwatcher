@@ -10,7 +10,11 @@ RUN pip install \
     pygtail \
     joblib \
     schedule \
-    pandas
+    pandas \
+    nbconvert \
+    nbformat \
+    jupyter \
+    prometheus-api-client
 
 # Nastavíme pracovný adresár
 WORKDIR /app
