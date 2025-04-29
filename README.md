@@ -18,7 +18,7 @@ Bachelor's thesis, Faculty of informatics and information technologies
 │           ├── 🟢 Risk assessment
 │           ├── 🔴 Experimental reproducibility and integration
 │           ├── 🔴 Sustainability and environmental impact
-│           ├── 🔴 Employability
+│           ├── 🟢 Employability
 │           ├── 🔴 Teamwork, diversity and inclusion
 │           └── 🟢 Conclusion
 │  
