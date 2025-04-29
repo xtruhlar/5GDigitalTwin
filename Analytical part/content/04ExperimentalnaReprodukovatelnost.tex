@@ -1,0 +1,23 @@
+\section{Experimentálna reprodukovateľnosť a integrácia}
+%Fáza inžinierstva riešení by mala byť vykonávaná s ohľadom na reprodukovateľnosť a systémovú integráciu a študenti by mali podrobne opísať, ako sa tejto otázke venovali. Pokiaľ nie sú špeciálne podmienky, kód, modely a dáta použité pri inžinierstve riešení by mali byť voľne dostupné. Modely strojového učenia by mali byť prezentované tak, aby umožňovali ďalšie využitie bez nutnosti rekvalifikácie. Tam, kde je to možné, použite riešenia v kontajneroch, ktoré zabezpečia použiteľnosť produktu alebo služby aj pri zmene základnej technológie. | 3 strany
+
+Pre zabezpečenie experimentálnej reprodukovateľnosti a jednoduchej integrácie bola zvolená kontajnerizovaná architektúra pomocou Docker a Docker Compose. Namiesto vytvárania vlastných konfiguračných súborov a obrazov bol použitý existujúci open-source repozitár \texttt{herlesupreeth/docker\_open5gs} \cite{herlesupreeth}, ktorý poskytuje dockerizované prostredie pre komponenty siete 5G vrátane \textbf{Open5GS}, \textbf{UERANSIM}, ako aj voliteľnej integrácie s \textbf{Prometheus} a \textbf{Grafana} na zber a vizualizáciu metrík.
+
+Repozitár bol naklonovaný z GitHubu a jednotlivé obrazy boli zostavené pomocou príkazov:
+
+
+Niektoré súbory z originálnej implementácie boli upravené pre potreby tohoto projektu. Do yaml súboru, ktorým sa spúšťali niektoré komponenty boli pridané ďalšie služby tak, aby stačil jeden príkaz pre spustenie všetkých komponentov.
+
+Do súboru \textbf{deploy-all.yaml} bola pridaná služba pre integráciu služby NetData \cite{netdata}. Najskôr bolo treba sa na službe zaregistrovať a vytvoriť pracovný priestor. NetData následne ponúka možnosť použiť ich API priamo pomocou Dockeru. 
+
+Spustenie kontajnerov bolo upravené tak, aby sa dalo spúšťať všetko jedným príkazom:
+
+\begin{lstlisting}[language=bash,caption={Build pre jednotlivé docker images}, style=bashstyle]
+docker compose -f deploy-all.yaml up --build -d
+\end{lstlisting}
+
+Táto voľba bola motivovaná cieľom maximalizovať znovupoužiteľnosť a minimalizovať konfiguračné chyby. Repozitár je aktívne udržiavaný a poskytuje konzistentné a overené nastavenia, ktoré výrazne urýchľujú vývojový proces. Hlavnou výhodou tohto prístupu je zníženie bariéry pre reprodukovateľnosť – akýkoľvek výskumník s podporovaným operačným systémom a Dockerom môže systém replikovať lokálne v priebehu niekoľkých minút. Nevýhodou je menšia kontrola nad interným nastavením kontajnerov, čo môže byť limitujúce pri pokročilejších úpravách.
+
+Pre účely monitorovania spotreby systémových zdrojov bola do architektúry doplnená open-source platforma \textbf{NetData}. Táto služba bola nainštalovaná priamo do Docker hosta a nakonfigurovaná na sledovanie jednotlivých kontajnerov cez dostupné Docker plug-iny. NetData poskytuje prehľad o využití \textbf{RAM}, \textbf{CPU}, \textbf{siete}, ako aj o \textbf{sieťovej komunikácii jednotlivých kontajnerov}, čo je kľúčové pre ladanie a optimalizáciu simulácií. 
+
+Monitorovanie pomocou NetData zvyšuje transparentnosť experimentálneho prostredia a umožňuje identifikovať úzke miesta pri spustení viacerých UEs alebo vysokom trafficu. Zároveň je vďaka tomu možné porovnávať výkonnostné profily experimentov medzi rôznymi behmi, čo je kľúčovým predpokladom pre experimentálnu reprodukovateľnosť.
