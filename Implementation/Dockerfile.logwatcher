@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-# Nainštalujeme potrebné knižnice
+# Install system dependencies
 RUN pip install \
     numpy==1.26.4 \
     tensorflow==2.19.0 \
@@ -16,14 +16,14 @@ RUN pip install \
     jupyter \
     prometheus-api-client
 
-# Nastavíme pracovný adresár
+# Set the working directory
 WORKDIR /app
 
-# Skopírujeme Python súbor do obrazu
+# Copy the Python file into the image
 COPY log_watcher.py .
 
-# Otvoríme port
+# Open the port
 EXPOSE 9000
 
-# Spustíme skript
-CMD ["python", "log_watcher.py"]
+# Run the script
+CMD ["python", "-u", "log_watcher.py"]
