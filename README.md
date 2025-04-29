@@ -17,7 +17,7 @@ Bachelor's thesis, Faculty of informatics and information technologies
 │           ├── 🟢 Solution overview - high level
 │           ├── 🟢 Risk assessment
 │           ├── 🔴 Experimental reproducibility and integration
-│           ├── 🔴 Sustainability and environmental impact
+│           ├── 🟢 Sustainability and environmental impact
 │           ├── 🟢 Employability
 │           ├── 🔴 Teamwork, diversity and inclusion
 │           └── 🟢 Conclusion
