@@ -11,22 +11,27 @@ Bachelor's thesis, Faculty of informatics and information technologies
 │   └── FIIT_BP_DT5G.pdf # Bachelor's thesis pdf document
 │           ├── 🔴 Technical Abstract
 │           ├── 🔴 Lay Summary
-│           ├── 🟢 Introduction
+│           ├── 🔴 Introduction
 │           ├── 🟢 Problem statement
 │           ├── 🟢 Technical literature review
 │           ├── 🟢 Solution overview - high level
 │           ├── 🟢 Risk assessment
 │           ├── 🔴 Experimental reproducibility and integration
-│           ├── 🟢 Sustainability and environmental impact
-│           ├── 🟢 Employability
+│           ├── 🔴 Sustainability and environmental impact
+│           ├── 🔴 Employability
 │           ├── 🔴 Teamwork, diversity and inclusion
-│           └── 🔴 Conclusion
+│           └── 🟢 Conclusion
 │  
 ├── Implementation
-│   ├── Herlesupreeth's dockerized Open5GS, UERANSIM and srsRAN - https://github.com/herlesupreeth/docker_open5gs
-│   ├── Deployed docker with Grafana and Prometheus, gNB and UE (UERANSIM), gBN and UE(non function) (srsRAN)
-│   └── Herlesupreeth's README.md
-│ 
+│       ├──  Core + RAN emulator ✅
+│       ├──  Data collector ✅
+│       ├──  Data Preprocessing ✅
+│       ├──  LSTM Models ✅
+│       ├──  Results with both synthetic and real data ✅
+│       ├──  Data visualization (Grafana, Prometheus, Loki) ✅
+│       ├──  Docker compose to every component ✅
+│       └──  User manual 🔴
+│
 └── README.md
 </pre>
 
