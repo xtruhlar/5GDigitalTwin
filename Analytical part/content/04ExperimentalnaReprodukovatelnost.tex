@@ -1,23 +1,46 @@
-\section{Experimentálna reprodukovateľnosť a integrácia}
-%Fáza inžinierstva riešení by mala byť vykonávaná s ohľadom na reprodukovateľnosť a systémovú integráciu a študenti by mali podrobne opísať, ako sa tejto otázke venovali. Pokiaľ nie sú špeciálne podmienky, kód, modely a dáta použité pri inžinierstve riešení by mali byť voľne dostupné. Modely strojového učenia by mali byť prezentované tak, aby umožňovali ďalšie využitie bez nutnosti rekvalifikácie. Tam, kde je to možné, použite riešenia v kontajneroch, ktoré zabezpečia použiteľnosť produktu alebo služby aj pri zmene základnej technológie. | 3 strany
+\section{Technická reprodukovateľnosť a integrácia}
 
-Pre zabezpečenie experimentálnej reprodukovateľnosti a jednoduchej integrácie bola zvolená kontajnerizovaná architektúra pomocou Docker a Docker Compose. Namiesto vytvárania vlastných konfiguračných súborov a obrazov bol použitý existujúci open-source repozitár \texttt{herlesupreeth/docker\_open5gs} \cite{herlesupreeth}, ktorý poskytuje dockerizované prostredie pre komponenty siete 5G vrátane \textbf{Open5GS}, \textbf{UERANSIM}, ako aj voliteľnej integrácie s \textbf{Prometheus} a \textbf{Grafana} na zber a vizualizáciu metrík.
+Navrhnuté riešenie DT 5G siete bolo navrhnuté s dôrazom na experimentálnu reprodukovateľnosť a jednoduché nasadenie. Celý projekt je dostupný vo verejnom repozitári na platforme GitHub\footnote{\url{https://github.com/xtruhlar/5GDigitalTwin}}, vrátane kompletného zdrojového kódu, Docker konfigurácie a skriptov pre real-time klasifikáciu.
 
-Repozitár bol naklonovaný z GitHubu a jednotlivé obrazy boli zostavené pomocou príkazov:
+K spusteniu základného systému stačí klonovanie repozitára pomocou \texttt{git clone}, pričom je potrebné, aby bol na cieľovom systéme nainštalovaný  git vo verzii 2.39.5 a  Docker vo verzii 28.0.1. Všetky závislosti sú zabudované do kontajnerov a celý systém je orchestrovaný pomocou \texttt{docker compose}. Po nakonfigurovaní premenných prostredia v súbore \texttt{.env} a inicializácii MongoDB databázy s preddefinovanými UE, sa systém spustí jedným príkazom:
 
+\begin{quote} \texttt{docker compose -f deploy-all.yaml up --build -d} \end{quote}
 
-Niektoré súbory z originálnej implementácie boli upravené pre potreby tohoto projektu. Do yaml súboru, ktorým sa spúšťali niektoré komponenty boli pridané ďalšie služby tak, aby stačil jeden príkaz pre spustenie všetkých komponentov.
+Po nasadení komponentov je možné cez webové rozhranie Open5GS (port 9999) overiť funkčnosť jadra siete a cez Grafanu (port 3000) vizualizovať stav siete v reálnom čase. Konfigurácia UERANSIM gNB a UEs je súčasťou repozitára a umožňuje simuláciu dynamického sieťového zaťaženia.
 
-Do súboru \textbf{deploy-all.yaml} bola pridaná služba pre integráciu služby NetData \cite{netdata}. Najskôr bolo treba sa na službe zaregistrovať a vytvoriť pracovný priestor. NetData následne ponúka možnosť použiť ich API priamo pomocou Dockeru. 
+\subsection*{Zber dát}
 
-Spustenie kontajnerov bolo upravené tak, aby sa dalo spúšťať všetko jedným príkazom:
+Zber dát pre trénovanie a testovanie klasifikačných modelov bol realizovaný samostatne pre syntetickú a reálnu prevádzku. V prípade syntetických dát boli experimenty plne automatizované: systém bežal v Docker Compose prostredí, pričom skript každú sekundu scrapoval metriky z Promethea, extrahoval informácie z logov Open5GS a zaznamenával aktívny stav zo súboru, ktorý obsahoval aktuálny UC. Každý riadok datasetu tak obsahoval timestamp, sieťové metriky, informácie o logoch a aktuálny label podľa spusteného UC.
 
-\begin{lstlisting}[language=bash,caption={Build pre jednotlivé docker images}, style=bashstyle]
-docker compose -f deploy-all.yaml up --build -d
-\end{lstlisting}
+Pri zbere reálnych dát bola situácia odlišná. Merania prebiehali v laboratórnom prostredí so skutočnými zariadeniami pripojenými do nezávislej 5G siete. Presný čas začiatku a konca každého používateľského scenára bol zaznamenaný manuálne. Po experimente boli všetky relevantné logy skopírované a vložené do preddefinovanej zložky, ktorú čítal ten istý skript. Na základe časového okna experimentu boli metriky zozbierané z Promethea a synchronizované s logmi. Pridávanie stĺpca s číslom UC do jednotlivých riadkov prebiehalo podľa známeho začiatku a konca testovaného UC. Tým bola zabezpečená konzistentnosť medzi stavom siete a cieľovou premennou modelu.
 
-Táto voľba bola motivovaná cieľom maximalizovať znovupoužiteľnosť a minimalizovať konfiguračné chyby. Repozitár je aktívne udržiavaný a poskytuje konzistentné a overené nastavenia, ktoré výrazne urýchľujú vývojový proces. Hlavnou výhodou tohto prístupu je zníženie bariéry pre reprodukovateľnosť – akýkoľvek výskumník s podporovaným operačným systémom a Dockerom môže systém replikovať lokálne v priebehu niekoľkých minút. Nevýhodou je menšia kontrola nad interným nastavením kontajnerov, čo môže byť limitujúce pri pokročilejších úpravách.
+Finálny dataset pre každý experiment bol exportovaný vo formáte CSV, pričom štruktúra bola zhodná pre syntetické aj reálne dáta.
 
-Pre účely monitorovania spotreby systémových zdrojov bola do architektúry doplnená open-source platforma \textbf{NetData}. Táto služba bola nainštalovaná priamo do Docker hosta a nakonfigurovaná na sledovanie jednotlivých kontajnerov cez dostupné Docker plug-iny. NetData poskytuje prehľad o využití \textbf{RAM}, \textbf{CPU}, \textbf{siete}, ako aj o \textbf{sieťovej komunikácii jednotlivých kontajnerov}, čo je kľúčové pre ladanie a optimalizáciu simulácií. 
+\subsection*{Trénovanie modelov a použitie výstupov}
 
-Monitorovanie pomocou NetData zvyšuje transparentnosť experimentálneho prostredia a umožňuje identifikovať úzke miesta pri spustení viacerých UEs alebo vysokom trafficu. Zároveň je vďaka tomu možné porovnávať výkonnostné profily experimentov medzi rôznymi behmi, čo je kľúčovým predpokladom pre experimentálnu reprodukovateľnosť.
+Na zabezpečenie rovnakých výsledkov trénovania boli dodržané nasledovné podmienky:
+
+\begin{itemize}
+  \item vo všetkých notebookoch sú fixované \textbf{seed hodnoty}, veľkosť \textbf{batchu}, \textbf{počet epoch}, \textbf{architektúra modelu} a \textbf{stratifikované rozdelenie datasetu},
+  \item krok 1: spustenie \texttt{EDA\_feature\_selection.ipynb}, ktorý vytvorí súbor \\ \texttt{selected\_features.json},
+  \item krok 2: spustenie \texttt{dataset\_processing.ipynb}, ktorý vygeneruje \texttt{X\_scaled.npy}, \texttt{y\_labels.npy} a \texttt{scaler.joblib},
+  \item krok 3: spustenie \texttt{00LSTM\_preprocessing.ipynb}, ktorý sekvenuje dáta a exportuje ich vo formáte \texttt{X\_train.npy}, \texttt{y\_train.npy}, \texttt{X\_test.npy}, \texttt{y\_test.npy},
+  \item krok 4: trénovanie modelov pomocou \texttt{01–04LSTM\_*.ipynb} na syntetických dátach,
+  \item krok 5: vyhodnotenie na reálnych dátach v \texttt{05LSTM\_results\_real\_data.ipynb},
+\end{itemize}
+
+Predtrénované modely sú uložené v \\ \texttt{/5GDigitalTwin/Implementation/data/Model/trained\_models}.
+
+\subsection*{Real-time klasifikácia a online fine-tunning}
+
+Kľúčovým komponentom riešenia je vlastný skript \texttt{log\_watcher.py}, ktorý slúži nielen na spracovanie logov z Open5GS (AMF), ale aj na priebežnú predikciu aktuálneho UC pomocou LSTM modelu a jeho online fine-tunning na najnovších dátach. Skript beží ako samostatný proces v jednom z Docker kontajnerov a je automaticky spúšťaný pri štarte systému.
+
+Každú sekundu skript načíta nové riadky z logov pomocou \texttt{pygtail}, extrahuje stav jednotlivých UE zariadení (registrácia, deregistrácia, trvanie relácií) a z týchto údajov vypočítava vlastné metriky. Zároveň načíta posledných 60 záznamov z generovaného CSV súboru, normalizuje ich, a použije ako vstup do už natrénovaného LSTM modelu. Výsledná predikcia je exportovaná ako vlastná Prometheus metrika spolu s dôverou predikcie a stratou (loss) počas tréningu.
+
+\subsection*{Simulácia používateľských scenárov}
+
+Na automatizovanú simuláciu používateľských scenárov (UCs) bol vytvorený skript \texttt{running\_network.py}, ktorý náhodne vyberá a spúšťa jednotlivé scenáre zo súborov \texttt{uc1.py} až \texttt{uc6.py}. Každý z týchto šiestich skriptov reprezentuje špecifický typ zaťaženia 5G siete, ako napríklad opakovanú registráciu používateľov, sťahovanie veľkého objemu dát, dlhodobé pripojenie s minimálnou aktivitou či anomálnu autentizáciu.
+
+Skript \texttt{running\_network.py} funguje ako orchestrátor – každých niekoľko minút náhodne vyberie niektorý z UC skriptov, spustí ho v pozadí ako samostatný proces a následne ho po skončení ukončí. Informáciu o aktuálne bežiacom scenári zapisuje do súboru, ktorý slúži ako jediný zdroj pravdy pre labelovanie zberaných metrických dát počas trvania experimentu.
+
+Každý \texttt{ucX.py} skript (kde \( X \in \{1, \dots, 6\} \)) obsahuje definíciu počtu zariadení, konfiguráciu ich sieťového zaťaženia a dĺžku trvania simulácie. Scenáre boli navrhnuté tak, aby pokrývali reprezentatívne prípady bežnej aj abnormálnej prevádzky v 5G sieti. Táto architektúra umožňuje nielen spoľahlivý zber syntetických dát, ale aj jednoduché rozšírenie systému o ďalšie prípady použitia bez zásahu do zvyšku infraštruktúry.
