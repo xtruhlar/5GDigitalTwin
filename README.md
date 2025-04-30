@@ -8,7 +8,8 @@ Bachelor's thesis, Faculty of informatics and information technologies
 #### Platform compatibility
 This project was tested on:
 - macOS Sequoya Version 15.4 (24E248)
-- Windows 11 Home (Docker desktop + WSL2)
+- Ubuntu 22.04.3 LTS (Jammy Jellyfish)
+- Windows is not supported (EOF is not compatible with Windows)
 
 #### Prerequisites
 - git (version 2.39.5)
@@ -22,7 +23,7 @@ cd 5GDigitalTwin/Implementation
 
 #### Step 2: Build Docker images
 ```bash
-cd /base
+cd ./base
 docker build -t docker_open5gs .
 
 cd ../ueransim
