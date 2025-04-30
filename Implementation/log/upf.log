@@ -7960,3 +7960,14 @@ Open5GS daemon v2.7.2-131-g04ec945
 04/30 16:34:42.608: [app] INFO: UPF initialize...done (../src/upf/app.c:31)
 04/30 16:34:42.693: [upf] INFO: PFCP associated [172.22.0.7]:8805 (../src/upf/pfcp-sm.c:184)
 04/30 16:34:45.116: [upf] WARNING: PFCP[RSP] has already been associated [172.22.0.7]:8805 (../src/upf/pfcp-sm.c:277)
+Open5GS daemon v2.7.2-131-g04ec945
+
+04/30 17:41:14.522: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/upf.yaml' (../lib/app/ogs-init.c:144)
+04/30 17:41:14.522: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/upf.log' (../lib/app/ogs-init.c:147)
+04/30 17:41:14.571: [metrics] INFO: metrics_server() [http://172.22.0.8]:9091 (../lib/metrics/prometheus/context.c:299)
+04/30 17:41:14.571: [pfcp] INFO: pfcp_server() [172.22.0.8]:8805 (../lib/pfcp/path.c:30)
+04/30 17:41:14.571: [pfcp] INFO: ogs_pfcp_connect() [172.22.0.7]:8805 (../lib/pfcp/path.c:61)
+04/30 17:41:14.571: [gtp] INFO: gtp_server() [172.22.0.8]:2152 (../lib/gtp/path.c:30)
+04/30 17:41:14.572: [app] INFO: UPF initialize...done (../src/upf/app.c:31)
+04/30 17:41:14.572: [upf] INFO: PFCP associated [172.22.0.7]:8805 (../src/upf/pfcp-sm.c:184)
+04/30 17:41:17.060: [upf] WARNING: PFCP[REQ] has already been associated [172.22.0.7]:8805 (../src/upf/pfcp-sm.c:270)
