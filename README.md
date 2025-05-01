@@ -81,7 +81,7 @@ Open menu on the left, click on `Dashboards`. Select `Current state Dash` and yo
 │   └── FIIT_BP_DT5G.pdf # Bachelor's thesis pdf document
 │           ├── 🔴 Technical Abstract
 │           ├── 🔴 Lay Summary
-│           ├── 🔴 Introduction
+│           ├── 🟢 Introduction
 │           ├── 🟢 Problem statement
 │           ├── 🟢 Technical literature review
 │           ├── 🟢 Solution overview - high level
