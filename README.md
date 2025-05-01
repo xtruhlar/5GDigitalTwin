@@ -55,7 +55,7 @@ docker exec -it mongo mongorestore --uri="mongodb://localhost:27017" --db open5g
 
 To ensure everything work properly open http://localhost:9999/ in your browser and login using credentials:
 	
-Login: `admin`
+Login: `admin`  
 Password: `1423`
 
 #### Step 6: Connect UERANSIM gNB to Open5GS Core
@@ -70,7 +70,7 @@ docker compose -f nr-UEs/nr-ue1.yaml -p ues up --build -d
 
 Then go to Grafana, open http://localhost:3000/ in your browser and login using credentials:
 	
-Login: `open5gs`
+Login: `open5gs`  
 Password: `open5gs`
 
 Open menu on the left, click on `Dashboards`. Select `Current state Dash` and you can see the current state of your 5G network.
@@ -93,4 +93,7 @@ Open menu on the left, click on `Dashboards`. Select `Current state Dash` and yo
 │           ├── 🟢 Employability
 │           ├── 🟢 Teamwork, diversity and inclusion
 │           └── 🟢 Conclusion
+|       ├── 🟢 Appendix: Time Shedule
+│       └── 🟢 Appendix: User manual
+
 </pre>
