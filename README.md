@@ -34,6 +34,8 @@ cd ..
 
 #### Step 3: Set `.env` variables
 ```bash
+cp .env.example .env
+
 set -a
 source .env
 set +a
