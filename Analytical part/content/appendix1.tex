@@ -8,143 +8,81 @@
 
 \begin{refsegment}
 
-\section{Inštalácia}
-Jednotlivé komponenty stiahneme z GitHub repozitára a následne ich zostavíme pomocou príkazov:
-\begin{lstlisting}[language=bash,caption={Zostavovanie jednotlivých komponentov}, style=bashstyle]
-# open5gs EPC/5GC komponenty
-git clone https://github.com/herlesupreeth/docker_open5gs
-cd docker_open5gs/base
-docker build --no-cache --force-rm -t docker_open5gs .
+\section*{Používateľská príručka}
 
-# kamailio IMS komponenty
-cd ../ims_base
-docker build --no-cache --force-rm -t docker_kamailio .
+\subsection*{Platformy a kompatibilita}
+\begin{itemize}
+  \item macOS Sequoia 15.4
+  \item Ubuntu 22.04.3 LTS
+  \item Windows 11 Home s nainštalovaným WSL2
+\end{itemize}
 
-# srsRAN_4G eNB + srsUE (4G+5G)
-cd ../srslte
-docker build --no-cache --force-rm -t docker_srslte .
+\subsection*{Požiadavky}
+Git (verzia 2.39.5), Docker (verzia 28.0.1)
 
-# srsRAN_Project gNB
-cd ../srsran
-docker build --no-cache --force-rm -t docker_srsran .
 
-# UERANSIM (gNB + UE)
-cd ../ueransim
-docker build --no-cache --force-rm -t docker_ueransim .
-\end{lstlisting}
+\subsection*{Inštalácia a spustenie systému}
+\begin{enumerate}
+  \item Klonujte repozitár a prejdite do adresára projektu:
+  \begin{verbatim}
+  git clone https://github.com/xtruhlar/5GDigitalTwin.git
+  cd 5GDigitalTwin/Implementation
+  \end{verbatim}
 
-\subsection{NetData}
-Nato aby sme mohli službu NetData integrovať do našeho projektu, je potrebné pridať túto časť kódu do \textbf{docker-compose} súboru:
+  \item Vytvorte Docker obrazy:
+  \begin{verbatim}
+  cd ./base
+  docker build -t docker_open5gs .
 
-\begin{lstlisting}[language=bash,caption={Integrácia služby NetData}, style=docker]
-# --- Existujuci kod ---
-  netdata:
-    image: netdata/netdata:edge
-    container_name: netdata
-    ports:
-      - "19999:19999"
-    restart: always
-    cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - apparmor:unconfined
-    volumes:
-      - netdataconfig:/etc/netdata
-      - netdatalib:/var/lib/netdata
-      - netdatacache:/var/cache/netdata
-      - /etc/passwd:/host/etc/passwd:ro
-      - /etc/group:/host/etc/group:ro
-      - /etc/localtime:/etc/localtime:ro
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /etc/os-release:/host/etc/os-release:ro
-      - /var/log:/host/var/log:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /run/dbus:/run/dbus:ro
-    environment:
-      - NETDATA_CLAIM_TOKEN=${NETDATA_CLAIM_TOKEN}
-      - NETDATA_CLAIM_URL=${NETDATA_CLAIM_URL}
-      - NETDATA_CLAIM_ROOMS=${NETDATA_CLAIM_ROOMS}
-    networks:
-      default:
-        ipv4_address: ${NETDATA_IP}
-# --- Existujuci kod ---
-\end{lstlisting}
+  cd ../ueransim
+  docker build -t docker_ueransim .
 
-\section{Premenné prostredia}
-V súbore \textbf{.env} sú definované globálne premenné, ktoré sú používane naprieč všetkými komponentami. Ďalej v súbore \textbf{.env} sú taktiež definované jednotlivé parametre UE zariadení, s ktorými v práci pracujeme.
+  cd ..
+  \end{verbatim}
 
-\begin{lstlisting}[language=bash,caption={Súbor .env}, style=env]
-MCC=001
-MNC=01
-TEST_NETWORK=172.22.0.0/24
-DOCKER_HOST_IP=192.168.1.223
+  \item Nastavte premenné prostredia:
+  \begin{verbatim}
+  cp .env.example .env
 
-# MONGODB
-MONGO_IP=172.22.0.2
+  set -a
+  source .env
+  set +a
+  \end{verbatim}
 
-# ...
+  \item Spustite celý systém pomocou Docker Compose:
+  \begin{verbatim}
+  docker compose -f deploy-all.yaml up --build -d
+  \end{verbatim}
 
-# UERANSIM
-NR_GNB_IP=172.22.0.23
-NR_UE1_IP=172.22.0.24
-UE1_IMSI=001011234567895
-UE1_KI=8baf473f2f8fd09487cccbd7097c6862
-UE1_OP=11111111111111111111111111111111
+  \item Naimportujte preddefinovaných účastníkov do MongoDB:
+  \begin{verbatim}
+  docker exec -it mongo mkdir -p /data/backup
+  docker cp ./mongodb_backup/open5gs mongo:/data/backup/open5gs
+  docker exec -it mongo mongorestore \ 
+    --uri="mongodb://localhost:27017" \
+    --db open5gs /data/backup/open5gs
+  \end{verbatim}
 
-# ...
+  \item Overte funkčnosť jadra siete cez Open5GS WebUI: \\ 
+  Otvorte \url{http://localhost:9999}  
+  Prihlásenie: \\ Meno: \texttt{admin} \\ Heslo: \texttt{1423}
 
-# NETDATA
-NETDATA_IP=172.22.0.41
-NETDATA_PORT=19999
-NETDATA_CLAIM_TOKEN=[Token]
-NETDATA_CLAIM_URL=https://app.netdata.cloud
-NETDATA_CLAIM_ROOMS=[Room]
-\end{lstlisting}
+  \item Spustite UERANSIM gNB:
+  \begin{verbatim}
+  docker compose -f nr-gnb.yaml -p gnodeb up -d && \
+    docker container attach nr_gnb
+  \end{verbatim}
 
-\section{Spustenie Open5gs Core komponentov}
-Pre spustenie jednotlivých komponentov je vytvorený súbor vo formáte yaml, ktorý zabezpečuje správne spustenie všetkých častí v správnom poradí a so správnym nastavením. Aby sa premenné prostredia dostali na správne miesto v konfiguračncýb súboroch je potrebné zabezpečiť, aby o nich prostredie vedelo. To zabezpečíme pomocou nasledovných príkazov:
+  \item Pripojte registrované zariadenie (UE):
+  \begin{verbatim}
+  docker compose -f nr-UEs/nr-ue1.yaml -p ues up --build -d
+  \end{verbatim}
 
-\begin{lstlisting}[language=bash,caption={Nastavenie zdroja premenných}, style=docker]
-set -a
-source .env
-set +a
-\end{lstlisting}
-
-Tieto príkazy musíme použiť pri každej zmene súboru .env. Následne môžeme pomocou nasledovného príkazu spustiť Open5gs komponenty ako AMF, AUSF, BSF, SMF, UPF a ďalšie. Navyše okrem hlavných komponentov yaml súbor obsahuje aj služby s metrikami ako Prometheus, Grafana a NetData ako aj WebUI:
-
-\begin{lstlisting}[language=bash,caption={Spustenie}, style=docker]
-docker compose -f deploy-all.yaml up --build
-\end{lstlisting}
-
-\section{Vytváranie a spúšťanie zariadení (UE)}
-Pre pridanie nového zariadenia (UE), je potrebné do súboru .env definovať následovné premenné:
-
-\begin{lstlisting}[language=bash,caption={Súbor .env - Pridanie UE}, style=env]
-UE${cislo}_IMEI=
-UE${cislo}_IMEISV=
-UE${cislo}_IMSI= 
-UE${cislo}_KI=
-UE${cislo}_OP= 
-UE${cislo}_AMF=
-\end{lstlisting}
-
-Definované premenné je potrebné zaregistrovať pomocou Open5gs Webui. Bežne Webui beží na porte 9999. Do webového prehliadača zadáme adresu localhost:9999. Pre prístup do databázy UE je potrebné sa prihlásiť používateľským menom a heslom a následne registrovať vytvorené UE.
-
-Meno: admin \\
-Heslo: 1423
-
-\section{Spustenie nr-gnb a nr-ue}
-Pre spustenie komponentov UERANSIM - gNB a UE zariadení je potrebné ako prvé spustiť kontajner pre nr-gnb. Na to použijeme následovný príkaz:
-
-\begin{lstlisting}[language=bash,caption={Spustenie nr-gnb}, style=docker]
-docker compose -f nr-gnb.yaml up -d
-\end{lstlisting}
-
-Následne môžeme spustiť docker kontajner so zariadením, je potrebné zabezpečiť aby yaml súbor zariadenia bol v priečinku nr-UEs.
-\begin{lstlisting}[language=bash,caption={Spustenie nr-ue}, style=docker]
-docker compose -f nr-UEs/nr-ue1.yaml up --build -d
-\end{lstlisting}
+  \item Vizualizácia klasifikovaného stavu 5G siete:  
+  Otvorte Grafanu na \url{http://localhost:3000}  
+  Prihlásenie:\\ Meno: \texttt{open5gs} \\ Heslo: \texttt{open5gs}  
+  \\Potom kliknite na \texttt{Dashboards → Current state Dash}
+\end{enumerate}
 
 % Bibliography
 \printbibliography[heading=referencessec,segment=\therefsegment,resetnumbers=true]
