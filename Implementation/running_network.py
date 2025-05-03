@@ -24,5 +24,5 @@ while True:
         print(f"❌ Error while running {selected_uc}: {e}")
         with open(log_file, "a") as log:
             log.write(f"{end_time} — Error while running {selected_uc}: {e}\n")
-    time.sleep(random.randint(60, 600))
+    time.sleep(random.randint(60, 120))
 

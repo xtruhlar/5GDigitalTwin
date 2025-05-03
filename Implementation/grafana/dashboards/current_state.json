@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -385,11 +385,11 @@
               "options": {
                 "0": {
                   "index": 0,
-                  "text": "Base - the \"normal state\", there are a few connected UEs with possibility to disconnect or connect, the traffic is also in \"normal\""
+                  "text": "Base - the \"normal state\", there are a few connected UEs with possibility to connect/disconnect, the traffic is in interval <2, 25> MB per session"
                 },
                 "1": {
                   "index": 1,
-                  "text": "Video Stream - All UEs are connected and 2 of them are downloading from 100MB to 200MB to simulate video stream"
+                  "text": "Video Stream - All UEs are connected and 2 of them are downloading <100, 200>MB to simulate video stream"
                 },
                 "2": {
                   "index": 2,
@@ -1478,6 +1478,6 @@
   "timezone": "browser",
   "title": "Current state Dash",
   "uid": "bei0qsvxus64ga",
-  "version": 8,
+  "version": 1,
   "weekStart": ""
 }

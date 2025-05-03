@@ -16,6 +16,10 @@ import numpy as np
 import pandas as pd
 import schedule
 import tensorflow as tf
+from tensorflow.keras.layers import Layer
+from tensorflow.keras import backend as K
+from tensorflow.keras import initializers
+from tensorflow.keras.models import load_model
 from nbconvert.preprocessors import ExecutePreprocessor
 from prometheus_client import Gauge, start_http_server
 from pygtail import Pygtail
@@ -27,12 +31,10 @@ LOOP_COUNTER = 0
 OUTPUT_FILE = "./data/running_data.csv"
 
 # Loading model and scaler
-MODEL_PATH = "/app/data/Model/trained_models/lstm_batchnorm_model.keras"
+MODEL_PATH = "/app/data/Model/trained_models/lstm_attention_model.keras"
 SCALER_PATH = "/app/data/Model/scaler.joblib"
 FEATURES_PATH = "/app/data/Model/selected_features.json"
 
-MODEL = tf.keras.models.load_model(MODEL_PATH, compile=False)
-MODEL.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 SCALER = joblib.load(SCALER_PATH)
 
 # Loading selected metrics
@@ -58,6 +60,30 @@ predicted_uc_metric = Gauge("classified_uc_class", "Classified current use case 
 true_uc_metric = Gauge("true_uc_class", "True current use case (UC) from data")
 model_loss = Gauge("model_loss", "Model loss during fine-tuning")
 predicted_uc_confidence = Gauge("classified_uc_confidence", "Confidence score of predicted use case")
+
+
+class AttentionLayer(Layer):
+    def __init__(self, **kwargs):
+        super(AttentionLayer, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        self.W = self.add_weight(name='att_weight', shape=(input_shape[-1], 1),
+                                 initializer='glorot_uniform', trainable=True)
+        self.b = self.add_weight(name='att_bias', shape=(input_shape[1], 1),
+                                 initializer='zeros', trainable=True)
+        super(AttentionLayer, self).build(input_shape)
+
+    def call(self, x):
+        e = K.tanh(K.dot(x, self.W) + self.b)  
+        a = K.softmax(e, axis=1)              
+        output = x * a                         
+        return K.sum(output, axis=1)           
+
+    def compute_output_shape(self, input_shape):
+        return (input_shape[0], input_shape[-1])
+    
+MODEL = load_model(MODEL_PATH, custom_objects={"AttentionLayer": AttentionLayer}, compile=False)
+MODEL.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 
 def truncate_running_data(csv_path, keep_last_n=SEQUENCE_LENGTH):

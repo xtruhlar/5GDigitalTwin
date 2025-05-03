@@ -7,9 +7,9 @@ Bachelor's thesis, Faculty of informatics and information technologies
 
 #### Platform compatibility
 This project was tested on:
-- macOS Sequoya Version 15.4 (24E248)
-- Ubuntu 22.04.3 LTS (Jammy Jellyfish)
-- Windows is not supported (EOF is not compatible with Windows)
+- macOS Sequoya Version 15.4 with Docker Desktop v4.40.0
+- Ubuntu 22.04.3 LTS (Jammy Jellyfish) with Docker v28.0.1
+- Windows 11 Home with WSL2 (Ubuntu 22.04.3 LTS) with Docker Desktop v4.40.0
 
 #### Prerequisites
 - git (version 2.39.5)
@@ -75,25 +75,5 @@ Password: `open5gs`
 
 Open menu on the left, click on `Dashboards`. Select `Current state Dash` and you can see the current state of your 5G network.
 
-### Repository structure
-<pre>
-.
-├── Analytical part
-│   ├── Overleaf components
-│   └── FIIT_BP_DT5G.pdf # Bachelor's thesis pdf document
-│           ├── 🔴 Technical Abstract
-│           ├── 🔴 Lay Summary
-│           ├── 🟢 Introduction
-│           ├── 🟢 Problem statement
-│           ├── 🟢 Technical literature review
-│           ├── 🟢 Solution overview - high level
-│           ├── 🟢 Risk assessment
-│           ├── 🟢 Experimental reproducibility and integration
-│           ├── 🟢 Sustainability and environmental impact
-│           ├── 🟢 Employability
-│           ├── 🟢 Teamwork, diversity and inclusion
-│           └── 🟢 Conclusion
-|       ├── 🟢 Appendix: Time Shedule
-│       └── 🟢 Appendix: User manual
-
-</pre>
+Example:  
+![Dashboard](images/dashboard.png)

@@ -23,7 +23,7 @@ for proc in processes:
 
 print("✅ All UEs connected nearly simultaneously.")
 print("🕒 Holding all connections for UC5 duration...")
-time.sleep(UC5_DURATION)
+time.sleep(5)
 
 print("🛑 UC5 complete. Stopping all UEs...")
 subprocess.run(["docker", "compose", "-p", "uc5", "down"])
