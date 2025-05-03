@@ -1,4 +1,4 @@
-lstm\_bathnorm\_model module
+LSTM BathNorm Model
 ============================
 
 .. automodule:: lstm_bathnorm_model

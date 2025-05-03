@@ -34,19 +34,21 @@ VERBOSE = 1
 
 
 def load_data(X_path, Y_path, scaler_path, features_path, uc_map_path):
-    """
-    Načíta vstupné dáta, škálovač, vybrané príznaky a mapu UC tried.
 
-    Parameters:
-        X_path (str): Cesta k súboru s X vstupmi (.npy)
-        Y_path (str): Cesta k súboru s y triedami (.npy)
-        scaler_path (str): Cesta k uloženému škálovaču
-        features_path (str): Cesta k JSON súboru s vybranými príznakmi
-        uc_map_path (str): Cesta k JSON súboru s mapovaním UC
-
-    Returns:
-        tuple: (X, y, scaler, selected_features, uc_map)
     """
+    Loads the preprocessed data from specified paths.
+
+    Args
+        - X_path (str): Path to the input features (X)
+        - Y_path (str): Path to the target labels (y)
+        - scaler_path (str): Path to the scaler object
+        - features_path (str): Path to the selected features JSON file
+        - uc_map_path (str): Path to the UC map JSON file
+
+    Returns
+        - tuple: (X, y, scaler, selected_features, uc_map)
+    """
+    
     X = np.load(X_path)
     y = np.load(Y_path)
     scaler = joblib.load(scaler_path)
@@ -61,6 +63,7 @@ def load_data(X_path, Y_path, scaler_path, features_path, uc_map_path):
 
 
 def create_sequences(X, y, seq_len):
+
     """
     Vytvorí sekvencie vstupných dát pre LSTM z kĺzavého okna.
 
@@ -72,6 +75,7 @@ def create_sequences(X, y, seq_len):
     Returns:
         tuple: (X_seq, y_seq) ako ndarray
     """
+
     Xs, ys = [], []
     for i in range(len(X) - seq_len):
         Xs.append(X[i:i+seq_len])
@@ -80,14 +84,19 @@ def create_sequences(X, y, seq_len):
 
 
 def split_and_save_data(X_seq, y_seq, output_dir="preprocessed_data"):
-    """
-    Rozdelí dáta na trénovaciu a testovaciu množinu a uloží ich.
 
-    Parameters:
-        X_seq (np.ndarray): Vstupné sekvencie
-        y_seq (np.ndarray): Výstupné triedy
-        output_dir (str): Adresár pre uloženie súborov
     """
+    Splits the dataset into training and testing sets and saves them to disk.
+
+    Args
+        - X_seq (np.ndarray): Input features in sequence format
+        - y_seq (np.ndarray): Target labels in sequence format
+        - output_dir (str): Directory to save the split data
+
+    Returns
+        None
+    """
+
     X_train, X_test, y_train, y_test = train_test_split(
         X_seq, y_seq, test_size=TEST_SIZE, random_state=SEED, stratify=y_seq
     )

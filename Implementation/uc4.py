@@ -1,8 +1,3 @@
-"""
-UC4 - Short Burst Sessions
-This script simulates short burst sessions for a specified number of UEs (User Equipment).
-"""
-
 import subprocess
 import time
 import random
@@ -14,8 +9,26 @@ BURST_DURATION = random.randint(300, 600)
 
 def run_uc4():
 
-    """Run the UC4 scenario with short burst sessions."""
+    """
+    Run UC4: Short Burst Sessions scenario.
 
+    Simulates multiple UEs initiating brief data sessions at random intervals. This pattern mimics sporadic, high-frequency user actions
+    (e.g. short API requests, fast-loading web content) in mobile networks.
+
+    Scenario Summary
+        - Randomly selects a UE out of 4 available.
+        - Starts a short Docker container session for the selected UE.
+        - Simulates a 2MB data transfer using `dd` inside the container.
+        - After 2–4 seconds, the UE container is stopped.
+        - Waits 3–6 seconds and repeats until the scenario duration ends.
+        - Marks current use case in 'data/current_uc.txt'.
+
+    Args
+        None
+
+    Returns
+        None
+    """
     print(f"⚡ Starting UC4: Short Burst Sessions with {BURST_UE_COUNT} UEs")
 
     with open("data/current_uc.txt", "w") as f:

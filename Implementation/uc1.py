@@ -1,8 +1,3 @@
-"""
-UC1 - Normal Surfing:
-Simulates user behavior involving intermittent connectivity and variable data downloads.
-"""
-
 import subprocess
 import time
 import random
@@ -15,7 +10,27 @@ DOWNLOAD_INTERVAL_MAX = 25
 
 def run_uc1():
 
-    """Run the UC1 scenario with randomized behavior."""
+    """
+    Run UC1: Normal Surfing scenario.
+
+    Simulates user behavior with intermittent UE connectivity and randomized data downloads
+    to mimic typical mobile web browsing patterns.
+
+    Scenario Summary
+        - Starts half of the UEs.
+        - UEs may
+            - download random chunks of data (5–50MB),
+            - randomly disconnect or reconnect during the session.
+        - The scenario runs for a randomized session duration (60–600 seconds).
+        - Active UEs are defined in `nr-ue{i}.yaml` Docker Compose files.
+        - Writes the current UC label to `data/current_uc.txt`.
+
+    Args
+        None
+
+    Returns
+        None
+    """
     
     print(f"🌐 Starting Normal Surfing (UC1) with {UE_COUNT} UEs")
     with open("data/current_uc.txt", "w") as f:

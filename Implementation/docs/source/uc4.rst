@@ -1,5 +1,5 @@
-uc4 module
-==========
+Short Burst Sessions
+====================
 
 .. automodule:: uc4
    :members:

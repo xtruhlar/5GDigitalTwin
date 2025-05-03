@@ -1,8 +1,3 @@
-"""
-Module for real-time classification of UC using logs from Open5GS AMF.
-Performs LSTM inference, confidence evaluation and online fine-tuning.
-"""
-
 # Standard libraries
 import argparse
 import glob
@@ -39,10 +34,43 @@ LOOP_COUNTER = 0
 OUTPUT_FILE = "./data/running_data.csv"
 
 class AttentionLayer(Layer):
+
+    """
+    Custom attention layer for LSTM model.
+    This layer computes the attention weights and applies them to the input sequence.
+
+    Args
+        - Layer (tf.keras.layers.Layer): Base class for all layers in Keras.
+
+    Returns
+        None
+    """
+
     def __init__(self, **kwargs):
+
+        """
+        Initialize the AttentionLayer.
+
+        Args
+            - **kwargs: Additional arguments for the layer.
+
+        Returns
+            None
+        """
+    
         super(AttentionLayer, self).__init__(**kwargs)
 
     def build(self, input_shape):
+
+        """
+        Create the attention weights and bias.
+
+        Args
+            - input_shape (tuple): Shape of the input tensor.
+
+        Returns
+            None
+        """
         self.W = self.add_weight(name='att_weight', shape=(input_shape[-1], 1),
                                  initializer='glorot_uniform', trainable=True)
         self.b = self.add_weight(name='att_bias', shape=(input_shape[1], 1),
@@ -50,12 +78,34 @@ class AttentionLayer(Layer):
         super(AttentionLayer, self).build(input_shape)
 
     def call(self, x):
+
+        """
+        Calculate the attention weights and apply them to the input sequence.
+
+        Args
+            - x (tensor): Input tensor of shape (batch_size, sequence_length, features).
+
+        Returns
+            - tensor: Output tensor of shape (batch_size, features).
+        """
+
         e = K.tanh(K.dot(x, self.W) + self.b)  
         a = K.softmax(e, axis=1)              
         output = x * a                         
         return K.sum(output, axis=1)           
 
     def compute_output_shape(self, input_shape):
+
+        """
+        Compute the output shape of the layer.
+
+        Args
+            - input_shape (tuple): Shape of the input tensor.
+
+        Returns
+            - tuple: Shape of the output tensor.
+        """
+
         return (input_shape[0], input_shape[-1])
 
 if not IS_DOC_BUILD:
@@ -65,7 +115,7 @@ if not IS_DOC_BUILD:
 
     try:
         with open(FEATURES_PATH, "r") as f:
-            FEATURES = json.load(f)["features"]
+            SELECTED_FEATURES = json.load(f)["features"]
 
         SCALER = joblib.load(SCALER_PATH)
         if not IS_DOC_BUILD:
@@ -80,11 +130,11 @@ if not IS_DOC_BUILD:
 
     except FileNotFoundError as e:
         print(f"❗ Required file not found during runtime: {e}")
-        FEATURES = []
+        SELECTED_FEATURES = []
         SCALER = None
         MODEL = None
 else:
-    FEATURES = []
+    SELECTED_FEATURES = []
     SCALER = None
     MODEL = None
 
@@ -112,7 +162,16 @@ predicted_uc_confidence = Gauge("classified_uc_confidence", "Confidence score of
 
 def truncate_running_data(csv_path, keep_last_n=SEQUENCE_LENGTH):
 
-    """Truncate the given CSV file to keep only the last `keep_last_n` rows."""
+    """
+    Truncate the CSV file to keep only the last `keep_last_n` records.
+
+    Args
+        - csv_path (str): Path to the CSV file.
+        - keep_last_n (int): Number of records to keep.
+
+    Returns
+        None
+    """
 
     try:
         df = pd.read_csv(csv_path)
@@ -126,7 +185,15 @@ def truncate_running_data(csv_path, keep_last_n=SEQUENCE_LENGTH):
 
 def run_notebook_in_thread():
 
-    """Run the main.ipynb notebook in a separate daemon thread."""
+    """
+    Run the main.ipynb notebook in a separate thread to avoid blocking the main loop.
+
+    Args
+        None
+
+    Returns
+        None
+    """
 
     thread = threading.Thread(target=run_main_notebook_with_backup)
     thread.daemon = True
@@ -135,7 +202,15 @@ def run_notebook_in_thread():
 
 def run_main_notebook_with_backup():
 
-    """Execute the main.ipynb notebook, log its execution, truncate CSV, and periodically create CSV backups."""
+    """
+    Execute the main.ipynb notebook, log its execution, truncate CSV, and periodically create CSV backups.
+    
+    Args
+        None
+
+    Returns
+        None
+    """
 
     global LOOP_COUNTER
     print("📓 main.ipynb loop...")
@@ -176,7 +251,15 @@ def run_main_notebook_with_backup():
 
 def predict_current_uc(latest_window_df):
 
-    """Predict the current use case (UC) using the loaded LSTM model based on the latest data window."""
+    """
+    Predict the current use case (UC) using the loaded LSTM model based on the latest data window.
+
+    Args
+        - latest_window_df (pd.DataFrame): DataFrame containing the latest data window.
+
+    Returns
+        - tuple: Predicted UC class and confidence score.
+    """
 
     if len(latest_window_df) < SEQUENCE_LENGTH:
         return -1, -1.0
@@ -195,7 +278,20 @@ def predict_current_uc(latest_window_df):
 
 def load_last_sequence(csv_path, selected_features, sequence_length=SEQUENCE_LENGTH):
 
-    """Load the last sequence of records from CSV, ensuring all required features and labels are present."""
+    """
+    Load the last sequence of records from CSV, ensuring all required features and labels are present.
+    
+    Args
+        - csv_path (str): Path to the CSV file.
+        - selected_features (list): List of features to select from the DataFrame.
+        - sequence_length (int): Length of the sequence to load.
+
+    Returns
+        - tuple: DataFrame with selected features and the correct labels.
+
+    Raises
+        - ValueError: If any of the selected features are missing in the DataFrame.
+    """
 
     try:
         df = pd.read_csv(csv_path)
@@ -226,7 +322,15 @@ def load_last_sequence(csv_path, selected_features, sequence_length=SEQUENCE_LEN
 
 def remove_offset():
 
-    """Remove the offset file used by Pygtail to start reading the log file from the beginning."""
+    """
+    Remove the offset file used by Pygtail to start reading the log file from the beginning.
+    
+    Args
+        None
+
+    Returns
+        None
+    """
 
     offset_file = f"{LOG_FILE}.offset"
     if os.path.exists(offset_file):
@@ -241,6 +345,13 @@ def parse_amf(lines, previous_state):
     """
     Parse AMF log lines to extract UE registration and deregistration events, 
     update UE states, and compute registration/session durations.
+
+    Args
+        - lines (list): List of log lines to parse.
+        - previous_state (dict): Previous state of UE details and durations.
+
+    Returns
+        - tuple: Updated UE details, new registration durations, and new session durations.
     """
 
     ue_details = previous_state["ue_details"]
@@ -357,7 +468,16 @@ def parse_amf(lines, previous_state):
 
 def save_model_with_date(model, path_prefix="/app/data/Model/Model_bn_"):
 
-    """Save the current model to disk with the current date as part of the filename."""
+    """
+    Save the current model to disk with the current date as part of the filename.
+    
+    Args
+        - model (tf.keras.Model): The model to save.
+        - path_prefix (str): Prefix for the filename.
+
+    Returns
+        None
+    """
 
     today = datetime.now().strftime("%Y-%m-%d")
     filename = f"{path_prefix}{today}.keras"
@@ -368,7 +488,17 @@ def save_model_with_date(model, path_prefix="/app/data/Model/Model_bn_"):
 
 def clean_old_models(directory="/app/data/Model", keep_last_n=7, pattern="Model_bn_*.keras"):
 
-    """Keep only the last `keep_last_n` saved model files and delete older ones."""
+    """
+    Keep only the last `keep_last_n` saved model files and delete older ones.
+    
+    Args
+        - directory (str): Directory containing the model files.
+        - keep_last_n (int): Number of recent models to keep.
+        - pattern (str): Pattern to match model files.
+
+    Returns
+        None
+    """
 
     files = sorted(glob.glob(os.path.join(directory, pattern)), key=os.path.getmtime, reverse=True)
     if len(files) > keep_last_n:
@@ -382,7 +512,16 @@ def clean_old_models(directory="/app/data/Model", keep_last_n=7, pattern="Model_
 
 def main_loop(interval=1, prometheus_port=9000):
 
-    """Main loop that monitors UE activity, parses logs, updates Prometheus metrics, and fine-tunes the model in real-time."""
+    """
+    Main loop that monitors UE activity, parses logs, updates Prometheus metrics, and fine-tunes the model in real-time.
+    
+    Args
+        - interval (int): Time interval for monitoring and updating metrics.
+        - prometheus_port (int): Port for Prometheus metrics.
+
+    Returns
+        None
+    """
     
     print(f"📡 Tracking UEs every {interval}s and exporting to Prometheus on port {prometheus_port}...\n")
     start_http_server(prometheus_port)

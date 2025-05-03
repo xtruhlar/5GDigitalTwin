@@ -3,9 +3,6 @@
 Welcome to the Digital Twin of 5G Network!
 ==========================================
 
-Contents
---------
-
 .. toctree::
    :maxdepth: 2
    :caption: Getting Started
@@ -14,7 +11,7 @@ Contents
    installation
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Use Cases
 
    uc1
@@ -25,7 +22,7 @@ Contents
    uc6
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Models
 
    lstm_attention_model
@@ -34,7 +31,7 @@ Contents
    lstm_results_real_data
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Data & Preprocessing
 
    eda
@@ -42,7 +39,7 @@ Contents
    lstm_preprocessing
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Infrastructure
 
    running_network

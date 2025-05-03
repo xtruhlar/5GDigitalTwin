@@ -26,7 +26,8 @@ release = '1.0'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'sphinx_autodoc_typehints'
+    'sphinx_autodoc_typehints',
+    'rst2pdf.pdfbuilder',
 ]
 
 templates_path = ['_templates']

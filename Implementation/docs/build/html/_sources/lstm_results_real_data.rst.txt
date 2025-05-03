@@ -1,5 +1,5 @@
-lstm\_results\_real\_data module
-================================
+Classify the real data using LSTM
+==================================
 
 .. automodule:: lstm_results_real_data
    :members:

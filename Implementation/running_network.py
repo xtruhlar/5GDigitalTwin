@@ -1,8 +1,3 @@
-"""
-Module for orchestrating UC simulations and logging their execution.
-Compatible with macOS, Linux and Windows.
-"""
-
 import subprocess
 import random
 import time
@@ -19,6 +14,12 @@ LOG_FILE = os.path.join(LOG_DIR, "log_execution.log")
 def init_log():
     """
     Initializes the log file and directory if needed.
+
+    Args
+        None
+
+    Returns
+        None
     """
     os.makedirs(LOG_DIR, exist_ok=True)
     with open(LOG_FILE, "a", encoding="utf-8") as log:
@@ -29,10 +30,12 @@ def run_simulation(script_name: str):
     """
     Runs the selected UC simulation and logs its outcome.
 
-    Args:
-        script_name (str): Name of the UC script to run.
+    Args
+        - script_name (str): Name of the UC script to run.
+
+    Returns
+        None
     """
-    start_time = datetime.now().isoformat()
     try:
         result = subprocess.run([sys.executable, script_name], check=True)
         end_time = datetime.now().isoformat()

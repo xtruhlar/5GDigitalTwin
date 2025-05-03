@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lstm_bathnorm_model module &mdash; Digital Twin of 5G Network 1.0 documentation</title>
+  <title>LSTM BathNorm Model &mdash; Digital Twin of 5G Network 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="lstm_results_real_data module" href="lstm_results_real_data.html" />
-    <link rel="prev" title="lstm_base_model module" href="lstm_base_model.html" /> 
+    <link rel="next" title="Classify the real data using LSTM" href="lstm_results_real_data.html" />
+    <link rel="prev" title="LSTM Base Model" href="lstm_base_model.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,33 +50,33 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="uc1.html">uc1 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc2.html">uc2 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc3.html">uc3 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc4.html">uc4 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc5.html">uc5 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc6.html">uc6 module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc1.html">Normal Surfing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc2.html">Video Streaming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc3.html">Periodic Keep-Alive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc4.html">Short Burst Sessions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc5.html">Load Registration Anomaly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc6.html">Authentication Failure Alert</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Models</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">lstm_attention_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">lstm_base_model module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">lstm_bathnorm_model module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">LSTM Model with Attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LSTM BathNorm Model</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#lstm_bathnorm_model.build_robust_model"><code class="docutils literal notranslate"><span class="pre">build_robust_model()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">lstm_results_real_data module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">Classify the real data using LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="eda.html">eda module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">add_current_uc module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">lstm_preprocessing module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">Label Real Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">Preprocess data for LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Infrastructure</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="running_network.html">running_network module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">log_watcher module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_network.html">Simulate a running network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">Main orchestrator</a></li>
 </ul>
 
         </div>
@@ -93,7 +93,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">lstm_bathnorm_model module</li>
+      <li class="breadcrumb-item active">LSTM BathNorm Model</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/lstm_bathnorm_model.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -104,7 +104,7 @@
            <div itemprop="articleBody">
              
   <section id="module-lstm_bathnorm_model">
-<span id="lstm-bathnorm-model-module"></span><h1>lstm_bathnorm_model module<a class="headerlink" href="#module-lstm_bathnorm_model" title="Link to this heading"></a></h1>
+<span id="lstm-bathnorm-model"></span><h1>LSTM BathNorm Model<a class="headerlink" href="#module-lstm_bathnorm_model" title="Link to this heading"></a></h1>
 <p>lstm_robust_model.py</p>
 <hr class="docutils" />
 <p>Trénovanie hlbokého LSTM modelu s viacerými vrstvami a dropoutmi
@@ -125,8 +125,8 @@ Používa sa na klasifikáciu UC tried na základe predspracovaných sekvenčný
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="lstm_base_model.html" class="btn btn-neutral float-left" title="lstm_base_model module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="lstm_results_real_data.html" class="btn btn-neutral float-right" title="lstm_results_real_data module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lstm_base_model.html" class="btn btn-neutral float-left" title="LSTM Base Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lstm_results_real_data.html" class="btn btn-neutral float-right" title="Classify the real data using LSTM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

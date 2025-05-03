@@ -1,5 +1,5 @@
-eda module
-==========
+Exploratory Data Analysis
+==========================
 
 .. automodule:: eda
    :members:

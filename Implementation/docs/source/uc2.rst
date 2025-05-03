@@ -1,5 +1,5 @@
-uc2 module
-==========
+Video Streaming
+===============
 
 .. automodule:: uc2
    :members:

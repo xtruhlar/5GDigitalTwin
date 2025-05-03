@@ -1,5 +1,5 @@
-running\_network module
-=======================
+Simulate a running network
+===========================
 
 .. automodule:: running_network
    :members:

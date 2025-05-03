@@ -1,8 +1,3 @@
-"""
-UC2 - Video Streaming:
-Simulate a video streaming session with 4 UEs.
-"""
-
 import subprocess
 import time
 import random
@@ -13,7 +8,24 @@ SESSION_DURATION = random.randint(300, 600)
 
 def run_uc2():
 
-    """Run the UC2 scenario with video streaming."""
+    """
+    Run UC2: Video Streaming scenario.
+
+    Simulates a typical video streaming session where all UEs continuously receive data.
+    This scenario helps to evaluate throughput and session stability under constant load.
+
+    Scenario Summary
+        - Starts 4 UEs using Docker Compose.
+        - Each UE downloads 2MB of random data every second.
+        - Streaming duration is randomized between 300 and 600 seconds.
+        - The UC label is logged into 'data/current_uc.txt'.
+
+    Args
+        None
+
+    Returns
+        None
+    """
 
     print(f"📺 Starting Video Streaming (UC2) with {UE_COUNT} UEs")
 

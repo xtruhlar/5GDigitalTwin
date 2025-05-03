@@ -1,5 +1,5 @@
-lstm\_attention\_model module
-=============================
+LSTM Model with Attention
+==========================
 
 .. automodule:: lstm_attention_model
    :members:

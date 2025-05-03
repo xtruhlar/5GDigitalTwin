@@ -1,4 +1,4 @@
-lstm\_base\_model module
+LSTM Base Model
 ========================
 
 .. automodule:: lstm_base_model

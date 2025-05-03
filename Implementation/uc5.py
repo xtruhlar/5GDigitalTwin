@@ -1,8 +1,3 @@
-"""
-UC5 - Load Registration Anomaly
-This script simulates a load registration anomaly by starting multiple UE instances
-"""
-
 import time
 import subprocess
 import random
@@ -13,8 +8,25 @@ UC5_DURATION = random.randint(300, 600)
 
 def run_uc5():
 
-    """Run the UC5 scenario with multiple UEs."""
+    """
+    Run UC5: Load Registration Anomaly scenario.
 
+    Simulates a stress event in the 5G network by concurrently connecting multiple UEs. This tests the network’s ability
+    to handle sudden, simultaneous registration attempts — a common anomaly in overloaded environments.
+
+    Scenario Summary
+        - Starts 4 UE containers simultaneously using `subprocess.Popen`.
+        - Waits for all containers to fully initialize.
+        - Holds all UE sessions active for a short time (5 seconds by default).
+        - Stops all containers simultaneously after the wait period.
+        - Logs scenario activity to 'data/current_uc.txt'.
+
+    Args
+        None
+
+    Returns
+        None
+    """
     print(f"🚨 Starting UC5: Load Registration Anomaly with {UC5_UE_COUNT} UEs")
 
     with open("data/current_uc.txt", "w") as f:

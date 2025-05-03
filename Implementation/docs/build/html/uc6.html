@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>uc6 module &mdash; Digital Twin of 5G Network 1.0 documentation</title>
+  <title>Authentication Failure Alert &mdash; Digital Twin of 5G Network 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="lstm_attention_model module" href="lstm_attention_model.html" />
-    <link rel="prev" title="uc5 module" href="uc5.html" /> 
+    <link rel="next" title="LSTM Model with Attention" href="lstm_attention_model.html" />
+    <link rel="prev" title="Load Registration Anomaly" href="uc5.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,33 +50,33 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="uc1.html">uc1 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc2.html">uc2 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc3.html">uc3 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc4.html">uc4 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc5.html">uc5 module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">uc6 module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="uc1.html">Normal Surfing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc2.html">Video Streaming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc3.html">Periodic Keep-Alive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc4.html">Short Burst Sessions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc5.html">Load Registration Anomaly</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Authentication Failure Alert</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#uc6.run_uc6"><code class="docutils literal notranslate"><span class="pre">run_uc6()</span></code></a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Models</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">lstm_attention_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">lstm_base_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">lstm_bathnorm_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">lstm_results_real_data module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">LSTM Model with Attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">Classify the real data using LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="eda.html">eda module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">add_current_uc module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">lstm_preprocessing module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">Label Real Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">Preprocess data for LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Infrastructure</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="running_network.html">running_network module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">log_watcher module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_network.html">Simulate a running network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">Main orchestrator</a></li>
 </ul>
 
         </div>
@@ -93,7 +93,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">uc6 module</li>
+      <li class="breadcrumb-item active">Authentication Failure Alert</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/uc6.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -104,13 +104,29 @@
            <div itemprop="articleBody">
              
   <section id="module-uc6">
-<span id="uc6-module"></span><h1>uc6 module<a class="headerlink" href="#module-uc6" title="Link to this heading"></a></h1>
-<p>UC6 - Authentication Failure Alert
-This script simulates an authentication failure for a UE (User Equipment) in a 5G network.</p>
+<span id="authentication-failure-alert"></span><h1>Authentication Failure Alert<a class="headerlink" href="#module-uc6" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="uc6.run_uc6">
 <span class="sig-prename descclassname"><span class="pre">uc6.</span></span><span class="sig-name descname"><span class="pre">run_uc6</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uc6.run_uc6" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Run UC6: Authentication Failure Alert scenario.</p>
+<p>Simulates an authentication failure event in a 5G network by repeatedly starting a misconfigured UE (User Equipment)
+that fails to register due to incorrect credentials or malformed configuration. This scenario is useful for testing
+network response to repeated failed attempts and monitoring for anomaly detection mechanisms.</p>
+<dl class="simple">
+<dt>Scenario Summary</dt><dd><ul class="simple">
+<li><p>Launches a specially prepared UE (ID=100) which is expected to fail authentication.</p></li>
+<li><p>Repeats the process a random number of times (3 to 6 retries).</p></li>
+<li><p>Between each attempt, the UE is stopped and a random interval (5–30 seconds) is observed.</p></li>
+<li><p>Total scenario duration is also bounded by a global timeout (120–300 seconds).</p></li>
+<li><p>All events are logged to the console and scenario type is saved to <cite>data/current_uc.txt</cite>.</p></li>
+</ul>
+</dd>
+<dt>Args</dt><dd><p>None</p>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 
@@ -118,8 +134,8 @@ This script simulates an authentication failure for a UE (User Equipment) in a 5
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="uc5.html" class="btn btn-neutral float-left" title="uc5 module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="lstm_attention_model.html" class="btn btn-neutral float-right" title="lstm_attention_model module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="uc5.html" class="btn btn-neutral float-left" title="Load Registration Anomaly" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lstm_attention_model.html" class="btn btn-neutral float-right" title="LSTM Model with Attention" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

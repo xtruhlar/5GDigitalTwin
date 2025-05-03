@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>running_network module &mdash; Digital Twin of 5G Network 1.0 documentation</title>
+  <title>Simulate a running network &mdash; Digital Twin of 5G Network 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="log_watcher module" href="log_watcher.html" />
-    <link rel="prev" title="lstm_preprocessing module" href="lstm_preprocessing.html" /> 
+    <link rel="next" title="Main orchestrator" href="log_watcher.html" />
+    <link rel="prev" title="Preprocess data for LSTM" href="lstm_preprocessing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,34 +50,34 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="uc1.html">uc1 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc2.html">uc2 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc3.html">uc3 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc4.html">uc4 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc5.html">uc5 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc6.html">uc6 module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc1.html">Normal Surfing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc2.html">Video Streaming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc3.html">Periodic Keep-Alive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc4.html">Short Burst Sessions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc5.html">Load Registration Anomaly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc6.html">Authentication Failure Alert</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Models</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">lstm_attention_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">lstm_base_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">lstm_bathnorm_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">lstm_results_real_data module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">LSTM Model with Attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">Classify the real data using LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="eda.html">eda module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">add_current_uc module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">lstm_preprocessing module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">Label Real Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">Preprocess data for LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Infrastructure</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">running_network module</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Simulate a running network</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#running_network.init_log"><code class="docutils literal notranslate"><span class="pre">init_log()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running_network.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">log_watcher module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">Main orchestrator</a></li>
 </ul>
 
         </div>
@@ -94,7 +94,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">running_network module</li>
+      <li class="breadcrumb-item active">Simulate a running network</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/running_network.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -105,22 +105,27 @@
            <div itemprop="articleBody">
              
   <section id="module-running_network">
-<span id="running-network-module"></span><h1>running_network module<a class="headerlink" href="#module-running_network" title="Link to this heading"></a></h1>
-<p>Module for orchestrating UC simulations and logging their execution.
-Compatible with macOS, Linux and Windows.</p>
+<span id="simulate-a-running-network"></span><h1>Simulate a running network<a class="headerlink" href="#module-running_network" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="running_network.init_log">
 <span class="sig-prename descclassname"><span class="pre">running_network.</span></span><span class="sig-name descname"><span class="pre">init_log</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#running_network.init_log" title="Link to this definition"></a></dt>
 <dd><p>Initializes the log file and directory if needed.</p>
+<dl class="simple">
+<dt>Args</dt><dd><p>None</p>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="running_network.run_simulation">
 <span class="sig-prename descclassname"><span class="pre">running_network.</span></span><span class="sig-name descname"><span class="pre">run_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#running_network.run_simulation" title="Link to this definition"></a></dt>
 <dd><p>Runs the selected UC simulation and logs its outcome.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>script_name</strong> (<em>str</em>) – Name of the UC script to run.</p>
+<dl class="simple">
+<dt>Args</dt><dd><p>script_name (str): Name of the UC script to run.</p>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -131,8 +136,8 @@ Compatible with macOS, Linux and Windows.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="lstm_preprocessing.html" class="btn btn-neutral float-left" title="lstm_preprocessing module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="log_watcher.html" class="btn btn-neutral float-right" title="log_watcher module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lstm_preprocessing.html" class="btn btn-neutral float-left" title="Preprocess data for LSTM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="log_watcher.html" class="btn btn-neutral float-right" title="Main orchestrator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

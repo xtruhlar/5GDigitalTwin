@@ -1,8 +1,3 @@
-"""
-UC6 - Authentication Failure Alert
-This script simulates an authentication failure for a UE (User Equipment) in a 5G network.
-"""
-
 import time
 import random
 import subprocess
@@ -14,6 +9,28 @@ AUTH_FAIL_INTERVAL = random.randint(5, 30)
 AUTH_FAIL_DURATION = random.randint(120, 300)
 
 def run_uc6():
+
+    """
+    Run UC6: Authentication Failure Alert scenario.
+
+    Simulates an authentication failure event in a 5G network by repeatedly starting a misconfigured UE (User Equipment)
+    that fails to register due to incorrect credentials or malformed configuration. This scenario is useful for testing 
+    network response to repeated failed attempts and monitoring for anomaly detection mechanisms.
+
+    Scenario Summary
+        - Launches a specially prepared UE (ID=100) which is expected to fail authentication.
+        - Repeats the process a random number of times (3 to 6 retries).
+        - Between each attempt, the UE is stopped and a random interval (5–30 seconds) is observed.
+        - Total scenario duration is also bounded by a global timeout (120–300 seconds).
+        - All events are logged to the console and scenario type is saved to `data/current_uc.txt`.
+
+    Args
+        None
+
+    Returns
+        None
+    """
+
     print(f"🔒 Starting UC6: Authentication Failure Alert (max {AUTH_FAIL_RETRIES} retries)")
 
     with open("data/current_uc.txt", "w") as f:

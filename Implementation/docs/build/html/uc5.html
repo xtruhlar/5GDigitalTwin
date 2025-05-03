@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>uc5 module &mdash; Digital Twin of 5G Network 1.0 documentation</title>
+  <title>Load Registration Anomaly &mdash; Digital Twin of 5G Network 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="uc6 module" href="uc6.html" />
-    <link rel="prev" title="uc4 module" href="uc4.html" /> 
+    <link rel="next" title="Authentication Failure Alert" href="uc6.html" />
+    <link rel="prev" title="Short Burst Sessions" href="uc4.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,33 +50,33 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="uc1.html">uc1 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc2.html">uc2 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc3.html">uc3 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc4.html">uc4 module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">uc5 module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="uc1.html">Normal Surfing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc2.html">Video Streaming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc3.html">Periodic Keep-Alive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc4.html">Short Burst Sessions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Load Registration Anomaly</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#uc5.run_uc5"><code class="docutils literal notranslate"><span class="pre">run_uc5()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="uc6.html">uc6 module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc6.html">Authentication Failure Alert</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Models</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">lstm_attention_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">lstm_base_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">lstm_bathnorm_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">lstm_results_real_data module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">LSTM Model with Attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">Classify the real data using LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="eda.html">eda module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">add_current_uc module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">lstm_preprocessing module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">Label Real Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">Preprocess data for LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Infrastructure</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="running_network.html">running_network module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">log_watcher module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_network.html">Simulate a running network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">Main orchestrator</a></li>
 </ul>
 
         </div>
@@ -93,7 +93,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">uc5 module</li>
+      <li class="breadcrumb-item active">Load Registration Anomaly</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/uc5.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -104,13 +104,27 @@
            <div itemprop="articleBody">
              
   <section id="module-uc5">
-<span id="uc5-module"></span><h1>uc5 module<a class="headerlink" href="#module-uc5" title="Link to this heading"></a></h1>
-<p>UC5 - Load Registration Anomaly
-This script simulates a load registration anomaly by starting multiple UE instances</p>
+<span id="load-registration-anomaly"></span><h1>Load Registration Anomaly<a class="headerlink" href="#module-uc5" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="uc5.run_uc5">
 <span class="sig-prename descclassname"><span class="pre">uc5.</span></span><span class="sig-name descname"><span class="pre">run_uc5</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uc5.run_uc5" title="Link to this definition"></a></dt>
-<dd><p>Run the UC5 scenario with multiple UEs.</p>
+<dd><p>Run UC5: Load Registration Anomaly scenario.</p>
+<p>Simulates a stress event in the 5G network by concurrently connecting multiple UEs. This tests the network’s ability
+to handle sudden, simultaneous registration attempts — a common anomaly in overloaded environments.</p>
+<dl class="simple">
+<dt>Scenario Summary</dt><dd><ul class="simple">
+<li><p>Starts 4 UE containers simultaneously using <cite>subprocess.Popen</cite>.</p></li>
+<li><p>Waits for all containers to fully initialize.</p></li>
+<li><p>Holds all UE sessions active for a short time (5 seconds by default).</p></li>
+<li><p>Stops all containers simultaneously after the wait period.</p></li>
+<li><p>Logs scenario activity to ‘data/current_uc.txt’.</p></li>
+</ul>
+</dd>
+<dt>Args</dt><dd><p>None</p>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -119,8 +133,8 @@ This script simulates a load registration anomaly by starting multiple UE instan
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="uc4.html" class="btn btn-neutral float-left" title="uc4 module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="uc6.html" class="btn btn-neutral float-right" title="uc6 module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="uc4.html" class="btn btn-neutral float-left" title="Short Burst Sessions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="uc6.html" class="btn btn-neutral float-right" title="Authentication Failure Alert" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,5 +1,5 @@
-lstm\_preprocessing module
-==========================
+Preprocess data for LSTM
+=========================
 
 .. automodule:: lstm_preprocessing
    :members:

@@ -1,5 +1,5 @@
-uc1 module
-==========
+Normal Surfing
+==============
 
 .. automodule:: uc1
    :members:

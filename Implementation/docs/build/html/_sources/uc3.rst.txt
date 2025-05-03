@@ -1,5 +1,5 @@
-uc3 module
-==========
+Periodic Keep-Alive
+===================
 
 .. automodule:: uc3
    :members:

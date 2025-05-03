@@ -1,8 +1,3 @@
-"""
-UC3 - Periodic Keep-Alive
-This script simulates a scenario where multiple User Equipment (UE) devices send periodic keep-alive pings to a target URL.
-"""
-
 import subprocess
 import time
 import random
@@ -16,7 +11,25 @@ TARGET_URL = "https://phet-dev.colorado.edu/html/build-an-atom/0.0.0-3/simple-te
 
 def run_uc3():
 
-    """Run the UC3 scenario with periodic keep-alive pings."""
+    """
+    Run UC3: Periodic Keep-Alive scenario.
+
+    Simulates multiple UEs that periodically send HTTP requests (keep-alive pings) to a remote server.
+    This pattern reflects real-world background traffic in mobile applications (e.g. chat apps, weather updates).
+
+    Scenario Summary
+        - Starts 4 UEs as containers using Docker Compose.
+        - Each UE sends periodic HTTP GET requests (via `curl`) to a predefined URL.
+        - The interval between pings is randomized between 30–35 seconds.
+        - Simulation duration is randomly set between 300–600 seconds.
+        - Scenario type is logged into 'data/current_uc.txt'.
+
+    Args
+        None
+        
+    Returns
+        None
+    """
     
     print(f"📡 Starting Periodic Keep-Alive (UC3) with {UE_COUNT} UEs")
 

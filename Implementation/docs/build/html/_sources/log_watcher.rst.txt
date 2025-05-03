@@ -1,5 +1,5 @@
-log\_watcher module
-===================
+Main orchestrator
+==================
 
 .. automodule:: log_watcher
    :members:

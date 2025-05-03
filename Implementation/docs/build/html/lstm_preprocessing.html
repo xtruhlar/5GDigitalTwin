@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lstm_preprocessing module &mdash; Digital Twin of 5G Network 1.0 documentation</title>
+  <title>Preprocess data for LSTM &mdash; Digital Twin of 5G Network 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="running_network module" href="running_network.html" />
-    <link rel="prev" title="add_current_uc module" href="add_current_uc.html" /> 
+    <link rel="next" title="Simulate a running network" href="running_network.html" />
+    <link rel="prev" title="Label Real Dataset" href="add_current_uc.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,25 +50,25 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="uc1.html">uc1 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc2.html">uc2 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc3.html">uc3 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc4.html">uc4 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc5.html">uc5 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uc6.html">uc6 module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc1.html">Normal Surfing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc2.html">Video Streaming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc3.html">Periodic Keep-Alive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc4.html">Short Burst Sessions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc5.html">Load Registration Anomaly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc6.html">Authentication Failure Alert</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Models</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">lstm_attention_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">lstm_base_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">lstm_bathnorm_model module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">lstm_results_real_data module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">LSTM Model with Attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">Classify the real data using LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="eda.html">eda module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">add_current_uc module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">lstm_preprocessing module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">Label Real Dataset</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Preprocess data for LSTM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#lstm_preprocessing.create_sequences"><code class="docutils literal notranslate"><span class="pre">create_sequences()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lstm_preprocessing.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lstm_preprocessing.split_and_save_data"><code class="docutils literal notranslate"><span class="pre">split_and_save_data()</span></code></a></li>
@@ -77,8 +77,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Infrastructure</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="running_network.html">running_network module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">log_watcher module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_network.html">Simulate a running network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">Main orchestrator</a></li>
 </ul>
 
         </div>
@@ -95,7 +95,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">lstm_preprocessing module</li>
+      <li class="breadcrumb-item active">Preprocess data for LSTM</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/lstm_preprocessing.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -106,7 +106,7 @@
            <div itemprop="articleBody">
              
   <section id="module-lstm_preprocessing">
-<span id="lstm-preprocessing-module"></span><h1>lstm_preprocessing module<a class="headerlink" href="#module-lstm_preprocessing" title="Link to this heading"></a></h1>
+<span id="preprocess-data-for-lstm"></span><h1>Preprocess data for LSTM<a class="headerlink" href="#module-lstm_preprocessing" title="Link to this heading"></a></h1>
 <p>Module for preparing LSTM input data from preprocessed features.
 Includes functionality for loading feature arrays, creating sequences,
 splitting the dataset, and saving the output for training and testing.</p>
@@ -135,22 +135,19 @@ splitting the dataset, and saving the output for training and testing.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="lstm_preprocessing.load_data">
 <span class="sig-prename descclassname"><span class="pre">lstm_preprocessing.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaler_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uc_map_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_preprocessing.load_data" title="Link to this definition"></a></dt>
-<dd><p>Načíta vstupné dáta, škálovač, vybrané príznaky a mapu UC tried.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X_path</strong> (<em>str</em>) – Cesta k súboru s X vstupmi (.npy)</p></li>
-<li><p><strong>Y_path</strong> (<em>str</em>) – Cesta k súboru s y triedami (.npy)</p></li>
-<li><p><strong>scaler_path</strong> (<em>str</em>) – Cesta k uloženému škálovaču</p></li>
-<li><p><strong>features_path</strong> (<em>str</em>) – Cesta k JSON súboru s vybranými príznakmi</p></li>
-<li><p><strong>uc_map_path</strong> (<em>str</em>) – Cesta k JSON súboru s mapovaním UC</p></li>
+<dd><p>Loads the preprocessed data from specified paths.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>X_path (str): Path to the input features (X)</p></li>
+<li><p>Y_path (str): Path to the target labels (y)</p></li>
+<li><p>scaler_path (str): Path to the scaler object</p></li>
+<li><p>features_path (str): Path to the selected features JSON file</p></li>
+<li><p>uc_map_path (str): Path to the UC map JSON file</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>(X, y, scaler, selected_features, uc_map)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>tuple: (X, y, scaler, selected_features, uc_map)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -158,14 +155,15 @@ splitting the dataset, and saving the output for training and testing.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="lstm_preprocessing.split_and_save_data">
 <span class="sig-prename descclassname"><span class="pre">lstm_preprocessing.</span></span><span class="sig-name descname"><span class="pre">split_and_save_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'preprocessed_data'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_preprocessing.split_and_save_data" title="Link to this definition"></a></dt>
-<dd><p>Rozdelí dáta na trénovaciu a testovaciu množinu a uloží ich.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X_seq</strong> (<em>np.ndarray</em>) – Vstupné sekvencie</p></li>
-<li><p><strong>y_seq</strong> (<em>np.ndarray</em>) – Výstupné triedy</p></li>
-<li><p><strong>output_dir</strong> (<em>str</em>) – Adresár pre uloženie súborov</p></li>
+<dd><p>Splits the dataset into training and testing sets and saves them to disk.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>X_seq (np.ndarray): Input features in sequence format</p></li>
+<li><p>y_seq (np.ndarray): Target labels in sequence format</p></li>
+<li><p>output_dir (str): Directory to save the split data</p></li>
 </ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -176,8 +174,8 @@ splitting the dataset, and saving the output for training and testing.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="add_current_uc.html" class="btn btn-neutral float-left" title="add_current_uc module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="running_network.html" class="btn btn-neutral float-right" title="running_network module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="add_current_uc.html" class="btn btn-neutral float-left" title="Label Real Dataset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="running_network.html" class="btn btn-neutral float-right" title="Simulate a running network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

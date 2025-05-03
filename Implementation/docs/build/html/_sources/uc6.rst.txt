@@ -1,5 +1,5 @@
-uc6 module
-==========
+Authentication Failure Alert
+============================
 
 .. automodule:: uc6
    :members:
