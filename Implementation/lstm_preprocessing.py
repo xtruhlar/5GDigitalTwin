@@ -1,0 +1,111 @@
+"""
+Module for preparing LSTM input data from preprocessed features.
+Includes functionality for loading feature arrays, creating sequences, 
+splitting the dataset, and saving the output for training and testing.
+
+This module is intended for use with the Digital Twin of 5G Network project.
+"""
+
+import json
+import warnings
+import joblib
+import numpy as np
+from sklearn.model_selection import train_test_split
+import os
+
+# Potlačenie warningov
+warnings.filterwarnings("ignore")
+
+# Globálne konfiguračné premenné
+X_PATH = 'X_scaled.npy'
+Y_PATH = 'y_labels.npy'
+SCALER_PATH = 'scaler.joblib'
+FEATURES_PATH = 'selected_features.json'
+UC_MAP_PATH = 'uc_map.json'
+LABEL_COLUMN = 'current_uc'
+
+# Parametre pre trénovanie a model
+TEST_SIZE = 0.2
+SEED = 42
+SEQUENCE_LENGTH = 60
+LSTM_UNITS = 128
+DROPOUT_RATE = 0.2
+VERBOSE = 1
+
+
+def load_data(X_path, Y_path, scaler_path, features_path, uc_map_path):
+    """
+    Načíta vstupné dáta, škálovač, vybrané príznaky a mapu UC tried.
+
+    Parameters:
+        X_path (str): Cesta k súboru s X vstupmi (.npy)
+        Y_path (str): Cesta k súboru s y triedami (.npy)
+        scaler_path (str): Cesta k uloženému škálovaču
+        features_path (str): Cesta k JSON súboru s vybranými príznakmi
+        uc_map_path (str): Cesta k JSON súboru s mapovaním UC
+
+    Returns:
+        tuple: (X, y, scaler, selected_features, uc_map)
+    """
+    X = np.load(X_path)
+    y = np.load(Y_path)
+    scaler = joblib.load(scaler_path)
+
+    with open(features_path, 'r') as f:
+        features = json.load(f)['features']
+
+    with open(uc_map_path, "r") as f:
+        uc_map = json.load(f)
+
+    return X, y, scaler, features, uc_map
+
+
+def create_sequences(X, y, seq_len):
+    """
+    Vytvorí sekvencie vstupných dát pre LSTM z kĺzavého okna.
+
+    Parameters:
+        X (np.ndarray): Vstupné dáta (features)
+        y (np.ndarray): Cieľové hodnoty (triedy)
+        seq_len (int): Dĺžka sekvencie pre LSTM
+
+    Returns:
+        tuple: (X_seq, y_seq) ako ndarray
+    """
+    Xs, ys = [], []
+    for i in range(len(X) - seq_len):
+        Xs.append(X[i:i+seq_len])
+        ys.append(y[i+seq_len])
+    return np.array(Xs), np.array(ys)
+
+
+def split_and_save_data(X_seq, y_seq, output_dir="preprocessed_data"):
+    """
+    Rozdelí dáta na trénovaciu a testovaciu množinu a uloží ich.
+
+    Parameters:
+        X_seq (np.ndarray): Vstupné sekvencie
+        y_seq (np.ndarray): Výstupné triedy
+        output_dir (str): Adresár pre uloženie súborov
+    """
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_seq, y_seq, test_size=TEST_SIZE, random_state=SEED, stratify=y_seq
+    )
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    np.save(os.path.join(output_dir, "X_train.npy"), X_train)
+    np.save(os.path.join(output_dir, "y_train.npy"), y_train)
+    np.save(os.path.join(output_dir, "X_test.npy"), X_test)
+    np.save(os.path.join(output_dir, "y_test.npy"), y_test)
+
+    print(f"✅ X_train: {X_train.shape}, y_train: {y_train.shape}")
+    print(f"✅ X_test: {X_test.shape}, y_test: {y_test.shape}")
+
+
+if __name__ == "__main__":
+    X, y, scaler, features, uc_map = load_data(
+        X_PATH, Y_PATH, SCALER_PATH, FEATURES_PATH, UC_MAP_PATH
+    )
+    X_seq, y_seq = create_sequences(X, y, SEQUENCE_LENGTH)
+    split_and_save_data(X_seq, y_seq)

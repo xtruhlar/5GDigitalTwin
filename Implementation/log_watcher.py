@@ -1,3 +1,8 @@
+"""
+Module for real-time classification of UC using logs from Open5GS AMF.
+Performs LSTM inference, confidence evaluation and online fine-tuning.
+"""
+
 # Standard libraries
 import argparse
 import glob
@@ -24,43 +29,14 @@ from nbconvert.preprocessors import ExecutePreprocessor
 from prometheus_client import Gauge, start_http_server
 from pygtail import Pygtail
     
+# Detect if Sphinx is building the docs
+IS_DOC_BUILD = os.getenv("SPHINX_BUILD") == "1"
+
 # Global variables
 LOG_FILE = "/open5gs/install/var/log/open5gs/amf.log"
 SEQUENCE_LENGTH = 60
 LOOP_COUNTER = 0
 OUTPUT_FILE = "./data/running_data.csv"
-
-# Loading model and scaler
-MODEL_PATH = "/app/data/Model/trained_models/lstm_attention_model.keras"
-SCALER_PATH = "/app/data/Model/scaler.joblib"
-FEATURES_PATH = "/app/data/Model/selected_features.json"
-
-SCALER = joblib.load(SCALER_PATH)
-
-# Loading selected metrics
-with open(FEATURES_PATH, "r") as f:
-    SELECTED_FEATURES = json.load(f)['features']
-
-# Ensuring the backup directory exists
-if not os.path.exists("./data/backup"):
-    os.makedirs("./data/backup", exist_ok=True)
-
-
-# 📐 Prometheus - Custom metrics (mainly serves as an example of how to combine different approaches for obtaining network data)
-ue_reg_time_last = Gauge("ue_registration_duration_seconds_last", "Last registration duration")
-ue_reg_time_avg = Gauge("ue_registration_duration_seconds_avg", "Average registration duration")
-ue_reg_time_min = Gauge("ue_registration_duration_seconds_min", "Min registration duration")
-ue_reg_time_max = Gauge("ue_registration_duration_seconds_max", "Max registration duration")
-ue_sess_time_last = Gauge("ue_session_duration_seconds_last", "Last session duration")
-ue_sess_time_avg = Gauge("ue_session_duration_seconds_avg", "Average session duration")
-ue_sess_time_min = Gauge("ue_session_duration_seconds_min", "Min session duration")
-ue_sess_time_max = Gauge("ue_session_duration_seconds_max", "Max session duration")
-# 📐 Prometheus - Custom metrics for UC prediction
-predicted_uc_metric = Gauge("classified_uc_class", "Classified current use case (UC) by LSTM model")
-true_uc_metric = Gauge("true_uc_class", "True current use case (UC) from data")
-model_loss = Gauge("model_loss", "Model loss during fine-tuning")
-predicted_uc_confidence = Gauge("classified_uc_confidence", "Confidence score of predicted use case")
-
 
 class AttentionLayer(Layer):
     def __init__(self, **kwargs):
@@ -81,9 +57,57 @@ class AttentionLayer(Layer):
 
     def compute_output_shape(self, input_shape):
         return (input_shape[0], input_shape[-1])
-    
-MODEL = load_model(MODEL_PATH, custom_objects={"AttentionLayer": AttentionLayer}, compile=False)
-MODEL.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+if not IS_DOC_BUILD:
+    FEATURES_PATH = "./data/Model/selected_features.json"
+    SCALER_PATH = "./data/Model/scaler.joblib"
+    MODEL_PATH = "./data/Model/trained_models/lstm_attention_model.keras"
+
+    try:
+        with open(FEATURES_PATH, "r") as f:
+            FEATURES = json.load(f)["features"]
+
+        SCALER = joblib.load(SCALER_PATH)
+        if not IS_DOC_BUILD:
+            try:
+                MODEL = load_model(MODEL_PATH, custom_objects={"AttentionLayer": AttentionLayer}, compile=False)
+                MODEL.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+            except FileNotFoundError:
+                MODEL = None
+        else:
+            MODEL = None
+
+
+    except FileNotFoundError as e:
+        print(f"❗ Required file not found during runtime: {e}")
+        FEATURES = []
+        SCALER = None
+        MODEL = None
+else:
+    FEATURES = []
+    SCALER = None
+    MODEL = None
+
+
+# Ensuring the backup directory exists
+if not os.path.exists("./data/backup"):
+    os.makedirs("./data/backup", exist_ok=True)
+
+
+# 📐 Prometheus - Custom metrics (mainly serves as an example of how to combine different approaches for obtaining network data)
+ue_reg_time_last = Gauge("ue_registration_duration_seconds_last", "Last registration duration")
+ue_reg_time_avg = Gauge("ue_registration_duration_seconds_avg", "Average registration duration")
+ue_reg_time_min = Gauge("ue_registration_duration_seconds_min", "Min registration duration")
+ue_reg_time_max = Gauge("ue_registration_duration_seconds_max", "Max registration duration")
+ue_sess_time_last = Gauge("ue_session_duration_seconds_last", "Last session duration")
+ue_sess_time_avg = Gauge("ue_session_duration_seconds_avg", "Average session duration")
+ue_sess_time_min = Gauge("ue_session_duration_seconds_min", "Min session duration")
+ue_sess_time_max = Gauge("ue_session_duration_seconds_max", "Max session duration")
+# 📐 Prometheus - Custom metrics for UC prediction
+predicted_uc_metric = Gauge("classified_uc_class", "Classified current use case (UC) by LSTM model")
+true_uc_metric = Gauge("true_uc_class", "True current use case (UC) from data")
+model_loss = Gauge("model_loss", "Model loss during fine-tuning")
+predicted_uc_confidence = Gauge("classified_uc_confidence", "Confidence score of predicted use case")
 
 
 def truncate_running_data(csv_path, keep_last_n=SEQUENCE_LENGTH):

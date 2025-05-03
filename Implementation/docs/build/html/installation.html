@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation Guide &mdash; Digital Twin of 5G Network 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="uc1 module" href="uc1.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Digital Twin of 5G Network
+              <img src="_static/fiit_logo2.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uc1.html">uc1 module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc2.html">uc2 module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc3.html">uc3 module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc4.html">uc4 module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc5.html">uc5 module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc6.html">uc6 module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">lstm_attention_model module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">lstm_base_model module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">lstm_bathnorm_model module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">lstm_results_real_data module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="eda.html">eda module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">add_current_uc module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">lstm_preprocessing module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="running_network.html">running_network module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_watcher.html">log_watcher module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Digital Twin of 5G Network</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation-guide">
+<h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Link to this heading"></a></h1>
+<p>First, ensure you have the following prerequisites installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Docker and Docker Compose
+Python 3.9+ and `venv`
+Git
+</pre></div>
+</div>
+<p>Second, clone the repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/xtruhlar/5GDigitalTwin.git
+<span class="nb">cd</span><span class="w"> </span>5GDigitalTwin/Implementation
+</pre></div>
+</div>
+<p>To build docker images</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>./base
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>docker_open5gs<span class="w"> </span>.
+
+<span class="nb">cd</span><span class="w"> </span>../ueransim
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>docker_ueransim<span class="w"> </span>.
+
+<span class="nb">cd</span><span class="w"> </span>..
+</pre></div>
+</div>
+<p>To set the environment variables</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+
+<span class="nb">set</span><span class="w"> </span>-a
+<span class="nb">source</span><span class="w"> </span>.env
+<span class="nb">set</span><span class="w"> </span>+a
+</pre></div>
+</div>
+<p>To run the project, navigate to <cite>Implementation/</cite> and execute the following command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>deploy-all.yaml<span class="w"> </span>up<span class="w"> </span>--build<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>To add subscribers to Open5GS core, run the following commands</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mongo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/data/backup
+docker<span class="w"> </span>cp<span class="w"> </span>./mongodb_backup/open5gs<span class="w"> </span>mongo:/data/backup/open5gs
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mongo<span class="w"> </span>mongorestore<span class="w"> </span>--uri<span class="o">=</span><span class="s2">&quot;mongodb://localhost:27017&quot;</span><span class="w"> </span>--db<span class="w"> </span>open5gs<span class="w"> </span>/data/backup/open5gs
+</pre></div>
+</div>
+<p>To ensure everything works properly, open <a class="reference external" href="http://localhost:9999/">http://localhost:9999/</a> in your browser and login using credentials:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Username</span><span class="p">:</span> <span class="n">admin</span>
+<span class="n">Password</span><span class="p">:</span> <span class="mi">1423</span>
+</pre></div>
+</div>
+<p>To connect UERANSIM gNB to Open5GS, run the following command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>nr-gnb.yaml<span class="w"> </span>-p<span class="w"> </span>gnodeb<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>container<span class="w"> </span>attach<span class="w"> </span>nr_gnb
+</pre></div>
+</div>
+<p>To connect UERANSIM UE to Open5GS, run the following command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>nr-ue.yaml<span class="w"> </span>-p<span class="w"> </span>ue<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>container<span class="w"> </span>attach<span class="w"> </span>ue
+</pre></div>
+</div>
+<p>Then go to Grafana, open <a class="reference external" href="http://localhost:3000/">http://localhost:3000/</a> in your browser and login using credentials:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Username</span><span class="p">:</span> <span class="n">open5gs</span>
+<span class="n">Password</span><span class="p">:</span> <span class="n">open5gs</span>
+</pre></div>
+</div>
+<p>Open menu on the left, click on <cite>Dashboards</cite>. Select <cite>Current state Dash</cite> and you can see the current state of your 5G network.</p>
+<p>Example:</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/dashboard.png"><img alt="Grafana dashboard" src="_images/dashboard.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Grafana dashboard</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="uc1.html" class="btn btn-neutral float-right" title="uc1 module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, David Truhlar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
