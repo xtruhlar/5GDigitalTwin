@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="LSTM BathNorm Model" href="lstm_bathnorm_model.html" />
-    <link rel="prev" title="LSTM Model with Attention" href="lstm_attention_model.html" /> 
+    <link rel="next" title="LSTM Robust Model" href="lstm_robust_model.html" />
+    <link rel="prev" title="LSTM BathNorm Model" href="lstm_bathnorm_model.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,11 +60,12 @@
 <p class="caption" role="heading"><span class="caption-text">Models</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">LSTM Model with Attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">LSTM Base Model</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#lstm_base_model.build_base_model"><code class="docutils literal notranslate"><span class="pre">build_base_model()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_robust_model.html">LSTM Robust Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">Classify the real data using LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
@@ -77,6 +78,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="running_network.html">Simulate a running network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="log_watcher.html">Main orchestrator</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">LINKS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin">💻 Source code</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/issues">🐞 Report an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/discussions">💬 Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://fiit.stuba.sk">🏢 FIIT STU</a></li>
 </ul>
 
         </div>
@@ -105,19 +113,31 @@
              
   <section id="module-lstm_base_model">
 <span id="lstm-base-model"></span><h1>LSTM Base Model<a class="headerlink" href="#module-lstm_base_model" title="Link to this heading"></a></h1>
-<p>LSTM Base Model for classification of network use case scenarios.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lstm_base_model.build_base_model">
+<span class="sig-prename descclassname"><span class="pre">lstm_base_model.</span></span><span class="sig-name descname"><span class="pre">build_base_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_weight_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_base_model.build_base_model" title="Link to this definition"></a></dt>
+<dd><p>LSTM Base Model for classification of network use case scenarios.</p>
 <p>This script loads preprocessed training and testing data, defines and trains
 a baseline LSTM model, evaluates its performance, and saves the final model
 in HDF5 and Keras formats. Class balancing is handled using precomputed class weights.</p>
 <dl class="simple">
-<dt>Usage:</dt><dd><p>This script is designed to be executed as a module. Use the function
-<cite>build_base_model()</cite> to construct and optionally train the model.</p>
+<dt>Usage</dt><dd><ul class="simple">
+<li><p>This script is designed to be executed as a module. Use the function <cite>build_base_model()</cite> to construct and optionally train the model.</p></li>
+</ul>
+</dd>
+<dt>Args</dt><dd><ul class="simple">
+<li><p>X_train (numpy.ndarray): Preprocessed training data.</p></li>
+<li><p>y_train (numpy.ndarray): Labels for the training data.</p></li>
+<li><p>X_test (numpy.ndarray): Preprocessed testing data.</p></li>
+<li><p>y_test (numpy.ndarray): Labels for the testing data.</p></li>
+<li><p>class_weight_dict (dict): Class weights for handling class imbalance.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>model (tensorflow.keras.Model): Trained LSTM model.</p></li>
+</ul>
 </dd>
 </dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="lstm_base_model.build_base_model">
-<span class="sig-prename descclassname"><span class="pre">lstm_base_model.</span></span><span class="sig-name descname"><span class="pre">build_base_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_weight_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_base_model.build_base_model" title="Link to this definition"></a></dt>
-<dd><p>Builds, trains, evaluates and saves a baseline LSTM model.</p>
 </dd></dl>
 
 </section>
@@ -126,8 +146,8 @@ in HDF5 and Keras formats. Class balancing is handled using precomputed class we
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="lstm_attention_model.html" class="btn btn-neutral float-left" title="LSTM Model with Attention" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="lstm_bathnorm_model.html" class="btn btn-neutral float-right" title="LSTM BathNorm Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lstm_bathnorm_model.html" class="btn btn-neutral float-left" title="LSTM BathNorm Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lstm_robust_model.html" class="btn btn-neutral float-right" title="LSTM Robust Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

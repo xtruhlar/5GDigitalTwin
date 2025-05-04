@@ -1,15 +1,3 @@
-"""
-LSTM Base Model for classification of network use case scenarios.
-
-This script loads preprocessed training and testing data, defines and trains
-a baseline LSTM model, evaluates its performance, and saves the final model
-in HDF5 and Keras formats. Class balancing is handled using precomputed class weights.
-
-Usage:
-    This script is designed to be executed as a module. Use the function
-    `build_base_model()` to construct and optionally train the model.
-"""
-
 import json
 import warnings
 import numpy as np
@@ -28,7 +16,27 @@ EPOCHS = 100
 
 
 def build_base_model(X_train, y_train, X_test, y_test, class_weight_dict):
-    """Builds, trains, evaluates and saves a baseline LSTM model."""
+    
+    """
+    LSTM Base Model for classification of network use case scenarios.
+
+    This script loads preprocessed training and testing data, defines and trains
+    a baseline LSTM model, evaluates its performance, and saves the final model
+    in HDF5 and Keras formats. Class balancing is handled using precomputed class weights.
+
+    Usage
+        - This script is designed to be executed as a module. Use the function `build_base_model()` to construct and optionally train the model.
+
+    Args
+        - X_train (numpy.ndarray): Preprocessed training data.
+        - y_train (numpy.ndarray): Labels for the training data.
+        - X_test (numpy.ndarray): Preprocessed testing data.
+        - y_test (numpy.ndarray): Labels for the testing data.
+        - class_weight_dict (dict): Class weights for handling class imbalance.
+
+    Returns
+        - model (tensorflow.keras.Model): Trained LSTM model.
+    """
 
     # Transform labels to categorical
     y_train_cat = to_categorical(y_train, num_classes=len(np.unique(y_train)))
@@ -89,3 +97,17 @@ def build_base_model(X_train, y_train, X_test, y_test, class_weight_dict):
     model.save('trained_models/lstm_base_model.keras')
 
     return model
+
+if __name__ == "__main__":
+    # Load class weights
+    with open('class_weights.json', "r") as f:
+        class_weight_dict = json.load(f)
+
+    # Load preprocessed data
+    X_train = np.load('preprocessed_data/X_train.npy')
+    y_train = np.load('preprocessed_data/y_train.npy')
+    X_test = np.load('preprocessed_data/X_test.npy')
+    y_test = np.load('preprocessed_data/y_test.npy')
+
+    # Build and train the model
+    build_base_model(X_train, y_train, X_test, y_test, class_weight_dict)

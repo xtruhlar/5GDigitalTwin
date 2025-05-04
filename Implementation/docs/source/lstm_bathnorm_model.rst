@@ -1,5 +1,5 @@
 LSTM BathNorm Model
-============================
+===================
 
 .. automodule:: lstm_bathnorm_model
    :members:

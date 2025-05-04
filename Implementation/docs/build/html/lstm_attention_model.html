@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="LSTM Base Model" href="lstm_base_model.html" />
+    <link rel="next" title="LSTM BathNorm Model" href="lstm_bathnorm_model.html" />
     <link rel="prev" title="Authentication Failure Alert" href="uc6.html" /> 
 </head>
 
@@ -60,11 +60,19 @@
 <p class="caption" role="heading"><span class="caption-text">Models</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">LSTM Model with Attention</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lstm_attention_model.AttentionLayer"><code class="docutils literal notranslate"><span class="pre">AttentionLayer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lstm_attention_model.AttentionLayer.build"><code class="docutils literal notranslate"><span class="pre">AttentionLayer.build()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lstm_attention_model.AttentionLayer.call"><code class="docutils literal notranslate"><span class="pre">AttentionLayer.call()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lstm_attention_model.AttentionLayer.compute_output_shape"><code class="docutils literal notranslate"><span class="pre">AttentionLayer.compute_output_shape()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lstm_attention_model.build_attention_model"><code class="docutils literal notranslate"><span class="pre">build_attention_model()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lstm_attention_model.train_attention_model"><code class="docutils literal notranslate"><span class="pre">train_attention_model()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_robust_model.html">LSTM Robust Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">Classify the real data using LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
@@ -77,6 +85,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="running_network.html">Simulate a running network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="log_watcher.html">Main orchestrator</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">LINKS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin">💻 Source code</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/issues">🐞 Report an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/discussions">💬 Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://fiit.stuba.sk">🏢 FIIT STU</a></li>
 </ul>
 
         </div>
@@ -105,20 +120,96 @@
              
   <section id="module-lstm_attention_model">
 <span id="lstm-model-with-attention"></span><h1>LSTM Model with Attention<a class="headerlink" href="#module-lstm_attention_model" title="Link to this heading"></a></h1>
-<p>LSTM model with custom attention mechanism for multi-class classification
-of time-series data in the context of 5G network behavior prediction.</p>
-<p>This module defines a deep learning model using TensorFlow and Keras,
-integrates a custom attention mechanism, and trains the model
-on preprocessed input data with categorical labels.</p>
-<p>Expected data format:
-- Input: X_train.npy, X_test.npy (shape: [samples, 60, features])
-- Labels: y_train.npy, y_test.npy (categorical class indices)
-- Class weights: class_weights.json</p>
-<p>The trained model is saved as HDF5 and Keras formats.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lstm_attention_model.AttentionLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lstm_attention_model.</span></span><span class="sig-name descname"><span class="pre">AttentionLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_attention_model.AttentionLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<p>Custom attention layer compatible with LSTM outputs.
+Outputs a weighted sum across the time dimension.</p>
+<p>Source: <a class="reference external" href="https://www.geeksforgeeks.org/adding-attention-layer-to-a-bi-lstm/">https://www.geeksforgeeks.org/adding-attention-layer-to-a-bi-lstm/</a>?</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lstm_attention_model.AttentionLayer.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_attention_model.AttentionLayer.build" title="Link to this definition"></a></dt>
+<dd><p>Build the attention layer.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>input_shape: Shape of the input tensor.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lstm_attention_model.AttentionLayer.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_attention_model.AttentionLayer.call" title="Link to this definition"></a></dt>
+<dd><p>Apply the attention mechanism to the input tensor.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>x: Input tensor of shape (batch_size, timesteps, features).</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>output: Weighted sum of the input tensor across the time dimension.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lstm_attention_model.AttentionLayer.compute_output_shape">
+<span class="sig-name descname"><span class="pre">compute_output_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_attention_model.AttentionLayer.compute_output_shape" title="Link to this definition"></a></dt>
+<dd><p>Compute the output shape of the attention layer.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>input_shape: Shape of the input tensor.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>output_shape: Shape of the output tensor.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lstm_attention_model.build_attention_model">
+<span class="sig-prename descclassname"><span class="pre">lstm_attention_model.</span></span><span class="sig-name descname"><span class="pre">build_attention_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_attention_model.build_attention_model" title="Link to this definition"></a></dt>
+<dd><p>Build and return an attention-based LSTM model.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>input_shape: tuple, shape of the input data (timesteps, features)</p></li>
+<li><p>num_classes: int, number of output classes</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>Keras Model instance</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="lstm_attention_model.train_attention_model">
 <span class="sig-prename descclassname"><span class="pre">lstm_attention_model.</span></span><span class="sig-name descname"><span class="pre">train_attention_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lstm_attention_model.train_attention_model" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>LSTM model with custom attention mechanism for multi-class classification
+of time-series data.</p>
+<p>This module defines a deep learning model using TensorFlow and Keras,
+integrates a custom attention mechanism, and trains the model
+on preprocessed input data with categorical labels.</p>
+<dl class="simple">
+<dt>Expected data format:</dt><dd><ul class="simple">
+<li><p>Input: X_train.npy, X_test.npy (shape: [samples, 60, features])</p></li>
+<li><p>Labels: y_train.npy, y_test.npy (categorical class indices)</p></li>
+<li><p>Class weights: class_weights.json</p></li>
+</ul>
+</dd>
+</dl>
+<p>The trained model is saved as HDF5 and Keras formats.</p>
+</dd></dl>
 
 </section>
 
@@ -127,7 +218,7 @@ on preprocessed input data with categorical labels.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="uc6.html" class="btn btn-neutral float-left" title="Authentication Failure Alert" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="lstm_base_model.html" class="btn btn-neutral float-right" title="LSTM Base Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lstm_bathnorm_model.html" class="btn btn-neutral float-right" title="LSTM BathNorm Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

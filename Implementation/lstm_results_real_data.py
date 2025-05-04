@@ -1,17 +1,13 @@
 """
-evaluate_and_finetune_models.py
+Module for evaluating multiple LSTM models (base, robust, batchnorm, attention)
+on real-world 5G network data, with the option to fine-tune the attention model.
 
-================================
-
-Modul na vyhodnotenie viacerých LSTM modelov (base, robust, batchnorm, attention)
-na reálnych dátach a možnosť dodatočného finetuningu attention modelu.
-
-Obsahuje:
-- definíciu attention vrstvy,
-- výpočet váh tried z reálnych dát,
-- generovanie sekvenčných dát,
-- vyhodnotenie klasifikačnej presnosti,
-- možnosť jemného dotrénovania attention modelu na reálnych dátach.
+This script includes
+    - Definition of a custom attention layer,
+    - Real-data class weight computation,
+    - Sequence generation for LSTM input,
+    - Model accuracy evaluation via classification report,
+    - Optional fine-tuning of the attention-based LSTM model.
 """
 
 import os
@@ -37,68 +33,162 @@ from tensorflow.keras.utils import to_categorical
 
 warnings.filterwarnings("ignore")
 
-# --- Attention Layer Definition ---
+
 class AttentionLayer(Layer):
+
     """
-    Custom Attention Layer pre LSTM architektúru.
+    Custom attention layer compatible with LSTM outputs.
+    Outputs a weighted sum across the time dimension.
+
+    Source: https://www.geeksforgeeks.org/adding-attention-layer-to-a-bi-lstm/?
     """
+
     def __init__(self, **kwargs):
+
+        """
+        Initialize the attention layer.
+
+        Args 
+            - **kwargs: Additional keyword arguments for the layer.
+
+        Returns
+            None
+        """
+
         super(AttentionLayer, self).__init__(**kwargs)
 
+
     def build(self, input_shape):
+
+        """
+        Build the attention layer.
+
+        Args
+            - input_shape: Shape of the input tensor.
+        
+        Returns
+            None
+        """
+
         self.W = self.add_weight(name='att_weight', shape=(input_shape[-1], 1),
                                  initializer='glorot_uniform', trainable=True)
         self.b = self.add_weight(name='att_bias', shape=(input_shape[1], 1),
                                  initializer='zeros', trainable=True)
         super().build(input_shape)
 
+
     def call(self, x):
+
+        """
+        Apply the attention mechanism to the input tensor.
+
+        Args
+            - x: Input tensor of shape (batch_size, timesteps, features).
+        
+        Returns
+            - output: Weighted sum of the input tensor across the time dimension.
+        """
+
         e = K.tanh(K.dot(x, self.W) + self.b)
         a = K.softmax(e, axis=1)
         return K.sum(x * a, axis=1)
+    
 
     def compute_output_shape(self, input_shape):
+
+        """
+        Compute the output shape of the attention layer.
+
+        Args
+            - input_shape: Shape of the input tensor.
+        
+        Returns
+            - output_shape: Shape of the output tensor.
+        """
+
         return (input_shape[0], input_shape[-1])
 
-# --- Configuration ---
+
 UC_MAP = {"uc1": 0, "uc2": 1, "uc3": 2, "uc4": 3, "uc5": 4, "uc6": 5}
 APP_MAP = {'0': 0, 'amf': 1, 'gmm': 2, 'udm': 3, 'smf': 4, 'upf': 5}
 LOG_MAP = {'0': 0, 'registration': 1, 'number_of_sessions_or_ues': 2,
            'nothing': 3, 'remove': 4, 'error': 5}
 
 def create_sequences(X, y, seq_len=60):
+
     """
-    Transformácia plochých vstupov na sekvenčné okná pre LSTM modely.
+    Converts flattened input arrays into sliding window sequences for LSTM input.
+
+    Args
+        - X (np.ndarray): Input features of shape (samples, features).
+        - y (np.ndarray): Target labels corresponding to input samples.
+        - seq_len (int): Length of each sequence window. Default is 60.
+
+    Returns
+        - tuple: (X_seq, y_seq) where X_seq has shape (samples - seq_len, seq_len, features) and y_seq has shape (samples - seq_len,).
     """
+
     X_seq, y_seq = [], []
     for i in range(len(X) - seq_len):
         X_seq.append(X[i:i + seq_len])
         y_seq.append(y[i + seq_len])
+
     return np.array(X_seq), np.array(y_seq)
 
+
 def evaluate_model(model, X_seq, y_seq, name):
+
     """
-    Vyhodnotenie modelu pomocou klasifikačnej správy.
+    Evaluates a trained model on given sequential data and prints classification report.
+
+    Args
+        - model (keras.Model): The trained Keras model to evaluate.
+        - X_seq (np.ndarray): Sequential input data (samples, seq_len, features).
+        - y_seq (np.ndarray): True class labels.
+        - name (str): Name of the model for display purposes.
+
+    Returns
+        None
     """
     y_pred = model.predict(X_seq).argmax(axis=1)
     print(f"--- {name} ---")
     print(classification_report(y_seq, y_pred, target_names=list(UC_MAP.keys())))
 
+
 def load_and_preprocess_data():
+
     """
-    Načíta a spracuje reálne dáta + zmapuje kategórie.
+    Loads the real-world labeled dataset and applies categorical mappings.
+
+    Args
+        None
+
+    Returns
+        - pd.DataFrame: Preprocessed dataset with mapped categorical columns and timestamps.
     """
+
     data = pd.read_csv("../real_data.csv")
     data['application'] = data['application'].map(APP_MAP)
     data['log_type'] = data['log_type'].map(LOG_MAP)
     data['current_uc'] = data['current_uc'].map(UC_MAP)
     data['timestamp'] = pd.to_datetime(data['timestamp'])
+
     return data
 
+
 def run_evaluation_and_finetuning():
+
     """
-    Hlavná funkcia – vyhodnotenie 4 modelov + voliteľný finetuning attention modelu.
+    Main function to evaluate four trained LSTM models and fine-tune the attention model
+    using real labeled data.
+
+    Args
+        None
+
+    Returns
+        None
     """
+
     # Load data and assets
     data = load_and_preprocess_data()
     scaler = joblib.load("scaler.joblib")
@@ -166,6 +256,7 @@ def run_evaluation_and_finetuning():
 
     print("\n📈 Evaluation after fine-tuning:")
     evaluate_model(model_attention, X_seq, y_seq, "Attention Model (Fine-tuned)")
+
 
 if __name__ == "__main__":
     run_evaluation_and_finetuning()

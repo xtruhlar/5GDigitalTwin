@@ -57,8 +57,9 @@
 <p class="caption" role="heading"><span class="caption-text">Models</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">LSTM Model with Attention</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_robust_model.html">LSTM Robust Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">Classify the real data using LSTM</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
@@ -71,6 +72,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="running_network.html">Simulate a running network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="log_watcher.html">Main orchestrator</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">LINKS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin">💻 Source code</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/issues">🐞 Report an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/discussions">💬 Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://fiit.stuba.sk">🏢 FIIT STU</a></li>
 </ul>
 
         </div>
@@ -124,13 +132,15 @@
         <li><a href="add_current_uc.html#module-add_current_uc">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="add_current_uc.html#add_current_uc.apply_uc">apply_uc() (in module add_current_uc)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="log_watcher.html#log_watcher.AttentionLayer">AttentionLayer (class in log_watcher)</a>
 
       <ul>
+        <li><a href="lstm_attention_model.html#lstm_attention_model.AttentionLayer">(class in lstm_attention_model)</a>
+</li>
         <li><a href="lstm_results_real_data.html#lstm_results_real_data.AttentionLayer">(class in lstm_results_real_data)</a>
 </li>
       </ul></li>
@@ -143,14 +153,18 @@
       <li><a href="log_watcher.html#log_watcher.AttentionLayer.build">build() (log_watcher.AttentionLayer method)</a>
 
       <ul>
+        <li><a href="lstm_attention_model.html#lstm_attention_model.AttentionLayer.build">(lstm_attention_model.AttentionLayer method)</a>
+</li>
         <li><a href="lstm_results_real_data.html#lstm_results_real_data.AttentionLayer.build">(lstm_results_real_data.AttentionLayer method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lstm_attention_model.html#lstm_attention_model.build_attention_model">build_attention_model() (in module lstm_attention_model)</a>
+</li>
       <li><a href="lstm_base_model.html#lstm_base_model.build_base_model">build_base_model() (in module lstm_base_model)</a>
 </li>
-      <li><a href="lstm_bathnorm_model.html#lstm_bathnorm_model.build_robust_model">build_robust_model() (in module lstm_bathnorm_model)</a>
+      <li><a href="lstm_robust_model.html#lstm_robust_model.build_robust_model">build_robust_model() (in module lstm_robust_model)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -161,6 +175,8 @@
       <li><a href="log_watcher.html#log_watcher.AttentionLayer.call">call() (log_watcher.AttentionLayer method)</a>
 
       <ul>
+        <li><a href="lstm_attention_model.html#lstm_attention_model.AttentionLayer.call">(lstm_attention_model.AttentionLayer method)</a>
+</li>
         <li><a href="lstm_results_real_data.html#lstm_results_real_data.AttentionLayer.call">(lstm_results_real_data.AttentionLayer method)</a>
 </li>
       </ul></li>
@@ -175,6 +191,8 @@
       <li><a href="log_watcher.html#log_watcher.AttentionLayer.compute_output_shape">compute_output_shape() (log_watcher.AttentionLayer method)</a>
 
       <ul>
+        <li><a href="lstm_attention_model.html#lstm_attention_model.AttentionLayer.compute_output_shape">(lstm_attention_model.AttentionLayer method)</a>
+</li>
         <li><a href="lstm_results_real_data.html#lstm_results_real_data.AttentionLayer.compute_output_shape">(lstm_results_real_data.AttentionLayer method)</a>
 </li>
       </ul></li>
@@ -271,6 +289,13 @@
         <li><a href="lstm_results_real_data.html#module-lstm_results_real_data">module</a>
 </li>
       </ul></li>
+      <li>
+    lstm_robust_model
+
+      <ul>
+        <li><a href="lstm_robust_model.html#module-lstm_robust_model">module</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -298,6 +323,8 @@
         <li><a href="lstm_preprocessing.html#module-lstm_preprocessing">lstm_preprocessing</a>
 </li>
         <li><a href="lstm_results_real_data.html#module-lstm_results_real_data">lstm_results_real_data</a>
+</li>
+        <li><a href="lstm_robust_model.html#module-lstm_robust_model">lstm_robust_model</a>
 </li>
         <li><a href="running_network.html#module-running_network">running_network</a>
 </li>
@@ -397,6 +424,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lstm_bathnorm_model.html#lstm_bathnorm_model.train_batchnorm_model">train_batchnorm_model() (in module lstm_bathnorm_model)</a>
+</li>
       <li><a href="log_watcher.html#log_watcher.truncate_running_data">truncate_running_data() (in module log_watcher)</a>
 </li>
   </ul></td>

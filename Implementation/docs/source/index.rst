@@ -1,5 +1,3 @@
-.. Digital Twin of 5G Network documentation master file
-
 Welcome to the Digital Twin of 5G Network!
 ==========================================
 
@@ -26,8 +24,9 @@ Welcome to the Digital Twin of 5G Network!
    :caption: Models
 
    lstm_attention_model
-   lstm_base_model
    lstm_bathnorm_model
+   lstm_base_model
+   lstm_robust_model
    lstm_results_real_data
 
 .. toctree::
@@ -44,3 +43,11 @@ Welcome to the Digital Twin of 5G Network!
 
    running_network
    log_watcher
+
+.. toctree::
+   :caption: LINKS
+
+   💻 Source code <https://github.com/xtruhlar/5GDigitalTwin>
+   🐞 Report an issue <https://github.com/xtruhlar/5GDigitalTwin/issues>
+   💬 Discussions <https://github.com/xtruhlar/5GDigitalTwin/discussions>
+   🏢 FIIT STU <https://fiit.stuba.sk>

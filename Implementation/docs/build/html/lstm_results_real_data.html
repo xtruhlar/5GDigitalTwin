@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Exploratory Data Analysis" href="eda.html" />
-    <link rel="prev" title="LSTM BathNorm Model" href="lstm_bathnorm_model.html" /> 
+    <link rel="prev" title="LSTM Robust Model" href="lstm_robust_model.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,8 +60,9 @@
 <p class="caption" role="heading"><span class="caption-text">Models</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">LSTM Model with Attention</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_robust_model.html">LSTM Robust Model</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Classify the real data using LSTM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#lstm_results_real_data.AttentionLayer"><code class="docutils literal notranslate"><span class="pre">AttentionLayer</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lstm_results_real_data.AttentionLayer.build"><code class="docutils literal notranslate"><span class="pre">AttentionLayer.build()</span></code></a></li>
@@ -86,6 +87,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="running_network.html">Simulate a running network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="log_watcher.html">Main orchestrator</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">LINKS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin">💻 Source code</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/issues">🐞 Report an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/discussions">💬 Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://fiit.stuba.sk">🏢 FIIT STU</a></li>
 </ul>
 
         </div>
@@ -114,60 +122,133 @@
              
   <section id="module-lstm_results_real_data">
 <span id="classify-the-real-data-using-lstm"></span><h1>Classify the real data using LSTM<a class="headerlink" href="#module-lstm_results_real_data" title="Link to this heading"></a></h1>
-<p>evaluate_and_finetune_models.py</p>
-<hr class="docutils" />
-<p>Modul na vyhodnotenie viacerých LSTM modelov (base, robust, batchnorm, attention)
-na reálnych dátach a možnosť dodatočného finetuningu attention modelu.</p>
-<p>Obsahuje:
-- definíciu attention vrstvy,
-- výpočet váh tried z reálnych dát,
-- generovanie sekvenčných dát,
-- vyhodnotenie klasifikačnej presnosti,
-- možnosť jemného dotrénovania attention modelu na reálnych dátach.</p>
+<p>Module for evaluating multiple LSTM models (base, robust, batchnorm, attention)
+on real-world 5G network data, with the option to fine-tune the attention model.</p>
+<dl class="simple">
+<dt>This script includes</dt><dd><ul class="simple">
+<li><p>Definition of a custom attention layer,</p></li>
+<li><p>Real-data class weight computation,</p></li>
+<li><p>Sequence generation for LSTM input,</p></li>
+<li><p>Model accuracy evaluation via classification report,</p></li>
+<li><p>Optional fine-tuning of the attention-based LSTM model.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="lstm_results_real_data.AttentionLayer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lstm_results_real_data.</span></span><span class="sig-name descname"><span class="pre">AttentionLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_results_real_data.AttentionLayer" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
-<p>Custom Attention Layer pre LSTM architektúru.</p>
+<p>Custom attention layer compatible with LSTM outputs.
+Outputs a weighted sum across the time dimension.</p>
+<p>Source: <a class="reference external" href="https://www.geeksforgeeks.org/adding-attention-layer-to-a-bi-lstm/">https://www.geeksforgeeks.org/adding-attention-layer-to-a-bi-lstm/</a>?</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="lstm_results_real_data.AttentionLayer.build">
 <span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_results_real_data.AttentionLayer.build" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Build the attention layer.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>input_shape: Shape of the input tensor.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lstm_results_real_data.AttentionLayer.call">
 <span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_results_real_data.AttentionLayer.call" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Apply the attention mechanism to the input tensor.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>x: Input tensor of shape (batch_size, timesteps, features).</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>output: Weighted sum of the input tensor across the time dimension.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lstm_results_real_data.AttentionLayer.compute_output_shape">
 <span class="sig-name descname"><span class="pre">compute_output_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_results_real_data.AttentionLayer.compute_output_shape" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Compute the output shape of the attention layer.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>input_shape: Shape of the input tensor.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>output_shape: Shape of the output tensor.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lstm_results_real_data.create_sequences">
 <span class="sig-prename descclassname"><span class="pre">lstm_results_real_data.</span></span><span class="sig-name descname"><span class="pre">create_sequences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_results_real_data.create_sequences" title="Link to this definition"></a></dt>
-<dd><p>Transformácia plochých vstupov na sekvenčné okná pre LSTM modely.</p>
+<dd><p>Converts flattened input arrays into sliding window sequences for LSTM input.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>X (np.ndarray): Input features of shape (samples, features).</p></li>
+<li><p>y (np.ndarray): Target labels corresponding to input samples.</p></li>
+<li><p>seq_len (int): Length of each sequence window. Default is 60.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>tuple: (X_seq, y_seq) where X_seq has shape (samples - seq_len, seq_len, features) and y_seq has shape (samples - seq_len,).</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lstm_results_real_data.evaluate_model">
 <span class="sig-prename descclassname"><span class="pre">lstm_results_real_data.</span></span><span class="sig-name descname"><span class="pre">evaluate_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lstm_results_real_data.evaluate_model" title="Link to this definition"></a></dt>
-<dd><p>Vyhodnotenie modelu pomocou klasifikačnej správy.</p>
+<dd><p>Evaluates a trained model on given sequential data and prints classification report.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>model (keras.Model): The trained Keras model to evaluate.</p></li>
+<li><p>X_seq (np.ndarray): Sequential input data (samples, seq_len, features).</p></li>
+<li><p>y_seq (np.ndarray): True class labels.</p></li>
+<li><p>name (str): Name of the model for display purposes.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lstm_results_real_data.load_and_preprocess_data">
 <span class="sig-prename descclassname"><span class="pre">lstm_results_real_data.</span></span><span class="sig-name descname"><span class="pre">load_and_preprocess_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lstm_results_real_data.load_and_preprocess_data" title="Link to this definition"></a></dt>
-<dd><p>Načíta a spracuje reálne dáta + zmapuje kategórie.</p>
+<dd><p>Loads the real-world labeled dataset and applies categorical mappings.</p>
+<dl class="simple">
+<dt>Args</dt><dd><p>None</p>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>pd.DataFrame: Preprocessed dataset with mapped categorical columns and timestamps.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lstm_results_real_data.run_evaluation_and_finetuning">
 <span class="sig-prename descclassname"><span class="pre">lstm_results_real_data.</span></span><span class="sig-name descname"><span class="pre">run_evaluation_and_finetuning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lstm_results_real_data.run_evaluation_and_finetuning" title="Link to this definition"></a></dt>
-<dd><p>Hlavná funkcia – vyhodnotenie 4 modelov + voliteľný finetuning attention modelu.</p>
+<dd><p>Main function to evaluate four trained LSTM models and fine-tune the attention model
+using real labeled data.</p>
+<dl class="simple">
+<dt>Args</dt><dd><p>None</p>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -176,7 +257,7 @@ na reálnych dátach a možnosť dodatočného finetuningu attention modelu.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="lstm_bathnorm_model.html" class="btn btn-neutral float-left" title="LSTM BathNorm Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lstm_robust_model.html" class="btn btn-neutral float-left" title="LSTM Robust Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="eda.html" class="btn btn-neutral float-right" title="Exploratory Data Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
