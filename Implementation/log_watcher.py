@@ -24,120 +24,22 @@ from nbconvert.preprocessors import ExecutePreprocessor
 from prometheus_client import Gauge, start_http_server
 from pygtail import Pygtail
     
-# Detect if Sphinx is building the docs
-IS_DOC_BUILD = os.getenv("SPHINX_BUILD") == "1"
-
 # Global variables
 LOG_FILE = "/open5gs/install/var/log/open5gs/amf.log"
 SEQUENCE_LENGTH = 60
 LOOP_COUNTER = 0
 OUTPUT_FILE = "./data/running_data.csv"
 
-class AttentionLayer(Layer):
+# Loading model and scaler
+MODEL_PATH = "/app/data/Model/trained_models/lstm_attention_model.keras"
+SCALER_PATH = "/app/data/Model/scaler/scaler.joblib"
+FEATURES_PATH = "/app/data/Model/json/selected_features.json"
 
-    """
-    Custom attention layer for LSTM model.
-    This layer computes the attention weights and applies them to the input sequence.
+SCALER = joblib.load(SCALER_PATH)
 
-    Args
-        - Layer (tf.keras.layers.Layer): Base class for all layers in Keras.
-
-    Returns
-        None
-    """
-
-    def __init__(self, **kwargs):
-
-        """
-        Initialize the AttentionLayer.
-
-        Args
-            - **kwargs: Additional arguments for the layer.
-
-        Returns
-            None
-        """
-    
-        super(AttentionLayer, self).__init__(**kwargs)
-
-    def build(self, input_shape):
-
-        """
-        Create the attention weights and bias.
-
-        Args
-            - input_shape (tuple): Shape of the input tensor.
-
-        Returns
-            None
-        """
-        self.W = self.add_weight(name='att_weight', shape=(input_shape[-1], 1),
-                                 initializer='glorot_uniform', trainable=True)
-        self.b = self.add_weight(name='att_bias', shape=(input_shape[1], 1),
-                                 initializer='zeros', trainable=True)
-        super(AttentionLayer, self).build(input_shape)
-
-    def call(self, x):
-
-        """
-        Calculate the attention weights and apply them to the input sequence.
-
-        Args
-            - x (tensor): Input tensor of shape (batch_size, sequence_length, features).
-
-        Returns
-            - tensor: Output tensor of shape (batch_size, features).
-        """
-
-        e = K.tanh(K.dot(x, self.W) + self.b)  
-        a = K.softmax(e, axis=1)              
-        output = x * a                         
-        return K.sum(output, axis=1)           
-
-    def compute_output_shape(self, input_shape):
-
-        """
-        Compute the output shape of the layer.
-
-        Args
-            - input_shape (tuple): Shape of the input tensor.
-
-        Returns
-            - tuple: Shape of the output tensor.
-        """
-
-        return (input_shape[0], input_shape[-1])
-
-if not IS_DOC_BUILD:
-    FEATURES_PATH = "./data/Model/selected_features.json"
-    SCALER_PATH = "./data/Model/scaler.joblib"
-    MODEL_PATH = "./data/Model/trained_models/lstm_attention_model.keras"
-
-    try:
-        with open(FEATURES_PATH, "r") as f:
-            SELECTED_FEATURES = json.load(f)["features"]
-
-        SCALER = joblib.load(SCALER_PATH)
-        if not IS_DOC_BUILD:
-            try:
-                MODEL = load_model(MODEL_PATH, custom_objects={"AttentionLayer": AttentionLayer}, compile=False)
-                MODEL.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-            except FileNotFoundError:
-                MODEL = None
-        else:
-            MODEL = None
-
-
-    except FileNotFoundError as e:
-        print(f"❗ Required file not found during runtime: {e}")
-        SELECTED_FEATURES = []
-        SCALER = None
-        MODEL = None
-else:
-    SELECTED_FEATURES = []
-    SCALER = None
-    MODEL = None
-
+# Loading selected metrics
+with open(FEATURES_PATH, "r") as f:
+    SELECTED_FEATURES = json.load(f)['features']
 
 # Ensuring the backup directory exists
 if not os.path.exists("./data/backup"):
@@ -160,18 +62,33 @@ model_loss = Gauge("model_loss", "Model loss during fine-tuning")
 predicted_uc_confidence = Gauge("classified_uc_confidence", "Confidence score of predicted use case")
 
 
+class AttentionLayer(Layer):
+    def __init__(self, **kwargs):
+        super(AttentionLayer, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        self.W = self.add_weight(name='att_weight', shape=(input_shape[-1], 1),
+                                 initializer='glorot_uniform', trainable=True)
+        self.b = self.add_weight(name='att_bias', shape=(input_shape[1], 1),
+                                 initializer='zeros', trainable=True)
+        super(AttentionLayer, self).build(input_shape)
+
+    def call(self, x):
+        e = K.tanh(K.dot(x, self.W) + self.b)  
+        a = K.softmax(e, axis=1)              
+        output = x * a                         
+        return K.sum(output, axis=1)           
+
+    def compute_output_shape(self, input_shape):
+        return (input_shape[0], input_shape[-1])
+    
+MODEL = load_model(MODEL_PATH, custom_objects={"AttentionLayer": AttentionLayer}, compile=False)
+MODEL.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+
 def truncate_running_data(csv_path, keep_last_n=SEQUENCE_LENGTH):
 
-    """
-    Truncate the CSV file to keep only the last `keep_last_n` records.
-
-    Args
-        - csv_path (str): Path to the CSV file.
-        - keep_last_n (int): Number of records to keep.
-
-    Returns
-        None
-    """
+    """Truncate the given CSV file to keep only the last `keep_last_n` rows."""
 
     try:
         df = pd.read_csv(csv_path)
@@ -185,15 +102,7 @@ def truncate_running_data(csv_path, keep_last_n=SEQUENCE_LENGTH):
 
 def run_notebook_in_thread():
 
-    """
-    Run the main.ipynb notebook in a separate thread to avoid blocking the main loop.
-
-    Args
-        None
-
-    Returns
-        None
-    """
+    """Run the main.ipynb notebook in a separate daemon thread."""
 
     thread = threading.Thread(target=run_main_notebook_with_backup)
     thread.daemon = True
@@ -202,15 +111,7 @@ def run_notebook_in_thread():
 
 def run_main_notebook_with_backup():
 
-    """
-    Execute the main.ipynb notebook, log its execution, truncate CSV, and periodically create CSV backups.
-    
-    Args
-        None
-
-    Returns
-        None
-    """
+    """Execute the main.ipynb notebook, log its execution, truncate CSV, and periodically create CSV backups."""
 
     global LOOP_COUNTER
     print("📓 main.ipynb loop...")
@@ -251,15 +152,7 @@ def run_main_notebook_with_backup():
 
 def predict_current_uc(latest_window_df):
 
-    """
-    Predict the current use case (UC) using the loaded LSTM model based on the latest data window.
-
-    Args
-        - latest_window_df (pd.DataFrame): DataFrame containing the latest data window.
-
-    Returns
-        - tuple: Predicted UC class and confidence score.
-    """
+    """Predict the current use case (UC) using the loaded LSTM model based on the latest data window."""
 
     if len(latest_window_df) < SEQUENCE_LENGTH:
         return -1, -1.0
@@ -278,20 +171,7 @@ def predict_current_uc(latest_window_df):
 
 def load_last_sequence(csv_path, selected_features, sequence_length=SEQUENCE_LENGTH):
 
-    """
-    Load the last sequence of records from CSV, ensuring all required features and labels are present.
-    
-    Args
-        - csv_path (str): Path to the CSV file.
-        - selected_features (list): List of features to select from the DataFrame.
-        - sequence_length (int): Length of the sequence to load.
-
-    Returns
-        - tuple: DataFrame with selected features and the correct labels.
-
-    Raises
-        - ValueError: If any of the selected features are missing in the DataFrame.
-    """
+    """Load the last sequence of records from CSV, ensuring all required features and labels are present."""
 
     try:
         df = pd.read_csv(csv_path)
@@ -317,20 +197,12 @@ def load_last_sequence(csv_path, selected_features, sequence_length=SEQUENCE_LEN
     except Exception as e:
         print(f"❌ Failed to load sequence: {e}")
 
-        return None
+        return None, None
 
 
 def remove_offset():
 
-    """
-    Remove the offset file used by Pygtail to start reading the log file from the beginning.
-    
-    Args
-        None
-
-    Returns
-        None
-    """
+    """Remove the offset file used by Pygtail to start reading the log file from the beginning."""
 
     offset_file = f"{LOG_FILE}.offset"
     if os.path.exists(offset_file):
@@ -345,13 +217,6 @@ def parse_amf(lines, previous_state):
     """
     Parse AMF log lines to extract UE registration and deregistration events, 
     update UE states, and compute registration/session durations.
-
-    Args
-        - lines (list): List of log lines to parse.
-        - previous_state (dict): Previous state of UE details and durations.
-
-    Returns
-        - tuple: Updated UE details, new registration durations, and new session durations.
     """
 
     ue_details = previous_state["ue_details"]
@@ -468,16 +333,7 @@ def parse_amf(lines, previous_state):
 
 def save_model_with_date(model, path_prefix="/app/data/Model/Model_bn_"):
 
-    """
-    Save the current model to disk with the current date as part of the filename.
-    
-    Args
-        - model (tf.keras.Model): The model to save.
-        - path_prefix (str): Prefix for the filename.
-
-    Returns
-        None
-    """
+    """Save the current model to disk with the current date as part of the filename."""
 
     today = datetime.now().strftime("%Y-%m-%d")
     filename = f"{path_prefix}{today}.keras"
@@ -488,17 +344,7 @@ def save_model_with_date(model, path_prefix="/app/data/Model/Model_bn_"):
 
 def clean_old_models(directory="/app/data/Model", keep_last_n=7, pattern="Model_bn_*.keras"):
 
-    """
-    Keep only the last `keep_last_n` saved model files and delete older ones.
-    
-    Args
-        - directory (str): Directory containing the model files.
-        - keep_last_n (int): Number of recent models to keep.
-        - pattern (str): Pattern to match model files.
-
-    Returns
-        None
-    """
+    """Keep only the last `keep_last_n` saved model files and delete older ones."""
 
     files = sorted(glob.glob(os.path.join(directory, pattern)), key=os.path.getmtime, reverse=True)
     if len(files) > keep_last_n:
@@ -512,16 +358,7 @@ def clean_old_models(directory="/app/data/Model", keep_last_n=7, pattern="Model_
 
 def main_loop(interval=1, prometheus_port=9000):
 
-    """
-    Main loop that monitors UE activity, parses logs, updates Prometheus metrics, and fine-tunes the model in real-time.
-    
-    Args
-        - interval (int): Time interval for monitoring and updating metrics.
-        - prometheus_port (int): Port for Prometheus metrics.
-
-    Returns
-        None
-    """
+    """Main loop that monitors UE activity, parses logs, updates Prometheus metrics, and fine-tunes the model in real-time."""
     
     print(f"📡 Tracking UEs every {interval}s and exporting to Prometheus on port {prometheus_port}...\n")
     start_http_server(prometheus_port)
@@ -591,14 +428,19 @@ def main_loop(interval=1, prometheus_port=9000):
                 confidence = float(prediction[0][predicted_uc])
                 predicted_uc_metric.set(predicted_uc)
                 predicted_uc_confidence.set(confidence)
-                true_uc_metric.set(correct_labels.iloc[-1])
+                if correct_labels is not None:
+                    true_uc_metric.set(correct_labels.iloc[-1])
+                else:
+                    true_uc_metric.set(-1)
                 print(f"🔮 Predicted UC after fine-tuning: {predicted_uc}")
 
             else:
                 print("❌ Failed to load current sequence for prediction.")
-                predicted_uc_metric.set(-1)
-                predicted_uc_confidence.set(0.0)
-                true_uc_metric.set(correct_labels.iloc[-1])
+                continue
+
+            if len(current_df) != SEQUENCE_LENGTH:
+                print("❌ Current DataFrame length is not equal to SEQUENCE_LENGTH.")
+                continue
 
             # 🖥️  Output to terminal
             print("\033[H\033[J", end="")

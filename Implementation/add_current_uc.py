@@ -49,7 +49,7 @@ def apply_uc(row):
     else:
         return 'uc1'  # Default fallback label
 
-def label_realnetwork_csv(input_path='../backup/realnetwork.csv', output_path='../real_data.csv'):
+def label_realnetwork_csv(input_path='../datasets/real_network_data_before_labeling.csv', output_path='../datasets/real_network_data_after_labeling.csv'):
     """
     Load the CSV, assign UC labels to each row, and save the updated file.
 

@@ -40,7 +40,7 @@ def load_dataset(path: str) -> pd.DataFrame:
 
     return pd.read_csv(path)
 
-def load_maps(log_map_path='log_map.json', app_map_path='app_map.json', uc_map_path='uc_map.json'):
+def load_maps(log_map_path='./json/log_map.json', app_map_path='./json/app_map.json', uc_map_path='./json/uc_map.json'):
 
     """
     Load mapping dictionaries from JSON files.
