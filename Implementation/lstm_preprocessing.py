@@ -65,15 +65,15 @@ def load_data(X_path, Y_path, scaler_path, features_path, uc_map_path):
 def create_sequences(X, y, seq_len):
 
     """
-    Vytvorí sekvencie vstupných dát pre LSTM z kĺzavého okna.
+    Creates sequences of input data for LSTM using a sliding window.
 
     Parameters:
-        X (np.ndarray): Vstupné dáta (features)
-        y (np.ndarray): Cieľové hodnoty (triedy)
-        seq_len (int): Dĺžka sekvencie pre LSTM
+        X (np.ndarray): Input data (features)
+        y (np.ndarray): Target values (classes)
+        seq_len (int): Length of the sequence for LSTM
 
     Returns:
-        tuple: (X_seq, y_seq) ako ndarray
+        tuple: (X_seq, y_seq) as ndarray
     """
 
     Xs, ys = [], []

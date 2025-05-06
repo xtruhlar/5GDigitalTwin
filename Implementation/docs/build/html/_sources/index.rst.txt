@@ -42,7 +42,7 @@ Welcome to the Digital Twin of 5G Network!
    :caption: Infrastructure
 
    running_network
-   log_watcher
+   network_watcher
 
 .. toctree::
    :caption: LINKS

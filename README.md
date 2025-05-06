@@ -23,7 +23,7 @@ cd 5GDigitalTwin/Implementation
 
 #### Step 2: Build Docker images
 ```bash
-cd ./base
+cd ./open5gs/base
 docker build -t docker_open5gs .
 
 cd ../ueransim
@@ -49,7 +49,7 @@ docker compose -f deploy-all.yaml up --build -d
 #### Step 5: Add subscribers to MongoDB
 ```bash
 docker exec -it mongo mkdir -p /data/backup
-docker cp ./mongodb_backup/open5gs mongo:/data/backup/open5gs
+docker cp ./open5gs/mongodb_backup/open5gs mongo:/data/backup/open5gs
 docker exec -it mongo mongorestore --uri="mongodb://localhost:27017" --db open5gs /data/backup/open5gs
 ```
 

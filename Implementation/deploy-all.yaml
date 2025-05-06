@@ -30,7 +30,7 @@ services:
     environment:
       - COMPONENT_NAME=webui
     volumes:
-      - ./webui:/mnt/webui
+      - ./open5gs/webui:/mnt/webui
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     expose:
@@ -50,7 +50,7 @@ services:
     environment:
       - COMPONENT_NAME=nrf
     volumes:
-      - ./nrf:/mnt/nrf
+      - ./open5gs/nrf:/mnt/nrf
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -71,7 +71,7 @@ services:
     environment:
       - COMPONENT_NAME=scp
     volumes:
-      - ./scp:/mnt/scp
+      - ./open5gs/scp:/mnt/scp
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -93,7 +93,7 @@ services:
     environment:
       - COMPONENT_NAME=ausf
     volumes:
-      - ./ausf:/mnt/ausf
+      - ./open5gs/ausf:/mnt/ausf
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -116,7 +116,7 @@ services:
     environment:
       - COMPONENT_NAME=udr
     volumes:
-      - ./udr:/mnt/udr
+      - ./open5gs/udr:/mnt/udr
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -138,7 +138,7 @@ services:
     environment:
       - COMPONENT_NAME=udm
     volumes:
-      - ./udm:/mnt/udm
+      - ./open5gs/udm:/mnt/udm
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -161,7 +161,7 @@ services:
     environment:
       - COMPONENT_NAME=pcf
     volumes:
-      - ./pcf:/mnt/pcf
+      - ./open5gs/pcf:/mnt/pcf
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -185,7 +185,7 @@ services:
     environment:
       - COMPONENT_NAME=bsf
     volumes:
-      - ./bsf:/mnt/bsf
+      - ./open5gs/bsf:/mnt/bsf
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -208,7 +208,7 @@ services:
     environment:
       - COMPONENT_NAME=nssf
     volumes:
-      - ./nssf:/mnt/nssf
+      - ./open5gs/nssf:/mnt/nssf
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -232,7 +232,7 @@ services:
       - COMPONENT_NAME=smf
       - DEPLOY_MODE=ALL
     volumes:
-      - ./smf:/mnt/smf
+      - ./open5gs/smf:/mnt/smf
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -264,7 +264,7 @@ services:
     environment:
       - COMPONENT_NAME=upf
     volumes:
-      - ./upf:/mnt/upf
+      - ./open5gs/upf:/mnt/upf
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -298,7 +298,7 @@ services:
     environment:
       - COMPONENT_NAME=amf
     volumes:
-      - ./amf:/mnt/amf
+      - ./open5gs/amf:/mnt/amf
       - ./log:/open5gs/install/var/log/open5gs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -311,14 +311,14 @@ services:
         ipv4_address: ${AMF_IP}
   # #Metrics - Prometheus
   metrics:
-    build: ./metrics
+    build: ./open5gs/metrics
     image: docker_metrics
     container_name: metrics
     restart: always
     env_file:
       - .env
     volumes:
-      - ./metrics:/mnt/metrics
+      - ./open5gs/metrics:/mnt/metrics
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     expose:
@@ -337,8 +337,8 @@ services:
       - .env
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/:/etc/grafana/provisioning/
-      - ./grafana:/mnt/grafana
+      - ./open5gs/grafana/:/etc/grafana/provisioning/
+      - ./open5gs/grafana:/mnt/grafana
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -375,7 +375,7 @@ services:
     image: grafana/promtail:2.9.4
     container_name: promtail
     volumes:
-      - ./promtail-config.yaml:/etc/promtail/config.yaml
+      - ./promtail/promtail-config.yaml:/etc/promtail/config.yaml
       - ./log:/mnt/logs
       - /etc/hostname:/etc/hostname
       - /etc/localtime:/etc/localtime:ro
@@ -386,12 +386,12 @@ services:
     depends_on:
       - loki
       - amf
-  # Logwatcher
-  logwatcher:
+  # Network Watcher
+  network_watcher:
     build:
       context: .
-      dockerfile: Dockerfile.logwatcher
-    container_name: logwatcher
+      dockerfile: Dockerfile.networkwatcher
+    container_name: network_watcher
     volumes:
       - ./log:/open5gs/install/var/log/open5gs
       - ./data:/app/data
@@ -401,7 +401,7 @@ services:
       - "9000:9000"
     networks:
       default:
-        ipv4_address: ${LOGWATCHER_IP}
+        ipv4_address: ${NETWORK_WATCHER_IP}
 # Networks
 networks:
   default:

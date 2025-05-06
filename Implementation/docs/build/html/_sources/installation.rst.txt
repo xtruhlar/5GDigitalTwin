@@ -20,7 +20,7 @@ To build docker images
 
 .. code-block:: bash
 
-  cd ./base
+  cd ./open5gs/base
   docker build -t docker_open5gs .
 
   cd ../ueransim
@@ -50,7 +50,7 @@ To add subscribers to Open5GS core, run the following commands
 .. code-block:: bash
 
   docker exec -it mongo mkdir -p /data/backup
-  docker cp ./mongodb_backup/open5gs mongo:/data/backup/open5gs
+  ocker cp ./open5gs/mongodb_backup/open5gs mongo:/data/backup/open5gs
   docker exec -it mongo mongorestore --uri="mongodb://localhost:27017" --db open5gs /data/backup/open5gs
 
 To ensure everything works properly, open http://localhost:9999/ in your browser and login using credentials:

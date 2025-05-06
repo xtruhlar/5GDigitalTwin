@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main orchestrator &mdash; Digital Twin of 5G Network 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Simulate a running network" href="running_network.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Digital Twin of 5G Network
+              <img src="_static/fiit_logo2.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uc1.html">Normal Surfing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc2.html">Video Streaming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc3.html">Periodic Keep-Alive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc4.html">Short Burst Sessions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc5.html">Load Registration Anomaly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uc6.html">Authentication Failure Alert</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lstm_attention_model.html">LSTM Model with Attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_bathnorm_model.html">LSTM BathNorm Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_base_model.html">LSTM Base Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_robust_model.html">LSTM Robust Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_results_real_data.html">Classify the real data using LSTM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data &amp; Preprocessing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_current_uc.html">Label Real Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lstm_preprocessing.html">Preprocess data for LSTM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Infrastructure</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="running_network.html">Simulate a running network</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Main orchestrator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.AttentionLayer"><code class="docutils literal notranslate"><span class="pre">AttentionLayer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#network_watcher.AttentionLayer.build"><code class="docutils literal notranslate"><span class="pre">AttentionLayer.build()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#network_watcher.AttentionLayer.call"><code class="docutils literal notranslate"><span class="pre">AttentionLayer.call()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#network_watcher.AttentionLayer.compute_output_shape"><code class="docutils literal notranslate"><span class="pre">AttentionLayer.compute_output_shape()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.clean_old_models"><code class="docutils literal notranslate"><span class="pre">clean_old_models()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.load_last_sequence"><code class="docutils literal notranslate"><span class="pre">load_last_sequence()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.main_loop"><code class="docutils literal notranslate"><span class="pre">main_loop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.parse_amf"><code class="docutils literal notranslate"><span class="pre">parse_amf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.predict_current_uc"><code class="docutils literal notranslate"><span class="pre">predict_current_uc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.remove_offset"><code class="docutils literal notranslate"><span class="pre">remove_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.run_main_notebook_with_backup"><code class="docutils literal notranslate"><span class="pre">run_main_notebook_with_backup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.run_notebook_in_thread"><code class="docutils literal notranslate"><span class="pre">run_notebook_in_thread()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.save_model_with_date"><code class="docutils literal notranslate"><span class="pre">save_model_with_date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network_watcher.truncate_running_data"><code class="docutils literal notranslate"><span class="pre">truncate_running_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">LINKS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin">💻 Source code</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/issues">🐞 Report an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/xtruhlar/5GDigitalTwin/discussions">💬 Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://fiit.stuba.sk">🏢 FIIT STU</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Digital Twin of 5G Network</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Main orchestrator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/network_watcher.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-network_watcher">
+<span id="main-orchestrator"></span><h1>Main orchestrator<a class="headerlink" href="#module-network_watcher" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="network_watcher.AttentionLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">AttentionLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.AttentionLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<p>Custom attention layer for LSTM model.
+This layer computes the attention weights and applies them to the input sequence.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>Layer (tf.keras.layers.Layer): Base class for all layers in Keras.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="network_watcher.AttentionLayer.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.AttentionLayer.build" title="Link to this definition"></a></dt>
+<dd><p>Create the attention weights and bias.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>input_shape (tuple): Shape of the input tensor.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="network_watcher.AttentionLayer.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.AttentionLayer.call" title="Link to this definition"></a></dt>
+<dd><p>Calculate the attention weights and apply them to the input sequence.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>x (tensor): Input tensor of shape (batch_size, sequence_length, features).</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>tensor: Output tensor of shape (batch_size, features).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="network_watcher.AttentionLayer.compute_output_shape">
+<span class="sig-name descname"><span class="pre">compute_output_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.AttentionLayer.compute_output_shape" title="Link to this definition"></a></dt>
+<dd><p>Compute the output shape of the layer.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>input_shape (tuple): Shape of the input tensor.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>tuple: Shape of the output tensor.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.clean_old_models">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">clean_old_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/app/data/Model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_last_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Model_bn_*.keras'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.clean_old_models" title="Link to this definition"></a></dt>
+<dd><p>Keep only the last <cite>keep_last_n</cite> saved model files and delete older ones.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>directory (str): Directory containing the model files.</p></li>
+<li><p>keep_last_n (int): Number of recent models to keep.</p></li>
+<li><p>pattern (str): Pattern to match model files.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.load_last_sequence">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">load_last_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.load_last_sequence" title="Link to this definition"></a></dt>
+<dd><p>Load the last sequence of records from CSV, ensuring all required features and labels are present.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>csv_path (str): Path to the CSV file.</p></li>
+<li><p>selected_features (list): List of features to select from the DataFrame.</p></li>
+<li><p>sequence_length (int): Length of the sequence to load.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>tuple: DataFrame with selected features and the correct labels.</p></li>
+</ul>
+</dd>
+<dt>Raises</dt><dd><ul class="simple">
+<li><p>ValueError: If any of the selected features are missing in the DataFrame.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.main_loop">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">main_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prometheus_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.main_loop" title="Link to this definition"></a></dt>
+<dd><p>Main loop that monitors UE activity, parses logs, updates Prometheus metrics, and fine-tunes the model in real-time.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>interval (int): Time interval for monitoring and updating metrics.</p></li>
+<li><p>prometheus_port (int): Port for Prometheus metrics.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.parse_amf">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">parse_amf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous_state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.parse_amf" title="Link to this definition"></a></dt>
+<dd><p>Parse AMF log lines to extract UE registration and deregistration events,
+update UE states, and compute registration/session durations.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>lines (list): List of log lines to parse.</p></li>
+<li><p>previous_state (dict): Previous state of UE details and durations.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>tuple: Updated UE details, new registration durations, and new session durations.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.predict_current_uc">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">predict_current_uc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latest_window_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.predict_current_uc" title="Link to this definition"></a></dt>
+<dd><p>Predict the current use case (UC) using the loaded LSTM model based on the latest data window.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>latest_window_df (pd.DataFrame): DataFrame containing the latest data window.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><ul class="simple">
+<li><p>tuple: Predicted UC class and confidence score.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.remove_offset">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">remove_offset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.remove_offset" title="Link to this definition"></a></dt>
+<dd><p>Remove the offset file used by Pygtail to start reading the log file from the beginning.</p>
+<dl class="simple">
+<dt>Args</dt><dd><p>None</p>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.run_main_notebook_with_backup">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">run_main_notebook_with_backup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.run_main_notebook_with_backup" title="Link to this definition"></a></dt>
+<dd><p>Execute the main.ipynb notebook, log its execution, truncate CSV, and periodically create CSV backups.</p>
+<dl class="simple">
+<dt>Args</dt><dd><p>None</p>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.run_notebook_in_thread">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">run_notebook_in_thread</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.run_notebook_in_thread" title="Link to this definition"></a></dt>
+<dd><p>Run the main.ipynb notebook in a separate thread to avoid blocking the main loop.</p>
+<dl class="simple">
+<dt>Args</dt><dd><p>None</p>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.save_model_with_date">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">save_model_with_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/app/data/Model/Model_bn_'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.save_model_with_date" title="Link to this definition"></a></dt>
+<dd><p>Save the current model to disk with the current date as part of the filename.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>model (tf.keras.Model): The model to save.</p></li>
+<li><p>path_prefix (str): Prefix for the filename.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="network_watcher.truncate_running_data">
+<span class="sig-prename descclassname"><span class="pre">network_watcher.</span></span><span class="sig-name descname"><span class="pre">truncate_running_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_last_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#network_watcher.truncate_running_data" title="Link to this definition"></a></dt>
+<dd><p>Truncate the CSV file to keep only the last <cite>keep_last_n</cite> records.</p>
+<dl class="simple">
+<dt>Args</dt><dd><ul class="simple">
+<li><p>csv_path (str): Path to the CSV file.</p></li>
+<li><p>keep_last_n (int): Number of records to keep.</p></li>
+</ul>
+</dd>
+<dt>Returns</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="running_network.html" class="btn btn-neutral float-left" title="Simulate a running network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, David Truhlar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

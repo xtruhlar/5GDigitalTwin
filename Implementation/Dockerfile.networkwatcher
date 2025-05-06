@@ -1,0 +1,29 @@
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN pip install \
+    numpy==1.26.4 \
+    tensorflow==2.19.0 \
+    scikit-learn \
+    flask \
+    prometheus_client \
+    pygtail \
+    joblib \
+    schedule \
+    pandas \
+    nbconvert \
+    nbformat \
+    jupyter \
+    prometheus-api-client
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the Python file into the image
+COPY network_watcher.py .
+
+# Open the port
+EXPOSE 9000
+
+# Run the script
+CMD ["python", "-u", "network_watcher.py"]
