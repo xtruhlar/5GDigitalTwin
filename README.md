@@ -84,32 +84,34 @@ Example:
 ├── Conceptual part
 │   ├── Conceptual.pdf
 │   ├── bibliography.bib
-│   ├── content/                   # LaTeX chapters (technical abstract, analysis, etc.)
-│   ├── pages/                     # Formal pages (title, declaration, etc.)
-│   └── assets/images/            # Figures used in the thesis (architecture, DT diagrams)
+│   ├── content/               # LaTeX chapters (technical abstract, analysis, etc.)
+│   ├── pages/                 # Formal pages (title, declaration, etc.)
+│   └── assets/images/         # Figures used in the thesis (architecture, DT diagrams)
 ├── Scientific Part
-│   ├── elmar_template.tex         # Conference paper template (ELMAR)
-│   ├── reference.bib              # Bibliography for the scientific paper
-│   └── model_architecture.png     # Architecture figure for the paper
+│   ├── elmar_template.tex     # Conference paper template (ELMAR)
+│   ├── reference.bib          # Bibliography for the scientific paper
+│   └── model_architecture.png # Architecture figure for the paper
 ├── Implementation
-│   ├── main.ipynb                 # Main script for data collection and preprocessing
+│   ├── main.ipynb             # Main script for data collection and preprocessing
 │   ├── data/
-│   │   ├── datasets/              # Real and simulated CSV datasets
-│   │   ├── logs_real_5G/          # Log files from Open5GS components
-│   │   └── running_data.csv       # Exported Prometheus metrics (live)
+│   │   ├── datasets/          # Real and simulated CSV datasets
+│   │   ├── logs_real_5G/      # Log files from Open5GS components
+│   │   └── running_data.csv   # Exported Prometheus metrics (live)
 │   ├── Model/
-│   │   ├── *.ipynb                # Notebooks for model training and evaluation
-│   │   ├── trained_models/        # Final .h5 and .keras models
-│   │   └── preprocessed_data/     # Numpy arrays for training/testing (X/y)
-│   ├── lstm_*.py                  # Python scripts implementing different LSTM models
-│   ├── uc1.py ... uc6.py          # Scripts simulating UC1–UC6 behavior
-│   ├── network_watcher.py         # Real-time log watcher and classifier
-│   ├── open5gs/                   # Configurations for AMF, SMF, UPF, etc.
-│   ├── ueransim/                  # Init scripts and YAML configs for UEs and gNB
-│   ├── promtail/promtail-config.yaml  # Promtail configuration for log shipping
-│   ├── loki/loki-config.yaml          # Loki configuration for log storage
-│   └── deploy-all.yaml            # Docker Compose orchestration script
-├── docs/                          # Auto-generated Sphinx documentation (HTML)
+│   │   ├── *.ipynb            # Notebooks for model training and evaluation
+│   │   ├── trained_models/    # Final .h5 and .keras models
+│   │   └── preprocessed_data/ # Numpy arrays for training/testing (X/y)
+│   ├── lstm_*.py              # Python scripts implementing different LSTM models
+│   ├── uc1.py ... uc6.py      # Scripts simulating UC1–UC6 behavior
+│   ├── network_watcher.py     # Real-time log watcher and classifier
+│   ├── open5gs/               # Configurations for AMF, SMF, UPF, etc.
+│   ├── ueransim/              # Init scripts and YAML configs for UEs and gNB
+│   ├── promtail/
+│   │   ├─promtail-config.yaml # Promtail configuration for log shipping
+│   ├── loki/
+│   │   ├─loki-config.yaml     # Loki configuration for log storage
+│   └── deploy-all.yaml        # Docker Compose orchestration script
+├── docs/                      # Auto-generated Sphinx documentation (HTML)
 │   └── index.html, ucX.html, etc.
 ├── images/
 │   └── dashboard.png, model architecture.png
