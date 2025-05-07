@@ -1,46 +1,48 @@
 \section{Technická reprodukovateľnosť a integrácia}
 
-Navrhnuté riešenie DT 5G siete bolo navrhnuté s dôrazom na experimentálnu reprodukovateľnosť a jednoduché nasadenie. Celý projekt je dostupný vo verejnom repozitári na platforme GitHub\footnote{\url{https://github.com/xtruhlar/5GDigitalTwin}}, vrátane kompletného zdrojového kódu, Docker konfigurácie a skriptov pre real-time klasifikáciu.
+Riešenie DT 5G siete bolo vyvinuté s dôrazom na experimentálnu reprodukovateľnosť a jednoduché nasadenie. Celý projekt je dostupný vo verejnom repozitári na platforme GitHub\footnote{\url{https://github.com/xtruhlar/5GDigitalTwin}}, vrátane kompletného zdrojového kódu, Docker konfigurácie a skriptov pre klasifikáciu.
 
-K spusteniu základného systému stačí klonovanie repozitára pomocou \texttt{git clone}, pričom je potrebné, aby bol na cieľovom systéme nainštalovaný  git vo verzii 2.39.5 a  Docker vo verzii 28.0.1. Všetky závislosti sú zabudované do kontajnerov a celý systém je orchestrovaný pomocou \texttt{docker compose}. Po nakonfigurovaní premenných prostredia v súbore \texttt{.env} a inicializácii MongoDB databázy s preddefinovanými UE, sa systém spustí jedným príkazom:
+K spusteniu základného systému stačí klonovanie repozitára pomocou \texttt{git clone}, pričom je potrebné, aby bol na cieľovom systéme nainštalovaný  Git (2.39.5) a  Docker (28.0.1). Všetky závislosti sú zabudované do kontajnerov a celý systém je orchestrovaný pomocou \texttt{docker compose}. Po nakonfigurovaní premenných prostredia v súbore \texttt{.env} a inicializácii MongoDB databázy s preddefinovanými UE, sa systém spustí jedným príkazom:
 
 \begin{quote} \texttt{docker compose -f deploy-all.yaml up --build -d} \end{quote}
 
-Po nasadení komponentov je možné cez webové rozhranie Open5GS (port 9999) overiť funkčnosť jadra siete a cez Grafanu (port 3000) vizualizovať stav siete v reálnom čase. Konfigurácia UERANSIM gNB a UEs je súčasťou repozitára a umožňuje simuláciu dynamického sieťového zaťaženia.
+Po nasadení komponentov je možné cez webové rozhranie Open5GS (port 9999) overiť funkčnosť jadra siete a cez Grafanu (port 3000) vizualizovať stav siete v reálnom čase. Konfigurácia UERANSIM gNB a UE je súčasťou repozitára a umožňuje simuláciu dynamického sieťového zaťaženia.
 
 \subsection*{Zber dát}
 
-Zber dát pre trénovanie a testovanie klasifikačných modelov bol realizovaný samostatne pre syntetickú a reálnu prevádzku. V prípade syntetických dát boli experimenty plne automatizované: systém bežal v Docker Compose prostredí, pričom skript každú sekundu scrapoval metriky z Promethea, extrahoval informácie z logov Open5GS a zaznamenával aktívny stav zo súboru, ktorý obsahoval aktuálny UC. Každý riadok datasetu tak obsahoval timestamp, sieťové metriky, informácie o logoch a aktuálny label podľa spusteného UC.
+Zber dát pre trénovanie a testovanie klasifikačných modelov bol realizovaný samostatne pre syntetickú a reálnu prevádzku. V prípade syntetických dát boli experimenty plne automatizované: systém bežal v Docker Compose prostredí. Skript každú sekundu extrahoval metriky z nástroja Prometheus, údaje z logov Open5GS a informácie o práve aktívnom UC zo sprievodného súboru. Každý riadok dát tak obsahoval časovú pečiatku, sieťové metriky, informácie o logoch a aktuálne označenie podľa spusteného UC.
 
 Pri zbere reálnych dát bola situácia odlišná. Merania prebiehali v laboratórnom prostredí so skutočnými zariadeniami pripojenými do nezávislej 5G siete. Presný čas začiatku a konca každého používateľského scenára bol zaznamenaný manuálne. Po experimente boli všetky relevantné logy skopírované a vložené do preddefinovanej zložky, ktorú čítal ten istý skript. Na základe časového okna experimentu boli metriky zozbierané z Promethea a synchronizované s logmi. Pridávanie stĺpca s číslom UC do jednotlivých riadkov prebiehalo podľa známeho začiatku a konca testovaného UC. Tým bola zabezpečená konzistentnosť medzi stavom siete a cieľovou premennou modelu.
 
-Finálny dataset pre každý experiment bol exportovaný vo formáte CSV, pričom štruktúra bola zhodná pre syntetické aj reálne dáta.
+Výsledné datasety boli pre každý experiment exportované vo formáte CSV, pričom štruktúra bola zhodná pre syntetické aj reálne dáta.
 
 \subsection*{Trénovanie modelov a použitie výstupov}
 
 Na zabezpečenie rovnakých výsledkov trénovania boli dodržané nasledovné podmienky:
 
 \begin{itemize}
-  \item vo všetkých notebookoch sú fixované \textbf{seed hodnoty}, veľkosť \textbf{batchu}, \textbf{počet epoch}, \textbf{architektúra modelu} a \textbf{stratifikované rozdelenie datasetu},
-  \item krok 1: spustenie \texttt{EDA\_feature\_selection.ipynb}, ktorý vytvorí súbor \\ \texttt{selected\_features.json},
+  \item vo všetkých notebookoch sú fixované počiatočné hodnoty (seed), veľkosť dávky (batchu), počet epôch, architektúra modelu a stratifikované rozdelenie datasetu,
+  \item krok 1: spustenie \texttt{eda\_feature\_selection.ipynb}, ktorý vytvorí súbor \\ \texttt{selected\_features.json},
   \item krok 2: spustenie \texttt{dataset\_processing.ipynb}, ktorý vygeneruje \texttt{X\_scaled.npy}, \texttt{y\_labels.npy} a \texttt{scaler.joblib},
-  \item krok 3: spustenie \texttt{00LSTM\_preprocessing.ipynb}, ktorý sekvenuje dáta a exportuje ich vo formáte \texttt{X\_train.npy}, \texttt{y\_train.npy}, \texttt{X\_test.npy}, \texttt{y\_test.npy},
-  \item krok 4: trénovanie modelov pomocou \texttt{01–04LSTM\_*.ipynb} na syntetických dátach,
-  \item krok 5: vyhodnotenie na reálnych dátach v \texttt{05LSTM\_results\_real\_data.ipynb},
+  \item krok 3: spustenie \texttt{lstm\_preprocessing.ipynb}, ktorý vytvára sekvencie a exportuje ich vo formáte \texttt{X\_train.npy}, \texttt{y\_train.npy}, \texttt{X\_test.npy}, \texttt{y\_test.npy},
+  \item krok 4: trénovanie modelov pomocou \texttt{lstm\_*\_model.ipynb} \\ (napr. \texttt{lstm\_attention\_model.ipynb}) na syntetických dátach,
+  \item krok 5: vyhodnotenie na reálnych dátach v \texttt{eval\_results\_real\_data.ipynb},
 \end{itemize}
 
 Predtrénované modely sú uložené v \\ \texttt{/5GDigitalTwin/Implementation/data/Model/trained\_models}.
 
-\subsection*{Real-time klasifikácia a online fine-tunning}
+\subsection*{Klasifikácia v reálnom čase a ladenie modelu}
 
-Kľúčovým komponentom riešenia je vlastný skript \texttt{log\_watcher.py}, ktorý slúži nielen na spracovanie logov z Open5GS (AMF), ale aj na priebežnú predikciu aktuálneho UC pomocou LSTM modelu a jeho online fine-tunning na najnovších dátach. Skript beží ako samostatný proces v jednom z Docker kontajnerov a je automaticky spúšťaný pri štarte systému.
+Kľúčovým komponentom riešenia je vlastný skript \texttt{network\_watcher.py}, ktorý slúži nielen na spracovanie logov z Open5GS, ale aj na priebežnú predikciu aktuálneho UC pomocou LSTM modelu a jeho ladenia na najnovších dátach. Skript beží ako samostatný proces v jednom z Docker kontajnerov a je automaticky spúšťaný pri štarte systému.
 
-Každú sekundu skript načíta nové riadky z logov pomocou \texttt{pygtail}, extrahuje stav jednotlivých UE zariadení (registrácia, deregistrácia, trvanie relácií) a z týchto údajov vypočítava vlastné metriky. Zároveň načíta posledných 60 záznamov z generovaného CSV súboru, normalizuje ich, a použije ako vstup do už natrénovaného LSTM modelu. Výsledná predikcia je exportovaná ako vlastná Prometheus metrika spolu s dôverou predikcie a stratou (loss) počas tréningu.
+Každú sekundu skript načíta nové riadky z logov pomocou \texttt{pygtail}, extrahuje stav jednotlivých UE zariadení (registrácia, deregistrácia, trvanie relácií) a z týchto údajov vypočítava vlastné metriky. Zároveň načíta posledných 60 záznamov z generovaného CSV súboru, normalizuje ich, a použije ako vstup do už natrénovaného LSTM modelu. Výsledná predikcia je exportovaná ako vlastná Prometheus metrika spolu s pravdepodobnosťou predikovanej triedy (confidence score) a stratou (loss) počas tréningu.
 
-\subsection*{Simulácia používateľských scenárov}
+\subsection*{Simulácia prípadov použitia}
 
-Na automatizovanú simuláciu používateľských scenárov (UCs) bol vytvorený skript \texttt{running\_network.py}, ktorý náhodne vyberá a spúšťa jednotlivé scenáre zo súborov \texttt{uc1.py} až \texttt{uc6.py}. Každý z týchto šiestich skriptov reprezentuje špecifický typ zaťaženia 5G siete, ako napríklad opakovanú registráciu používateľov, sťahovanie veľkého objemu dát, dlhodobé pripojenie s minimálnou aktivitou či anomálnu autentizáciu.
+Na automatizovanú simuláciu UC bol vytvorený skript \texttt{running\_network.py}, ktorý náhodne vyberá a spúšťa jednotlivé scenáre zo súborov \texttt{uc1.py} až \texttt{uc6.py}. Každý z týchto šiestich skriptov reprezentuje špecifický typ zaťaženia 5G siete, ako napríklad opakovanú registráciu používateľov, sťahovanie veľkého objemu dát, dlhodobé pripojenie s minimálnou aktivitou či anomálnu autentizáciu.
 
-Skript \texttt{running\_network.py} funguje ako orchestrátor – každých niekoľko minút náhodne vyberie niektorý z UC skriptov, spustí ho v pozadí ako samostatný proces a následne ho po skončení ukončí. Informáciu o aktuálne bežiacom scenári zapisuje do súboru, ktorý slúži ako jediný zdroj pravdy pre labelovanie zberaných metrických dát počas trvania experimentu.
+Skript \texttt{running\_network.py} funguje ako orchestrátor – každých niekoľko minút náhodne vyberie niektorý z UC skriptov, spustí ho v pozadí ako samostatný proces a následne ho po skončení ukončí. Informáciu o aktuálne bežiacom scenári zapisuje do súboru, ktorý slúži ako jediný zdroj pravdy pre označovanie zberaných metrických dát počas trvania experimentu.
 
 Každý \texttt{ucX.py} skript (kde \( X \in \{1, \dots, 6\} \)) obsahuje definíciu počtu zariadení, konfiguráciu ich sieťového zaťaženia a dĺžku trvania simulácie. Scenáre boli navrhnuté tak, aby pokrývali reprezentatívne prípady bežnej aj abnormálnej prevádzky v 5G sieti. Táto architektúra umožňuje nielen spoľahlivý zber syntetických dát, ale aj jednoduché rozšírenie systému o ďalšie prípady použitia bez zásahu do zvyšku infraštruktúry.
+
+Celá infraštruktúra tak poskytuje replikovateľné, modulárne a škálovateľné prostredie vhodné na výskum DT v oblasti 5G, s podporou klasifikácie, monitorovania a experimentálnej validácie modelov v reálnom čase.

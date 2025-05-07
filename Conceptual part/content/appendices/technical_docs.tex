@@ -1,0 +1,28 @@
+% Contents of the digital medium
+\thispagestyle{empty}
+
+\pagenumbering{arabic}
+\renewcommand*{\thepage}{D-\arabic{page}}
+
+\ifx\FIITlagEN\undefined
+\chapter{Technická dokumentácia}
+\else
+\chapter{Technical documentation}
+\fi
+
+\vspace{1em}
+\noindent
+Táto kapitola obsahuje podrobnú technickú dokumentáciu projektu Digital Twin of 5G Network. Obsah dokumentu bol vytvorený automaticky pomocou nástroja \texttt{Sphinx} a slúži ako referenčný manuál pre používateľov a vývojárov. Dokumentácia je vyhotovená v anglickom jazyku, keďže projekt využíva množstvo externých knižníc, nástrojov a terminológie, ktorá je bežne dostupná v angličtine. Zároveň to uľahčuje prípadnú integráciu projektu do medzinárodného výskumu či tímovej spolupráce. Okrem samotnej dokumentácie dokoženej v tejto prílohe, sa technická dokumentácia nachádza aj na webstránke\footnote{\url{https://xtruhlar.github.io/5GDigitalTwin/}} repozitára tohoto projektu. 
+
+% Vloženie PDF od 2. strany
+\newcounter{docpage}
+\setcounter{docpage}{1}
+
+\includepdf[
+  pages=2-27,
+  scale=0.85,
+  pagecommand={\thispagestyle{fancy}\renewcommand*{\thepage}{D-\arabic{page}}}
+]{assets/Technická dokumentácia.pdf}
+
+
+

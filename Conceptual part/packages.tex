@@ -67,43 +67,6 @@
 \let\evensidemargin\tmp
 \reversemarginpar
 
-% Code listing detail
-\definecolor{keywordblue}{rgb}{0,0,1}
-\definecolor{commentgreen}{rgb}{0,0.5,0}
-\definecolor{stringred}{rgb}{0.7,0.1,0}
-
-\lstdefinestyle{bashstyle}{
-  language=bash,
-  basicstyle=\ttfamily,
-  showstringspaces=false,
-  commentstyle=\color{commentgreen},
-  keywordstyle=\color{keywordblue},
-  stringstyle=\color{stringred},
-  morekeywords={git, docker}
-}
-
-\lstdefinestyle{docker}{
-  language=bash,
-  basicstyle=\ttfamily,
-  showstringspaces=false,
-  commentstyle=\color{commentgreen},
-  keywordstyle=\color{keywordblue},
-  stringstyle=\color{stringred},
-  morekeywords={image, container_name, ports, restart, cap_add, security_opt, volumes, environment, networks, default, ipv4_address, docker, compose, up}
-}
-
-\lstdefinestyle{env}{
-  language=bash,
-  basicstyle=\ttfamily,
-  showstringspaces=true,
-  commentstyle=\color{commentgreen},
-  keywordstyle=\color{keywordblue},
-  stringstyle=\color{stringred},
-  morekeywords={MCC, MNC, TEST_NETWORK, DOCKER_HOST_IP, MONGO_IP, NR_GNB_IP, NR_UE1_IP, UE1_IMSI, UE1_KI, UE1_OP, UE1_AMF, NETDATA_IP, NETDATA_PORT, NETDATA_CLAIM_TOKEN, NETDATA_CLAIM_URL, NETDATA_CLAIM_ROOMS}
-}
-
-\renewcommand{\lstlistingname}{Fragment kódu}
-
 \titleformat{\chapter}[hang]
   {\normalfont\huge\bfseries} 
   {\thechapter\quad}         

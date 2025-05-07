@@ -38,7 +38,7 @@
 \include{pages/declaration}
 
 % Acknowledgements - Poďakovanie
-%\include{pages/acknowledgements}
+\include{pages/acknowledgements}
 
 % Annotation
 % \include{pages/annotation}
@@ -50,15 +50,15 @@
 \renewcommand{\contentsname}{Table of contents}
 \fi
 \tableofcontents{}
-%\emptypage
+\emptypage
 
 % List of figures - Zoznam obrázkov
 \listoffigures
-%\emptypage
+\emptypage
 
 % List of tables
-%\listoftables
-%\emptypage
+\listoftables
+\emptypage
 
 % List of abbreviations
 \include{pages/abbreviations}
@@ -69,9 +69,9 @@
 % Begin refferences segment
 \begin{refsegment}
 
-%\include{content/01TechnickyAbstrakt}
+\include{content/01TechnickyAbstrakt}
 
-%\include{content/02LaickyAbstrakt}
+\include{content/02LaickyAbstrakt}
 
 \include{content/03Uvod}
 
@@ -88,6 +88,7 @@
 \end{comment}
 
 % Bibliography
+\thispagestyle{empty}
 \printbibliography[heading=references,segment=\therefsegment]
 
 % no page numbers for appendicies
@@ -101,10 +102,14 @@
 % Appendix
 \appendix
 
-\include{content/appendix1}
+\include{content/appendices/time_schedule}
 
-\include{pages/time_schedule}
+\include{content/appendices/user_manual}
 
-%\include{pages/digital_medium}
+\include{content/appendices/digital_medium}
+
+\include{content/appendices/technical_docs}
+
+\emptypage
 
 \end{document}

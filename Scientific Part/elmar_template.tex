@@ -1,0 +1,299 @@
+\documentclass[a4paper,10pt]{ieeetran}
+
+% Unicode & moderné fonty 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern} 
+
+% Jazyk (automatické delenie slov atď.)
+\usepackage[slovak]{babel}
+
+% Základné balíky pre matematiku a grafiku
+\usepackage{amsmath, amssymb, graphicx}
+\usepackage{caption}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{booktabs} % lepšie tabuľky
+\usepackage{hyperref}
+\usepackage{geometry} % okraje
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{csquotes}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{tabularx}
+
+% Okraje
+\geometry{
+  a4paper,
+  top=2.5cm,
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm
+}
+
+% Vzhľad nadpisov
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.8em}{}
+
+% Nepoužívame identifikátory IEEE
+\renewcommand{\figurename}{Obrázok}
+\renewcommand{\tablename}{Tabuľka}
+\renewcommand\thesubsection{\Alph{subsection}}
+
+% Nastavenie medzier
+\usepackage{parskip}  % bez odseku s odsadením
+\setlength{\parindent}{0pt} % žiadne odsadenie odstavcov
+
+% vlastný príkaz pre kľúčové slová
+\newcommand{\keywords}[1]{\textbf{Kľúčové slová:} #1}
+
+\title{Digitálne Dvojča 5G Siete a Doménový Prenos: Klasifikácia Sieťového Správania zo Simulácií do Reality}
+
+\author{
+David Truhlář \\
+\small Fakulta informatiky a informačných technológií, Slovenská technická univerzita v Bratislave \\
+\small Ilkovičova 2, 842 16 Karlova Ves, Bratislava, Slovenská republika \\
+\small \texttt{xtruhlar@stuba.sk}
+}
+
+\begin{document}
+
+\date{} % potlačí zobrazenie dátumu
+\maketitle
+
+\begin{abstract}
+Siete piatej generácie (5G) predstavujú základnú infraštruktúru pre aplikácie s prísnymi požiadavkami na odozvu a spoľahlivosť. Technológia digitálneho dvojčaťa  (DT) má v tomto kontexte potenciál slúžiť ako adaptívna vrstva pre simuláciu a klasifikáciu sieťovej prevádzky. Táto práca sa zameriava na návrh a implementáciu DT 5G siete, ktoré v reálnom čase analyzuje metriky jadra siete a klasifikuje aktuálny typ prevádzky pomocou rekurentných neurónových sietí (LSTM). Navrhnuté riešenie pozostáva zo simulačného prostredia založeného na voľné dostupných programoch, doplneného o klasifikačný model. V rámci experimentov boli vygenerované syntetické dáta v šiestich definovaných používateľských scenároch a získané reálne dáta z fyzickej siete. Bol navrhnutý robustný výber metrík s cieľom identifikovať znaky vhodné pre klasifikáciu v oboch doménach. Modely boli trénované výhradne na syntetických dátach, pričom ich presnosť bola následne vyhodnotená na reálnych dátach. DT preukázalo technickú funkčnosť, je schopné v reálnom čase zbierať dáta, klasifikáciu a aktualizovať model pomocou jemného doladenia bez prerušenia prevádzky. Výsledky ukazujú, že samotná infraštruktúra DT je technologicky udržateľná, avšak účinné správanie klasifikačného modelu si vyžaduje pokročilejšie techniky adaptácie medzi doménami.
+\end{abstract}
+
+\keywords{5G, Digitálne dvojča, Prenos medzi doménami, Klasifikácia sieťového stavu}
+
+\section{Úvod}
+\label{sec_intro}
+Technológia digitálneho dvojčaťa (DT) je koncept, ktorý umožňuje vytvárať dynamické virtuálne repliky fyzických systémov s cieľom zrkadliť ich stav a správanie v reálnom čase \cite{app_of_dt, real_time}. Svoje uplatnenie si DT našli v rôznych doménach  od výroby, cez zdravotníctvo až po energetiku \cite{AplicationsOfDT}, kde slúžia na monitorovanie, prediktívnu údržbu a optimalizáciu procesov.
+
+V oblasti komunikačných sietí, najmä pri rozvoji infraštruktúr piatej generácie (5G), DT predstavujú perspektívne riešenie na bezpečné testovanie, sledovanie a riadenie dynamických sieťových konfigurácií \cite{AplicationsOfDT}. 5G siete sú charakteristické nízkou latenciou a náročnosťou na kvalitu služieb (QoS), čo výrazne komplikuje ich správu a optimalizáciu. V tomto kontexte DT umožňujú simulovať rôzne prevádzkové scenáre v izolovanom prostredí bez rizika výpadkov služieb.
+
+Kľúčovou výzvou pri návrhu DT pre 5G siete je zabezpečiť dostatočnú vernosť simulácie voči komplexným reálnym podmienkam. Osobitnú pozornosť si vyžaduje otázka generalizovateľnosti modelov strojového učenia trénovaných výlučne na syntetických dátach – problém známy ako doménový prenos (domain transfer).
+
+Cieľom tejto práce je experimentálne overiť schopnosť jednoduchého DT klasifikovať správanie 5G siete v reálnom čase na základe synteticky generovaných metrík. Navrhnuté riešenie je postavené na voľne dostupných nástrojoch Open5GS a UERANSIM, pričom kombinuje simuláciu, dátový zber a klasifikáciu pomocou modelu s architektúrou LSTM.
+
+
+%This paper is organized as follows. In Section \ref{sec2} common rules and styles are defined. Section \ref{sec3} describes language issues and rules.
+
+\section{Súvisiaca práca}
+\label{sec_relatedwork}
+
+Koncept DT si v poslednom desaťročí našiel uplatnenie ako nástroj na monitorovanie, optimalizáciu a inferenciu v reálnom čase naprieč rôznymi doménami \cite{app_of_dt}. Pôvodne uplatňovaný najmä v priemysle, dnes preniká aj do dátovo orientovaných sieťových architektúr. 
+
+Práca \cite{ieee_dt_framework} predstavuje všeobecný rámec pre návrh a nasadenie DT v sieťových prostrediach, pričom zdôrazňuje dôležitosť modularity, synchronizácie dát a spätnej väzby medzi fyzickým a digitálnym svetom. 
+
+V štúdii \cite{synthetic_dt_ai} autori prezentujú využitie synteticky generovaných dát v rámci DT simulácií komplexných infraštruktúr a preukazujú, že takéto dáta môžu výrazne urýchliť experimentovanie. 
+
+V oblasti mobilných sietí sa tejto problematike venovai autori v \cite{colonna_thesis}, navrholi plne emulované prostredie pre generovanie anotovaných datasetov. Práca ukazuje, že takto vytvorené syntetické dáta môžu poslúžiť na trénovanie modelov strojového učenia v prípadoch, keď je prístup k reálnym dátam limitovaný regulačne alebo technicky. 
+
+Autori v \cite{llm_twin_nature} predstavili architektúru LLM-Twin, ktorá využíva veľké jazykové modely ako základ DT systémov. Tento prístup otvára nové možnosti pre interpretovateľnosť a adaptabilitu v kontexte budúcich sieťových infraštruktúr.
+
+%Place figures and tables at the top and bottom of columns. Avoid placing them in the middle of columns. Large figures and tables may span across both columns. Figure captions should be below the figures; table heads should appear above the tables. Insert figures and tables after they are cited in the text. Use the abbreviation "Fig. \ref{figure_example}", even at the beginning of a sentence.
+
+% \subsection{Citation}
+% \label{subsec}
+% All references should be cited in text: \cite{ref1}, \cite{ref2}. This is an example of multiple references: \cite{ref1, ref2, ref3, ref4}.
+
+\section{Metodológia}
+\label{sec3}
+
+\subsection{Architektúra a funkcionalita digitálneho dvojčaťa}
+\label{subsec_dt}
+
+Navrhované riešenie predstavuje plne funkčné DT 5G siete, ktoré implementuje základné prvky tejto paradigmy: fyzický objekt, digitálny model a dátové prepojenie medzi nimi.
+
+Fyzickú časť systému predstavuje experimentálne jadro 5G siete postavené na komponentoch Open5GS bežiacich v izolovanom prostredí, ku ktorému boli pripojené reálne mobilné zariadenia. Digitálnu časť tvorí kontajnerizované prostredie so simulovanými komponentmi siete (UERANSIM) \cite{whyueransim}, skriptami na generovanie kontrolovanej syntetickej prevádzky a klasifikačným modelom založeným na rekurentných neurónových sieťach typu LSTM (Long Short-Term Memory).
+
+Dôležitým aspektom riešenia je schopnosť zrkadliť aktuálny stav siete v reálnom čase. Systém kontinuálne zhromažďuje metrické a logové údaje prostredníctvom nástroja Prometheus, interpretuje ich pomocou klasifikačného modelu a, ak sú dostupné anotované dáta, priebežne vykonáva ladenie modelu (fine-tuning). Tým sa DT stáva nielen pasívnym monitorovacím nástrojom (tzv. digitálnym tieňom), ale aj autonómne sa prispôsobujúcim systémom schopným reflektovať meniace sa podmienky v reálnom čase.
+
+Táto architektúra DT umožňuje experimentálne overenie klasifikácie sieťovej prevádzky v reálnom čase, ako aj výskum doménového prenosu medzi syntetickým a reálnym prostredím.
+
+
+\subsection{Datasety}
+\label{subsec1}
+Pre potreby trénovania a vyhodnocovania klasifikácie v reálnom čase boli v rámci navrhnutého DT vytvorené dva nezávislé datasety: jeden syntetický, založený na simuláciách, a jeden reálny, získaný z prevádzky fyzickej siete. Cieľom bolo preskúmať možnosť doménového prenosu modelov učených výhradne na syntetických dátach, ktoré sú následne testované na dátach zo skutočnej prevádzky.
+
+Syntetický dataset bol generovaný v plne automatizovanom prostredí postavenom na komponentoch Open5GS a UERANSIM. Bolo definovaných šesť používateľských scenárov (UC) (pozri Tabuľka~\ref{table:uc}), z ktorých každý reprezentuje špecifický typ sieťového správania (napr. periodické požiadavky, súbežné sledovanie videa, odmietnutie pripojenia). Spustenie jednotlivých scenárov bolo realizované cez skripty, ktoré riadili nasadzovanie UE kontajnerov v časovo deterministickom poradí. 
+
+Počas celej simulácie boli metriky siete kontinuálne zbierané z nástroja Prometheus a logové udalosti extrahované pomocou vlastného Python skriptu. Každý časový krok bol anotovaný aktuálnou hodnotou scenára, čím sa zabezpečila synchronizácia medzi vytváranou sieťovou prevádzkou a zodpovedajúcim označením UC.
+
+\begin{table*}
+\renewcommand{\arraystretch}{1.5}  % Increase vertical spacing in cells
+\caption{Tabuľka používateľských scenárov}
+\label{table:uc}
+\begin{tabularx}{\textwidth}{X|X|X}
+Názov & Popis & Reálna využitie \\ \hline 
+Bežná prevádzka & \textit{Zariadenia sa náhodne pripájajú a odpájajú, náhodne sťahujú malé množstvá dát.} & \textit{Typické používanie siete, slúži ako základ pre klasifikačný model.} \\ \hline
+Sledovanie videa & \textit{Zariadenia sú pripojené, na n z nich beží sledovanie videa.} & \textit{Odhalenie veľkej dátovej prevádzky, možnosť prispôsobiť konfiguráciu siete.} \\ \hline
+Periodický udržiavací signál (keep-alive) & \textit{Zariadenia sú pripojené, v pravidelných intervaloch posielajú udržiavací signál.} & \textit{Simulácia a identifikácia správania sa IoT zariadení.} \\ \hline
+Krátke relácie (burst) & \textit{Zariadenia sa pripoja, stiahnu malé množstvo dát (10MB) a odpoja sa.} & \textit{Situácia, keď sa očakáva len rýchla výmena dát (napr. aplikácia s počasím).} \\ \hline
+Záťažová registrácia & \textit{Všetky zariadenia sa pripoja súčasne.} & \textit{Neštandardná situácia – môže pripomínať začiatok DDoS alebo chybu aplikácie.} \\ \hline
+Neúspešná autentifikácia (neplatné IMSI) & \textit{Zariadenie sa opakovane pokúša pripojiť, autentifikácia zlyhá pre neplatné IMSI.} & \textit{Neštandardná situácia – môže pripomínať útok hrubou silou na AUSF funkciu.}   
+\end{tabularx}
+\end{table*}
+
+Reálny dataset bol vytvorený v experimente s fyzickými zariadeniami pripojenými do izolovanej 5G siete s rovnakým jadrom ako v simulácii. Používateľské správanie bolo iniciované manuálne a čas začiatku aj konca každého scenára bol zaznamenaný. Po každom experimente boli z disku extrahované relevantné logy Open5GS, ktoré boli následne spracované tým istým nástrojom ako v prípade syntetických dát. Anotácie UC boli priradené spätne podľa časových značiek experimentu a známeho scenára.
+
+Oba datasety majú identickú štruktúru: časová pečiatka, metrické dáta, logové dáta a premenná s UC. Takto zvolený formát umožnil výmenu dátových zdrojov pri porovnaní výkonnosti modelov bez potreby úprav pipeline. Výstupom boli CSV súbory, pričom reálny dataset bol použitý výhradne na testovanie.
+
+\subsection{Architektúra a trénovanie modelov}
+\label{subsec2}
+
+Na účely klasifikácie sieťového správania boli navrhnuté a experimentálne overené štyri rôzne architektúry založené na rekurentných neurónových sieťach (RNN), konkrétne na LSTM (Long Short-Term Memory) bunkách \cite{lstm}. Každá architektúra bola implementovaná v prostredí TensorFlow a trénovaná na rovnakých vstupných sekvenciách s dĺžkou 60 časových krokov. Všetky modely využívajú ako vstup normalizované metrické a logové dáta vektorovo reprezentované na úrovni jedného časového kroku.
+
+\begin{itemize}
+\item Základný model: pozostáva z dvoch po sebe idúcich LSTM vrstiev (64 a 32 jednotiek), nasledovaných výstupnou plne prepojenou (Dense) vrstvou s aktivačnou funkciou softmax. Model slúži ako referenčná architektúra.
+\item Robustný model: zahŕňa tri LSTM vrstvy s postupne klesajúcim počtom jednotiek (128–64–32) a dve plne prepojené vrstvy. Všetky vrstvy sú regularizované náhodným vypínaním neurónov (dropout) počas trénovania (hodnoty 0.1–0.15). Cieľom bolo zlepšiť generalizačnú schopnosť modelu.
+\item Model s normalizáciou dávky (Batch normalization): obsahuje rovnakú architektúru ako robustný model, doplnenú o normalizáciu dávky medzi LSTM a plne prepojenými vrstvami. Táto architektúra bola testovaná najmä z hľadiska stability učenia.
+\item Model s pozornosťou (Attention): na výstupe z poslednej LSTM vrstvy (return\_sequences=True) bola aplikovaná vlastná vrstva s pozornosťou. Tá vypočíta váhované priemery výstupov v čase a umožňuje modelu selektívne sa zamerať na dôležité časti sekvencie (pozri Obr. \ref{fig:model_attention}).
+\end{itemize}
+
+% \begin{itemize}
+% \item Základný model: dve LSTM vrstvy s 64 a 32 jednotkami, za ktorými nasleduje výstupná plne prepojená vrstva s aktivačnou funkciou softmax, model slúži ako referenčná architektúra.
+% \item Robustný model: tri LSTM vrstvy so znižujúcim sa počtom jednotiek (128–64–32), nasledované dvoma plne prepojenými vrstvami. Všetky vrstvy sú počas trénovania regularizované náhodným vypínaním neurónov (dropout) v rozsahu 0.1-0.15 s cieľom zvýšiť generalizačnú schopnosť.
+% \item Model s normalizáciou dávky: robustný model, doplnený o normalizáciu dávky medzi LSTM a plne prepojenými vrstvami, čo má pozitívny vplyv na stabilitu trénovania.
+% \item Model s pozornosťou: výstupy z poslednej LSTM vrstvy sú spracované vlastnou vrstvou s pozornosťou, ktorá vypočítava váhované priemery v časovej doméne a umožňuje zamerať sa na relevantné časti vstupnej sekvencie - Obr. \ref{fig:model_attention}.
+% \end{itemize}
+
+Všetky modely boli trénované výhradne na syntetickom datasete. Tréning prebiehal pomocou optimalizátora Adam a stratovej funkcie kategorickej entropie. Pri trénovaní bol použitý váhový mechanizmus na kompenzáciu nerovnomerného rozloženia tried v dátach, pričom hodnoty boli predpočítané na základe distribúcie tried v trénovacej množine.
+
+\begin{figure*}[]
+    \centering
+    \includegraphics[width=1\linewidth]{model_architecture.png}
+    \caption{Architektúra LSTM modelu s pozornosťou, ktorá je použitá na klasifikáciu a jemné ladenie v reálnom čase vo vytvorenom DT.}
+    \label{fig:model_attention}
+\end{figure*}
+
+Pre každý model bol aktivovaný mechanizmus včasného zastavenia (early stopping) podľa validačnej chyby, s maximálnym počtom 100 epoch a batch veľkosťou 128. Najlepší model (s minimálnou validačnou stratou) bol uložený pre následné vyhodnotenie.
+
+\subsection{Evaluácia a doménový prenos}
+\label{subsec3}
+
+Hodnotenie výkonnosti modelov prebiehalo v dvoch fázach: najprv pomocou syntetických dát (validácia na testovacej množine), následne s použitím reálneho datasetu (externé testovanie). Pre obe fázy bol použitý rovnaký reťazec spracovania (pipeline) a metriky: presnosť (accuracy), presnosť tried (precision), úplnosť (recall) a F1 skóre (F1-score).
+
+Počas trénovania modelov na syntetických dátach bola testovacia množina oddelená stratifikovaným spôsobom v pomere 80:20. Tréning zahŕňal aj použitie váh tried na základe ich početnosti v trénovacích dátach. Modely boli následne hodnotené na nezávislej testovacej množine bez akéhokoľvek dodatočného doladenia.
+
+Pre overenie schopnosti generalizácie boli natrénované modely použité bez modifikácií na reálnom datasete, pričom vstupné dáta boli normalizované pomocou škálovača (MinMaxScaler) trénovaného výhradne na syntetických dátach. Týmto spôsobom bola zabezpečená konzistentnosť dátového formátu medzi doménami. Následne bola aplikovaná aj metóda jemného doladenia (fine-tuning) \cite{selfadapting}, pri ktorej bola malá podmnožina reálnych dát (20\%) použitá na aktualizáciu váh posledných vrstiev modelov. Táto fáza zahŕňala stratifikované rozdelenie a dodržanie pôvodnej topológie bez zmien hyperparametrov.
+
+Každý model tak prešiel troma fázami hodnotenia:
+\begin{enumerate}
+    \item interné testovanie na syntetických dátach (validácia generalizácie v rámci domény),
+    \item externé testovanie na reálnych dátach (doménový prenos bez úprav),
+    \item testovanie po \textit{jemnom ladení} na reálnych dátach (adaptácia na novú doménu).
+\end{enumerate}
+
+Takto definovaný evaluačný rámec umožnil kvantifikovať nielen klasifikačný výkon, ale aj robustnosť modelov pri prenose medzi doménami so zásadne odlišným štatistickým rozdelením.
+
+\subsection{Použité technológie a knižnice}
+\label{subsec_tech}
+
+Celé riešenie bolo implementované v jazyku Python~3.11 s využitím virtualizovaného prostredia venv a kontajnerizačnej platformy Docker.
+
+Na spracovanie a analýzu dát boli využité knižnice NumPy, Pandas a scikit-learn, zatiaľ čo definícia a trénovanie LSTM modelov prebehlo pomocou TensorFlow~2.15 a Keras. Vizualizácie boli generované s Matplotlib a Seaborn, monitoring siete v reálnom čase bol zabezpečený cez Prometheus a Grafana. Na serializáciu škálovacích objektov bol použitý Joblib a na spracovanie logov z Open5GS slúžila knižnica Pygtail.
+
+
+Vývoj a testovanie modelov prebiehalo na osobnom počítači s procesorom Apple M3, pričom trénovanie modelov bolo rozdelené na dve fázy: základné trénovanie na syntetických dátach (offline) a následné jemné ladenie na reálnych dátach (online), ktorý prebiehal v Docker kontajneri bežiacom paralelne s dátovým zberom. 
+
+
+\section{Výsledky a diskusia}
+\label{sec_results}
+
+Po natrénovaní štyroch modelov výhradne na syntetických dátach bola ich výkonnosť vyhodnotená pomocou štandardných klasifikačných metrík: presnosť (accuracy), presnosť tried (precision), úplnosť (recall) a F1 skóre (F1-score).
+
+\subsection{Výkonnosť LSTM modelov}
+
+V rámci syntetického datasetu dosahovali všetky modely vysoké skóre, pričom najvyššiu presnosť dosiahol model s \textit{normalizáciou dávky} (96.2\%). Prítomnosť vrstiev s regularizovaným náhodným vypínaním neurónov (dropout) vrstiev alebo mechanizmu pozornosti (attention) prispela k miernejšiemu, no stále robustnému výkonu.
+
+Pri aplikovaní modelov na reálny dataset bol však pozorovaný dramatický pokles výkonnosti. Žiadny z modelov nedosiahol presnosť vyššiu než 44\%. Najlepšie výsledky dosiahol robustný model (44\% presnosť), zatiaľ čo model s \textit{normalizáciou dávky}, ktorý bol najpresnejší na syntetických dátach, zlyhal s presnosťou len 21\% (pozri Tab.~\ref{table:performance}).
+
+\begin{table*}
+\centering
+\caption{Výkon klasifikácie tried pre syntetické a reálne dáta.}
+\label{table:performance}
+\begin{tabular}{|lcccc|}
+\hline
+\multicolumn{1}{|c|}{Model} & \multicolumn{1}{c|}{Presnosť} & \multicolumn{1}{c|}{Presnosť tried} & \multicolumn{1}{c|}{F1-Skóre} & Úplnosť \\ \hline
+\multicolumn{5}{|c|}{Syntetický dataset} \\ \hline
+\multicolumn{1}{|l|}{\textit{Základný Model}} & \multicolumn{1}{c|}{0.949} & \multicolumn{1}{c|}{0.950} & \multicolumn{1}{c|}{0.949} & 0.949 \\ \hline
+\multicolumn{1}{|l|}{\textit{Robustný Model}} & \multicolumn{1}{c|}{0.900} & \multicolumn{1}{c|}{0.905} & \multicolumn{1}{c|}{0.900} & 0.900  \\ \hline
+\multicolumn{1}{|l|}{\textit{Model s Normalizáciou Dávky}} & \multicolumn{1}{c|}{0.963} & \multicolumn{1}{c|}{0.964} & \multicolumn{1}{c|}{0.963} & 0.963 \\ \hline
+\multicolumn{1}{|l|}{\textit{Model s Pozornosťou}} & \multicolumn{1}{c|}{0.914} & \multicolumn{1}{c|}{0.918} & \multicolumn{1}{c|}{0.914} & 0.914 \\ \hline
+\multicolumn{5}{|c|}{Reálny dataset} \\ \hline
+\multicolumn{1}{|l|}{\textit{Základný Model}} & \multicolumn{1}{c|}{0.14} & \multicolumn{1}{c|}{0.06} & \multicolumn{1}{c|}{0.04} & 0.14 \\ \hline
+\multicolumn{1}{|l|}{\textit{Robustný Model}} & \multicolumn{1}{c|}{0.44} & \multicolumn{1}{c|}{0.25} & \multicolumn{1}{c|}{0.29} & 0.44 \\ \hline
+\multicolumn{1}{|l|}{\textit{Model s Normalizáciou Dávky}} & \multicolumn{1}{c|}{0.21} & \multicolumn{1}{c|}{0.16} & \multicolumn{1}{c|}{0.17} & 0.21 \\ \hline
+\multicolumn{1}{|l|}{\textit{Model s Pozornosťou}} & \multicolumn{1}{c|}{0.16} & \multicolumn{1}{c|}{0.03} & \multicolumn{1}{c|}{0.05} & 0.16 \\ \hline
+\end{tabular}
+\end{table*}
+
+\subsection{Doménový prenos}
+
+Tieto výsledky potvrdzujú zásadný problém doménového prenosu medzi simulovanými a reálnymi sieťovými dátami. Napriek tomu, že boli použité rovnaké metrické a logové štruktúry, samotné rozloženie dát a dynamika premávky v reálnej sieti sa ukázali byť výrazne odlišné. Tento jav naznačuje, že modely trénované výhradne na simulovaných dátach si osvojujú vzory špecifické pre syntetické prostredie a nie sú schopné generalizovať na skutočné prípady.
+
+Aj napriek dodatočnému jemnému ladeniu modelov na podmnožine reálnych dát sme nepozorovali výrazné zlepšenie. Maximálna dosiahnutá presnosť v takomto nastavení dosiahla približne 50\%, čo zodpovedá náhodnému hádaniu v kontexte viac-triednej klasifikácie so šiestimi triedami.
+
+Tieto zistenia poukazujú na potrebu ďalšieho výskumu v oblasti doménovej adaptácie a realistickejšej simulácie sieťovej prevádzky, ktorá by mohla lepšie reprezentovať variabilitu a zložitosť reálneho prostredia.
+
+\subsection{Schopnosti systému v reálnom čase}
+\label{subsec_even}
+Napriek obmedzenému výkonu modelov na reálnych dátach, implementovaný DT systém preukázal svoju praktickú hodnotu. V reálnom čase spoľahlivo monitoruje stav siete, kontinuálne zhromažďuje metrické údaje, vykonáva predspracovanie dát a každú minútu aktualizuje predikciu typu sieťovej prevádzky pomocou natrénovaného modelu. Navyše, pri dostupnosti anotovaných dát je schopný vykonávať jemné ladenie modelu, čím adaptuje svoje správanie na nové alebo dynamicky sa meniace podmienky v sieti.
+
+Táto schopnosť prispôsobiť sa v reálnom čase predstavuje dôležitý krok smerom k autonómnym DT v oblasti telekomunikácií. Navrhnutá architektúra poskytuje spoľahlivý základ pre budúce experimenty s prenosovým učením (transfer learning), federatívnym učením či automatickou konfiguráciou sieťových parametrov na základe klasifikovaného správania používateľov.
+
+\section{Záver}
+\label{sec_conclusion}
+
+V tejto práci bol navrhnutý, implementovaný a experimentálne overený systém DT 5G siete, ktorý v reálnom čase klasifikuje typ prebiehajúcej sieťovej prevádzky na základe metrických a logových údajov. Celý systém funguje ako autonómna jednotka: generuje syntetické dáta, trénuje LSTM modely, aplikuje ich na živé dáta a podľa potreby vykonáva jemné ladenie.
+
+Experimentálne výsledky ukázali, že hoci modely trénované na syntetických dátach dosahujú vysokú presnosť v rámci simulovaného prostredia, ich výkonnosť na reálnych dátach je značne obmedzená. Ani po jemnom doladení na anotovaných vzorkách reálnej prevádzky sa nepodarilo dosiahnuť spoľahlivú generalizáciu. Táto skutočnosť poukazuje na prítomnosť výrazného doménového posunu medzi syntetickou a reálnou sieťovou prevádzkou.
+
+Navrhované riešenie však predstavuje robustný základ pre ďalší výskum. Do budúcna odporúčame rozšíriť systém o techniky doménovej adaptácie. DT môže zároveň slúžiť ako testovací priestor pre nové modely klasifikácie, predikcie zaťaženia siete alebo automatickú konfiguráciu parametrov 5G jadra na základe aktuálne detegovaného správania.
+
+
+%\section{Language}
+%\label{sec3}
+%
+%\subsection{Abbreviations and Acronyms}
+%\label{subsec2}
+%Define abbreviations and acronyms the first time they are used in the text, even after they have been defined in the abstract. Abbreviations such as IEEE, SI, MKS, CGS, sc, dc, and rms do not have to be defined. Do not use abbreviations in the title or heads unless they are unavoidable.
+
+% \subsection{Units}
+% \label{subsec2}
+% Please follow these rules: %this is an example of bulleted list
+% \begin{itemize}
+% \item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as "3.5-inch disk drive".
+% \item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
+% \item Do not mix complete spellings and abbreviations of units: "Wb/m\textsuperscript{2}" or "webers per square meter", not "webers/m\textsuperscript{2}". Spell out units when they appear in text: ". . . a few henries", not ". . . a few H".
+% \item Use a zero before decimal points: "0.25", not ".25". Use "cm\textsuperscript{3}", not "cc".
+% \end{itemize}
+
+% \subsection{Some Common Mistakes}
+% \label{subsec4}
+% \begin{itemize}
+% \item The word "data" is plural, not singular.
+% \item The subscript for the permeability of vacuum $\mu_0$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter "o".
+% \item In American English, commas, semi-/colons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
+% \item A graph within a graph is an "inset", not an "insert". The word alternatively is preferred to the word "alternately" (unless you really mean something that alternates).
+% \item Do not use the word "essentially" to mean "approximately" or "effectively".
+% \item In your paper title, if the words "that uses" can accurately replace the word "using", capitalize the "u"; if not, keep using lower-cased.
+% \item Be aware of the different meanings of the homophones "affect" and "effect", "complement" and "compliment", "discreet" and "discrete", "principal" and "principle".
+% \item Do not confuse "imply" and "infer".
+% \item The prefix "non" is not a word; it should be joined to the word it modifies, usually without a hyphen.
+% \item There is no period after the "et" in the Latin abbreviation "et al.".
+% \item The abbreviation "i.e." means "that is", and the abbreviation "e.g." means "for example".
+% \end{itemize
+
+% Refer simply to the reference number, as in [3]—do not use "Ref. [3]" or "reference [3]" except at the beginning of a sentence: "Reference [3] was the first . . ." Unless there are six authors or more give all authors' names; do not use "et al.". Papers that have not been published, even if they have been submitted for publication, should be cited as "unpublished" [4]. Papers that have been accepted for publication should be cited as "in press" [5]. Capitalize only the first word in a paper title, except for proper nouns and element symbols. For papers published in translation journals, please give the English citation first, followed by the original foreign-language citation [6].
+% All references should be cited in text.
+
+\bibliographystyle{ieeetr}
+\bibliography{reference}
+
+\end{document}
