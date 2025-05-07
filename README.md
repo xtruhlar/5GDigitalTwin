@@ -77,3 +77,11 @@ Open menu on the left, click on `Dashboards`. Select `Current state Dash` and yo
 
 Example:  
 ![Dashboard](images/dashboard.png)
+
+### License
+
+Derived from [Herle Supreeth's repository](https://github.com/herlesupreeth/docker_open5gs), therefore BSD 2-Clause.
+
+### Acknowledgements
+
+Special thanks to [Ing. Matej Petrík](https://github.com/matejpetrik) for continuous support and guidance on Digital Twin technology. Ing. Matej Janeba for insights on 5G networks and assistance with collecting real-world traffic data. [Herle Supreeth](https://github.com/herlesupreeth) for providing the initial implementation of the dockerized 5G Core.
