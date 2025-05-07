@@ -79,6 +79,7 @@ Example:
 ![Dashboard](images/dashboard.png)
 
 ### Code structure
+<pre>
 .
 ├── Conceptual part
 │   ├── Conceptual.pdf
@@ -112,9 +113,8 @@ Example:
 │   └── index.html, ucX.html, etc.
 ├── images/
 │   └── dashboard.png, model architecture.png
-├── README.md
-└── structure.txt
-
+└── README.md
+</pre>
 
 ### License
 
