@@ -81,16 +81,6 @@ Example:
 ### Code structure
 <pre>
 .
-├── Conceptual part
-│   ├── Conceptual.pdf
-│   ├── bibliography.bib
-│   ├── content/               # LaTeX chapters (technical abstract, analysis, etc.)
-│   ├── pages/                 # Formal pages (title, declaration, etc.)
-│   └── assets/images/         # Figures used in the thesis (architecture, DT diagrams)
-├── Scientific Part
-│   ├── elmar_template.tex     # Conference paper template (ELMAR)
-│   ├── reference.bib          # Bibliography for the scientific paper
-│   └── model_architecture.png # Architecture figure for the paper
 ├── Implementation
 │   ├── main.ipynb             # Main script for data collection and preprocessing
 │   ├── data/
