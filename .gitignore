@@ -1,6 +1,0 @@
-*.log
-*.env
-promtail
-*.npy
-.DS_Store
-.gitignore
