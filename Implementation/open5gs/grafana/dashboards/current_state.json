@@ -487,7 +487,17 @@
             "lineWidth": 0
           },
           "fieldMinMax": false,
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "network-watcher": {
+                  "index": 0,
+                  "text": "LSTM"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "max": 1,
           "min": 0,
           "thresholds": {
@@ -540,7 +550,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "up{job!=\"mme\", job!=\"logwatcher\", instance!=\"host.docker.internal:9000\"}",
+          "expr": "up{job!=\"mme\", job!=\"network-watcher\", instance!=\"host.docker.internal:9000\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1478,6 +1488,6 @@
   "timezone": "browser",
   "title": "Current state Dash",
   "uid": "bei0qsvxus64ga",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
