@@ -35,7 +35,6 @@ cd ..
 #### Step 3: Set `.env` variables
 ```bash
 cp .env.example .env
-
 set -a
 source .env
 set +a
@@ -77,6 +76,11 @@ Open menu on the left, click on `Dashboards`. Select `Current state Dash` and yo
 
 Example:  
 ![Dashboard](images/dashboard.png)
+
+### Step 8: Run the network simulator (if you want to simulate UC1-UC6)
+```bash
+python network_watcher.py
+```
 
 ### Code structure
 <pre>

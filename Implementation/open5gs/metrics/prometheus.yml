@@ -17,9 +17,9 @@ scrape_configs:
   - job_name: 'upf'
     static_configs:
       - targets: ['UPF_IP:9091'] 
-  - job_name: 'logwatcher'
+  - job_name: 'network-watcher'
     static_configs:
-      - targets: ['logwatcher:9000']
+      - targets: ['NETWORK_WATCHER_IP:9000']
   # - job_name: 'real5G-AMF'
   #   static_configs:
   #     - targets: ['192.168.50.5:9090']
