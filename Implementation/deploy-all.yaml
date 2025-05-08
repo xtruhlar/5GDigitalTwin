@@ -375,7 +375,7 @@ services:
     image: grafana/promtail:2.9.4
     container_name: promtail
     volumes:
-      - ./promtail/promtail-config.yaml:/etc/promtail/config.yaml:ro
+      - ./promtail/promtail-config.yaml:/etc/promtail/config.yaml
       - ./log:/mnt/logs
       - /etc/hostname:/etc/hostname
       - /etc/localtime:/etc/localtime:ro
