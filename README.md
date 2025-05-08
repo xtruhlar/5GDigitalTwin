@@ -26,7 +26,7 @@ cd 5GDigitalTwin/Implementation
 cd ./open5gs/base
 docker build -t docker_open5gs .
 
-cd ../ueransim
+cd ../../ueransim
 docker build -t docker_ueransim .
 
 cd ..
