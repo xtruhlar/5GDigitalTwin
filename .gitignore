@@ -2,3 +2,5 @@
 *.env
 promtail
 *.npy
+.DS_Store
+.gitignore
