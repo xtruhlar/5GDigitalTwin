@@ -15,13 +15,8 @@ This project was tested on:
 - git (version 2.39.5)
 - docker (version 28.0.1)
 
-#### Step 1: Clone repository
-```bash
-git clone https://github.com/xtruhlar/5GDigitalTwin.git
-cd 5GDigitalTwin/Implementation 
-```
 
-#### Step 2: Build Docker images
+#### Step 1: Build Docker images
 ```bash
 cd ./open5gs/base
 docker build -t docker_open5gs .
@@ -32,7 +27,7 @@ docker build -t docker_ueransim .
 cd ..
 ```
 
-#### Step 3: Set `.env` variables
+#### Step 2: Set `.env` variables
 ```bash
 cp .env.example .env
 set -a
@@ -40,12 +35,12 @@ source .env
 set +a
 ```
 
-#### Step 4: Docker compose
+#### Step 3: Docker compose
 ```bash
 docker compose -f deploy-all.yaml up --build -d
 ```
 
-#### Step 5: Add subscribers to MongoDB
+#### Step 4: Add subscribers to MongoDB
 ```bash
 docker exec -it mongo mkdir -p /data/backup
 docker cp ./open5gs/mongodb_backup/open5gs mongo:/data/backup/open5gs
@@ -57,12 +52,12 @@ To ensure everything work properly open http://localhost:9999/ in your browser a
 Login: `admin`  
 Password: `1423`
 
-#### Step 6: Connect UERANSIM gNB to Open5GS Core
+#### Step 5: Connect UERANSIM gNB to Open5GS Core
 ```bash
 docker compose -f nr-gnb.yaml -p gnodeb up -d && docker container attach nr_gnb
 ```
 
-#### Step 7: Connect with registered UERANSIM UE 
+#### Step 6: Connect with registered UERANSIM UE
 ```bash
 docker compose -f nr-UEs/nr-ue1.yaml -p ues up --build -d
 ```
@@ -77,7 +72,7 @@ Open menu on the left, click on `Dashboards`. Select `Current state Dash` and yo
 Example:  
 ![Dashboard](images/dashboard.png)
 
-### Step 8: Run the network simulator (if you want to simulate UC1-UC6)
+### Step 7: Run the network simulator (if you want to simulate UC1-UC6)
 ```bash
 python network_watcher.py
 ```
@@ -85,36 +80,32 @@ python network_watcher.py
 ### Code structure
 <pre>
 .
-├── Implementation
-│   ├── data/
-│   │   ├── main.ipynb           # Main script for data collection and preprocessing
-│   │   ├── datasets/            # Real and simulated CSV datasets
-│   │   ├── logs_real_5G/        # Log files from Open5GS components
-│   │   ├── Jupyter_Output/      # Jupyter Notebook outputs in HTML format
-│   │   ├── current_uc.txt       # Current UC state (UC1-UC6)
-│   │   └── running_data.csv     # Exported Prometheus metrics (live)
-│   ├── Model/   
-│   │   ├── *.ipynb              # Notebooks for model training and evaluation
-│   │   ├── trained_models/      # Final .h5 and .keras models
-│   │   ├── json/                # JSON files for model architecture
-│   │   ├── scaler/  
-│   │   │   └── scaler.joblib    # Scaler for data preprocessing
-│   │   └── preprocessed_data/   # Numpy arrays for training/testing (X/y)
-│   ├── uc1.py ... uc6.py        # Scripts simulating UC1–UC6 behavior
-│   ├── network_watcher.py       # Real-time log watcher and classifier
-│   ├── open5gs/                 # Configurations for AMF, SMF, UPF, etc.
-│   ├── ueransim/                # Init scripts and YAML configs for UEs and gNB
-│   ├── promtail/
-│   │   └── promtail-config.yaml # Promtail configuration for log shipping
-│   ├── loki/
-│   │   └── loki-config.yaml     # Loki configuration for log storage
-│   └── deploy-all.yaml          # Docker Compose orchestration script
-├── docs/                        # Auto-generated Sphinx documentation (HTML)
-│   └── index.html, ucX.html, etc.
-├── images/
-│   └── dashboard.png, model architecture.png
+├── data/
+│   ├── main.ipynb           # Main script for data collection and preprocessing
+│   ├── datasets/            # Real and simulated CSV datasets
+│   ├── logs_real_5G/        # Log files from Open5GS components
+│   ├── Jupyter_Output/      # Jupyter Notebook outputs in HTML format
+│   ├── current_uc.txt       # Current UC state (UC1-UC6)
+│   └── running_data.csv     # Exported Prometheus metrics (live)
+├── Model/   
+│   ├── *.ipynb              # Notebooks for model training and evaluation
+│   ├── trained_models/      # Final .h5 and .keras models
+│   ├── json/                # JSON files for model architecture
+│   ├── scaler/  
+│   │   └── scaler.joblib    # Scaler for data preprocessing
+│   └── preprocessed_data/   # Numpy arrays for training/testing (X/y)
+├── uc1.py ... uc6.py        # Scripts simulating UC1–UC6 behavior
+├── network_watcher.py       # Real-time log watcher and classifier
+├── open5gs/                 # Configurations for AMF, SMF, UPF, etc.
+├── ueransim/                # Init scripts and YAML configs for UEs and gNB
+├── promtail/
+│   └── promtail-config.yaml # Promtail configuration for log shipping
+├── loki/
+│   └── loki-config.yaml     # Loki configuration for log storage
+├── deploy-all.yaml          # Docker Compose orchestration script
 └── README.md
 </pre>
+
 
 ### License
 
